@@ -1,0 +1,143 @@
+<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Usage</h4> </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+    <ol class="breadcrumb m-r-0">
+        <li> <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true"
+            [ranges]="ranges" [opens]="'left'" [showCancel]="true" [linkedCalendars]="true"
+            [alwaysShowCalendars]="alwaysShowCalendars"
+            [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+            placeholder="Select please..." />
+          <a (click)="submit()" class="btn btn-sm btn-info waves-effect waves-light">Submit</a>
+          <a href="javascript:void()" (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-10 waves-light"><i class="fa fa-filter"></i> Filter</a> 
+        </li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+    <div class="white-box">
+    <h3 class="box-title">TFN Usage</h3>
+       <div class="table-responsive performance_table">
+<table class="table table-striped valign-table" [mfData]="data|usage:did" #mf="mfDataTable" [mfRowsOnPage]="10">
+<thead>
+<tr>
+<!-- <th>No.</th> -->
+<th>
+<mfDefaultSorter by="_id" class="ancor">DID</mfDefaultSorter>
+</th>
+<th>
+<mfDefaultSorter by="total">TFN <small>(Minutes consumed)</small></mfDefaultSorter>
+</th>
+<!-- 
+<th>
+<mfDefaultSorter by="">Status</mfDefaultSorter>
+</th>
+
+<th>
+    <mfDefaultSorter by="">Action</mfDefaultSorter>
+    </th>
+    
+</tr> -->
+</thead>
+<tbody>
+<tr *ngFor="let user of mf.data; index as i;">
+<!-- <td>{{i + 1}}</td> -->
+<td>{{user._id}}</td>
+<td>{{user.total}}</td>
+<tr class="" *ngIf="showmethod1=='no data' || showmethod1== '';else elsepart">
+    <td colspan="2" align="center" *ngIf="showmethod1=='no data';else elsepart2">No data</td>
+    <ng-template #elsepart2>
+    </ng-template>
+  </tr>
+  <ng-template #elsepart>
+    <tr>
+      <td colspan="15" align="center">
+        <div class="customloader" >
+        <div class="item-1"></div>
+        <div class="item-2"></div>
+        <div class="item-3"></div>
+        <div class="item-4"></div>
+        <div class="item-5"></div>
+      </div></td>
+    </tr>
+  </ng-template>
+<!-- <td> <span *ngIf="user.status =='active'"><i class="fa fa-toggle-on fa-lg text-success"></i></span><span *ngIf="user.status !='active'"><i class="fa fa-toggle-off fa-lg text-danger"></i></span></td>
+<td style="width: 80px; ">
+
+      <a href="javascript:void()" class="edit-modal btn btn-warning btn-outline btn-circle btn-sm m-r-5" title="pause">
+                  <i class="fa fa-pause"></i> 
+     </a>
+     <a href="javascript:void()" class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5" title="trash">
+                  <i class="fa fa-trash"></i> 
+     </a>
+     </td>
+    
+
+</tr> -->
+
+</tbody>
+<tfoot>
+<tr>
+<td colspan="2">
+<mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+
+</div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 <!-- .right-sidebar -->
+                 <div class="right-sidebar" [ngClass]="status? 'shw-rside' : ''">
+                    <div id="filteroverlay" (click)="clickFilter()"  [ngClass]="status? 'show' : ''"></div>
+                    <div class="slimscrollright">
+                        <div class="rpanel-title"> Filter Panel <span (click)="clickFilter()"><i class="ti-close right-side-toggle"></i></span> </div>
+                        <div class="r-panel-body">
+                             <form class="form-horizontal" action="">
+                            <div class="row">
+                                <div class="col-md-12" >
+                                    <h5 class="m-t-20 m-b-10">Select DID</h5> 
+                                    <input type="text" class="form-control" [(ngModel)]="did" name="did" placeholder="Enter DID">
+                                  </div>
+                              
+                            </div>
+                           
+                          
+                         </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->

@@ -1,0 +1,413 @@
+
+
+<div class="row bg-title" *ngIf="!publisher_setting_que_monitor">
+  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+    <h4 class="page-title">Unauthorized access</h4>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="white-box">
+          <h3 class="box-title m-b-0">you don't have permission to Mange Queue </h3>
+        </div>
+      </div>
+  </div>
+
+</div>
+
+
+<div class="row" *ngIf="publisher_setting_que_monitor">
+
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Manage Queue</h4>
+      </div>
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb m-r-0">
+
+          <li> <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true"
+              [ranges]="ranges" [opens]="'left'" [showCancel]="true" [linkedCalendars]="true"
+              [alwaysShowCalendars]="alwaysShowCalendars"
+              [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+              placeholder="Select please..." /></li>
+          <li>
+          <li>
+            <!-- <a data-target="#myModal" data-toggle="modal" class="btn btn-outline btn-warning waves-effect waves-light"><i class="fa fa-plus"></i> Add Publisher</a> -->
+            <a (click)="addqueue()" class="btn btn-sm btn-outline btn-info waves-effect m-l-10 waves-light"><i
+                class="fa fa-plus"></i> Add New</a>
+            <a class="btn btn-sm btn-outline btn-info waves-effect m-l-10 waves-light">Filter</a>
+          </li>
+
+        </ol>
+      </div>
+
+      <!-- /.col-lg-12 -->
+    </div>
+
+
+    <div class="row boxindex" *ngIf="queuenumber">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <h3 class="box-title m-b-0">{{button}} Queue </h3>
+
+
+          <form class="form-horizontal commonForm" [formGroup]="ManageQueue" (ngSubmit)="onSubmit4()">
+            <div class="row">
+              <div class="col-sm-4">
+                <h5 class="m-t-20 m-b-10">Name</h5>
+                <input type="text" class="form-control" name="" placeholder="Enter fullname" formControlName="name">
+                <div *ngIf="submitted3 && queuearray.name.errors" class="invalid-feedback">
+                  <div *ngIf="queuearray.name.errors.required"> Name is required</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <h5 class="m-t-20 m-b-10">Email</h5>
+                <input type="email" class="form-control" name="" placeholder="Email id" formControlName="email">
+                <div *ngIf="submitted3 && queuearray.email.errors" class="invalid-feedback">
+                  <div *ngIf="queuearray.email.errors.required">Email is required</div>
+                  <div *ngIf="queuearray.email.errors.email">Email must be a valid email address</div>
+
+                </div>
+
+              </div>
+              <div class="col-sm-4">
+                <h5 class="m-t-20">Contact</h5>
+                <input type="number" class="form-control" name="" placeholder="Contact number" formControlName="contact">
+                <div *ngIf="submitted3 && queuearray.contact.errors" class="invalid-feedback">
+                  <div *ngIf="queuearray.contact.errors.required">Contact is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <h5 class="m-t-20">Address</h5>
+                <input type="text" class="form-control" name="" placeholder="Address" formControlName="address">
+                <div *ngIf="submitted3 && queuearray.address.errors" class="invalid-feedback">
+                  <div *ngIf="queuearray.address.errors.required">Address is required</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <h5 class="m-t-20 m-b-10">Price per Call ($)</h5>
+                <input type="number" class="form-control" name="" placeholder="$" formControlName="price_per_call">
+                <div *ngIf="submitted3 && queuearray.price_per_call.errors" class="invalid-feedback">
+                  <div *ngIf="queuearray.price_per_call.errors.required">Price per Call is required</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <h5 class="m-t-20 m-b-10">Buffer Time (in seconds)</h5>
+                <input type="number" formControlName="buffer_time" class="form-control" name="" placeholder="Buffer time">
+                <div *ngIf="submitted3 && queuearray.buffer_time.errors" class="invalid-feedback">
+                  <div *ngIf="queuearray.buffer_time.errors.required">Buffer Time is required</div>
+                </div>
+              </div>
+              <!-- <div class="col-sm-4" *ngIf="ispublisher">
+                <h5 class="m-t-20 m-b-10">Choose Publisher</h5>
+
+                <select class="form-control" formControlName="publisher">
+                  <option *ngFor="let publisher of this.dropdownpublisher" value="{{publisher.pub_id}}">
+                    {{publisher.publisher_name}}</option>
+                  <div *ngIf="submitted && queuearray.publisher.errors" class="invalid-feedback">
+                    <div *ngIf="queuearray.publisher.errors.required">Publisher is required</div>
+                  </div>
+                </select>
+
+              </div> -->
+              <div class="col-sm-4">
+                <h5 class="m-t-20 m-b-10">Password</h5>
+                <input type="password" class="form-control" formControlName="password" placeholder="password">
+                <div *ngIf="submitted3 && queuearray.password.errors" class="invalid-feedback">
+                  <div *ngIf="queuearray.password.errors.required">Password is required</div>
+                  <div *ngIf="queuearray.password.errors.minlength">Password must be at least 6 characters</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <h5 class="m-t-20">Confirm Password</h5>
+                <input type="password" class="form-control" formControlName="confirmPassword"
+                  placeholder="Confirm password">
+                <div *ngIf="submitted3 && queuearray.confirmPassword.errors" class="invalid-feedback">
+                  <div *ngIf="queuearray.confirmPassword.errors.required">Confirm Password is required</div>
+                  <div *ngIf="queuearray.confirmPassword.errors.mustMatch">Passwords must match</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+
+              <div class="col-md-4 pull-right text-right">
+                <h5 class="m-t-20"></h5>
+                <button type="submit"  id="deselect-all" class="btn btn-info btn-outline">{{button}}
+                  Queue</button>
+                <a id="refresh" (click)="addqueue()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+              </div>
+            </div>
+            <div class="ajax_loader" *ngIf="loading">
+              <div class="customloader">
+                <div class="item-1"></div>
+                <div class="item-2"></div>
+                <div class="item-3"></div>
+                <div class="item-4"></div>
+                <div class="item-5"></div>
+              </div>
+            </div>
+          </form>
+          <!-- <div class="row m-t-30">
+                        <div class="col-sm-12">
+                          <table class="table valign-table">
+                            <thead>
+                              <tr>
+                                <td>#</td>
+                                <td>Number</td>
+                                <td>Capping</td>
+                                <td>Queue</td>
+                                <td style="text-align: right;">Action</td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let number of getbuyernumber;index as i">
+                                <td>{{i+1}}</td>
+                                <td>{{number.number}}</td>
+                                <td>{{number.capping}}</td>
+                                <td>{{number.queue}}</td>
+                                <td align="right"><button mwlConfirmationPopover [popoverTitle]="popoverTitle"
+                                    [popoverMessage]="popoverMessage" [popoverClass]="popoverClass" placement="left"
+                                    (confirm)="deletenumber(number.buyer_id)" (cancel)="cancelClicked = true"
+                                    class="btn btn-danger btn-circle  btn-sm "><i class="fa fa-trash"></i></button></td>
+                              </tr>
+                              
+              
+                            <tr class="" *ngIf="showmethod=='no data' || showmethod== '';else elsepart">
+                                <td colspan="5" align="center" *ngIf="showmethod=='no data';else elsepart2">No data</td>
+                                <ng-template #elsepart2>
+                                </ng-template>
+                              </tr>
+                              <ng-template #elsepart>
+                                <tr> <td colspan="5"  align="center">Loading data..</td></tr>
+                              </ng-template>
+              
+                            </tbody>
+                          </table>
+                        </div>
+              
+                      </div>
+              -->
+
+        </div>
+      </div>
+    </div>
+    <div class="row boxindex" *ngIf="number">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <h3 class="box-title m-b-0">Add Queue <button class="btn btn-danger pull-right"
+              (click)="managenumber(0)">close</button></h3>
+
+
+          <form class="form-horizontal commonForm" [formGroup]="ManageQueueNumber" (ngSubmit)="Queuenumbersubmit()">
+            <div class="row">
+              <div class="col-sm-5">
+                <h5 class="m-t-20 m-b-10">Add Number</h5>
+
+                <input type="number" class="form-control" formControlName="number" placeholder="Enter number">
+                <div *ngIf="submitted1 && Queuenumbervalid.number.errors" class="invalid-feedback">
+                  <div *ngIf="Queuenumbervalid.number.errors.required">Number is required</div>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <h5 class="m-t-40 m-b-10"></h5>
+
+
+                <button type="submit" class="btn btn-info btnm"><i class="fa fa-plus"></i></button>
+              </div>
+            </div>
+          </form>
+          <div class="row m-t-30">
+            <div class="col-sm-12">
+              <table class="table valign-table">
+                <thead>
+                  <tr>
+                    <td>#</td>
+                    <td>Number</td>
+                    <td>Capping</td>
+                    <!-- <td>Queue</td> -->
+                    <td style="text-align: right;">Action</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let number of getQueuenumber;index as i">
+                    <td>{{i+1}}</td>
+                    <td>{{number.number}}</td>
+                    <td>{{number.capping}}</td>
+                    <!-- <td>{{number.status}}</td> -->
+                    <td align="right"><button mwlConfirmationPopover [popoverTitle]="popoverTitle"
+                        [popoverMessage]="popoverMessage" [popoverClass]="popoverClass" placement="left"
+                        (confirm)="deletenumber(number.objectId)" (cancel)="cancelClicked = true"
+                        class="btn btn-danger btn-circle  btn-sm "><i class="fa fa-trash"></i></button></td>
+                  </tr>
+
+
+                  <tr class="" *ngIf="showmethod=='no data' || showmethod== '';else elsepart">
+                    <td colspan="5" align="center" *ngIf="showmethod=='no data';else elsepart2">No data</td>
+                    <ng-template #elsepart2>
+                    </ng-template>
+                  </tr>
+                  <ng-template #elsepart>
+                    <tr>
+                      <td colspan="15" align="center">
+                        <div class="customloader">
+                          <div class="item-1"></div>
+                          <div class="item-2"></div>
+                          <div class="item-3"></div>
+                          <div class="item-4"></div>
+                          <div class="item-5"></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- manage number -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="white-box">
+          <h3 class="box-title">Queue</h3>
+          <div class="table-responsive performance_table">
+            <!-- <div class="ajax_loader" *ngIf="mf.data==null || mf.data==''">Loading data..</div> -->
+
+
+            <div class="alert pbxalert alert-success alert-dismissible animated fadeInRight" *ngIf="messageheader != ''">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{messageheader}}
+            </div>
+            <div class="alert pbxalert alert-warning alert-dismissible animated fadeInRight"
+              *ngIf="messageheadererror != ''">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{messageheadererror}}
+            </div>
+            <div class="table-responsive performance_table">
+              <table class="table table-striped valign-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>
+                      <mfDefaultSorter by="name" class="ancor">Name</mfDefaultSorter>
+                    </th>
+
+                    <th>
+                      <mfDefaultSorter by="email">Email</mfDefaultSorter>
+                    </th>
+                    <th>
+                      <mfDefaultSorter by="contact">Contact No.</mfDefaultSorter>
+                    </th>
+                    <th>
+                      <mfDefaultSorter by="address">Address</mfDefaultSorter>
+                    </th>
+
+                    <th>
+                      <mfDefaultSorter by="created_at">Created Date</mfDefaultSorter>
+                    </th>
+                    <th>
+                      <mfDefaultSorter by="buffer_time">Buffer Time</mfDefaultSorter>
+                    </th>
+                    <th>
+                      <mfDefaultSorter by="price_per_call">Price Per Call</mfDefaultSorter>
+                    </th>
+                    <!-- <th>
+                      <mfDefaultSorter by="publisherName">Publisher Name</mfDefaultSorter>
+                    </th> -->
+
+                    <th>
+                      <mfDefaultSorter by="status">Queue Status</mfDefaultSorter>
+                    </th>
+                    <th>
+                      <mfDefaultSorter by="">Action</mfDefaultSorter>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of mf.data; index as i;">
+                    <td>{{i + 1}}</td>
+                    <td>{{user.name}}</td>
+
+                    <td>{{user.email}}</td>
+                    <td>{{user.contact}}</td>
+                    <td>{{user.address}}</td>
+                    <td>{{user.created_at| date: 'dd/MM/yyyy'}}</td>
+                    <td>{{user.buffer_time}}</td>
+                    <td>{{user.price_per_call}}</td>
+                    <!-- <td>{{user.publisherName}}</td> -->
+
+                    <td>{{user.status}} </td>
+                    <td style="width: 140px; ">
+                      <a (click)="editqueue(user.queue_id)"
+                        class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="edit">
+                        <i class="fa fa-edit"></i>
+                      </a>
+                      <!-- <a (click)="setPassword()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Set password">
+                <i class="fa fa-lock"></i> 
+    </a> -->
+                      <a (click)="managenumber(user.queue_id)"
+                        class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Manage number">
+                        <i class="fa fa-phone"></i>
+                      </a>
+
+                      <a mwlConfirmationPopover tooltip="delete" [popoverTitle]="popoverTitle"
+                        [popoverMessage]="popoverMessage" [popoverClass]="popoverClass" placement="left"
+                        (confirm)="delete(user.queue_id)" (cancel)="cancelClicked = true"
+                        class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5" title="trash">
+                        <i class="fa fa-trash"></i>
+                      </a>
+
+                    </td>
+
+                  </tr>
+                  <tr class="" *ngIf="showmethod1=='no data' || showmethod1== '';else elsepart">
+                    <td colspan="11" align="center" *ngIf="showmethod1=='no data';else elsepart2">No data</td>
+                    <ng-template #elsepart2>
+                    </ng-template>
+                  </tr>
+                  <ng-template #elsepart>
+                    <tr>
+                      <td colspan="15" align="center">
+                        <div class="customloader">
+                          <div class="item-1"></div>
+                          <div class="item-2"></div>
+                          <div class="item-3"></div>
+                          <div class="item-4"></div>
+                          <div class="item-5"></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="11">
+                      <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+</div>
+
+
+

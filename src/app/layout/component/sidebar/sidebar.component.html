@@ -1,0 +1,53 @@
+  <div class="navbar-default sidebar" role="navigation">
+             <div class="sidebar-nav slimscrollsidebar" slimScroll [options]="opts" [scrollEvents]="scrollEvents">
+                <div class="sidebar-head">
+                    <h3  (click)="sideNavService.toggleSideNav()"><span class="fa-fw open-close"><i class="ti-menu hidden-xs"></i><i class="ti-close visible-xs"></i></span> <span class="hide-menu">Navigation</span></h3> </div>
+                        <ul class="nav" id="side-menu">
+
+                                 <li *ngFor="let menu of menuArray;let i =index"  (click)="rootFun(menu.title,menu.path,i)" [ngClass]="{'active': activeName == menu.title}">
+                                       <a *ngIf="menu.path !='';else elsepart"  routerLink='/{{menu.path}}' class="waves-effect"  routerLinkActive="active-link"><i class="mdi {{menu.icon}} fa-fw" data-icon="v"></i> <span>{{menu.title}} <span class="fa arrow" *ngIf="menu.submenu.length > 0"></span></span></a>
+                                        <ng-template #elsepart>
+                                            <a   class="waves-effect"  routerLinkActive="active-link"><i class="mdi {{menu.icon}} fa-fw" data-icon="v"></i> <span>{{menu.title}} <span class="fa arrow" *ngIf="menu.submenu.length > 0"></span></span></a>
+                                        </ng-template>
+                                       <ul class="nav nav-second-level collapse"  *ngIf="menu.submenu.length > 0 && menu.submenu!=''" [ngClass]="{'in': this.activeName == this.menu.title}">
+                                      <li *ngFor="let submenu of menu.submenu;">
+                                      <a routerLink='/{{submenu.path}}' (click)="refreshCss($event)" routerLinkActive="active-link"><i  class="mdi {{submenu.icon}} fa-fw"></i> <span class="hide-menu">{{submenu.title}}</span></a>
+                                      </li>
+
+                                  </ul>
+                                 </li>
+
+                                 <li>
+                                    
+                                    <a routerLink=''data-toggle="modal" data-target="#openModal"  routerLinkActive="active-link"><i  class="mdi mdi-logout fa-fw"></i> <span class="hide-menu">Logout</span></a>
+                               
+                                </li>
+
+                        </ul>
+             </div>
+        </div>
+        <!-- <jw-modal id="logout1">
+            Are you sure to Logout ????
+            <div class="col-md-4 pull-right text-right">
+
+                <h5 class="m-t-20"></h5>
+            <button type="submit" id="deselect-all" (click)="logout()" class="btn btn-info btn-outline">Confrim</button>
+            <a id="refresh" (click)="closeModal('logout1');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+            </div>
+        </jw-modal> -->
+        <div id="openModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="openModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  
+                <div class="popup modal-body">
+                <h3 class="modal-heading" style="margin: 0 0 20px;">Are you sure wants to logout?</h3>
+               
+                <div class="mt-20">
+                    <button type="button" (click)="logout()"  data-dismiss="modal" class="btn btn-info btn-outline">Confrim</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger btn-outline m-l-10">Cancel</button>
+                   </div>
+             </div>
+          
+              </div>
+            </div>
+          </div>

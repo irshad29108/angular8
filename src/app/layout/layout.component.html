@@ -1,0 +1,40 @@
+<!-- <app-header></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<section class="main-container" [ngClass]="{collapsed: collapedSideBar}">
+    <router-outlet></router-outlet>
+</section> -->
+
+
+
+<div class="content-wrapper" [ngClass]="{'show-sidebar hide-sidebar': sideNavService.hideSideNav }"><!-- [ngClass]="status ? 'acf' : ['show-sidebar', 'hide-sidebar']" -->
+
+    <!-- ============================================================== -->
+       <!-- Preloader -->
+       <!-- ============================================================== -->
+      <!--  <div class="preloader">
+           <svg class="circular" viewBox="25 25 50 50">
+               <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+           </svg>
+       </div> -->
+       <!-- ============================================================== -->
+       <!-- Wrapper -->
+       <!-- ============================================================== -->
+       <div id="wrapper">
+           <!-- ============================================================== -->
+           <!-- Topbar header - style you can find in pages.scss -->
+           <!-- ============================================================== -->
+
+            <app-header></app-header>
+            <app-sidebar></app-sidebar>
+           <div id="page-wrapper">
+               <div class="container-fluid">
+               <router-outlet></router-outlet>
+   
+    </div>
+               <!-- /.container-fluid -->
+               <app-audioplayer></app-audioplayer>
+               <footer class="footer text-center"> 2020 &copy; Routecent.com All Rights Reserved </footer>
+           </div>
+   </div>
+   
+   </div>

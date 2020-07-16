@@ -1,0 +1,268 @@
+/* You can add global styles to this file, and also import other style files */
+.select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+    width: 200px!important;
+}
+
+.select2custome .select2-container{
+    width: 100% !important;
+}
+.select2-dropdown {
+    background-color: #002133;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    left: -100000px;
+    width: 100%;
+    z-index: 1051;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #aaa;
+    color: black;
+}
+#time-picker-wrapper.light[_ngcontent-tjr-c8] #time-picker[_ngcontent-tjr-c8] .time-picker-footer[_ngcontent-tjr-c8] button[_ngcontent-tjr-c8] {
+    background: #001723!important;
+    color:black!important;
+}
+/* #time-picker-wrapper.active[_ngcontent-spu-c6] {
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999999!important;
+} */
+#time-picker-wrapper.light[_ngcontent-ssq-c6] #time-picker[_ngcontent-ssq-c6] .time-picker-footer[_ngcontent-ssq-c6] button[_ngcontent-ssq-c6]:hover {
+    background: #001723!important;
+    color:black!important;
+}
+#time-picker-wrapper.light[_ngcontent-ssq-c6] #time-picker[_ngcontent-ssq-c6] .time-picker-footer[_ngcontent-ssq-c6] button[_ngcontent-ssq-c6] {
+    background: #001723!important;
+    color:black!important;
+}
+#time-picker-wrapper.light[_ngcontent-gsy-c6] #time-picker[_ngcontent-gsy-c6] .time-picker-footer[_ngcontent-gsy-c6] button[_ngcontent-gsy-c6]{
+    background: #001723!important;
+    color:black!important;
+}
+#time-picker-wrapper.light[_ngcontent-wmb-c6] #time-picker[_ngcontent-wmb-c6] .time-picker-footer[_ngcontent-wmb-c6] button[_ngcontent-wmb-c6] {
+    background: #001723!important;
+    color:black!important;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #02314c!important;
+    border: 1px solid #5bc0de!important;
+    border-radius: 4px;
+    
+}
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #5bc0de!important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #5ac0de!important;
+    line-height: 28px;
+}
+#page-wrapper {
+    height: auto !important;
+    min-height: auto !important;
+    overflow: auto;
+    /* min-height: calc(100vh - 120px); */
+}
+.refresh-tooltip{
+    background-color: #ffc36d
+}
+.breadcrumb > li .select_wrapper> ng-select2{
+    padding-right: 0;
+  
+  }
+
+  /* ==========================================Gif Loader=========================== */
+  .customloader {
+    color: #fdc13c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    overflow: hidden;
+    animation-delay: 1s;
+  }
+
+  .agent_record .customloader{
+    justify-content: flex-start !important;
+  }
+  .customloader .item-1 {
+    width: 5px;
+    height: 5px;
+    background: #f583a1;
+    border-radius: 50%;
+    background-color: #eed968;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @keyframes scale {
+    0% {
+      transform: scale(1);
+    }
+    50%,
+      75% {
+      transform: scale(2.5);
+    }
+    78%, 100% {
+      opacity: 0;
+    }
+  }
+  .customloader .item-1:before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #eed968;
+    opacity: 0.7;
+    animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+    animation-delay: 200ms;
+    transition: 0.5s all ease;
+    transform: scale(1);
+  }
+  .customloader .item-2 {
+    width: 5px;
+    height: 5px;
+    background: #f583a1;
+    border-radius: 50%;
+    background-color: #eece68;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @keyframes scale {
+    0% {
+      transform: scale(1);
+    }
+    50%,
+      75% {
+      transform: scale(2.5);
+    }
+    78%, 100% {
+      opacity: 0;
+    }
+  }
+  .customloader .item-2:before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #eece68;
+    opacity: 0.7;
+    animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+    animation-delay: 400ms;
+    transition: 0.5s all ease;
+    transform: scale(1);
+  }
+  .customloader .item-3 {
+    width: 5px;
+    height: 5px;
+    background: #f583a1;
+    border-radius: 50%;
+    background-color: #eec368;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @keyframes scale {
+    0% {
+      transform: scale(1);
+    }
+    50%,
+      75% {
+      transform: scale(2.5);
+    }
+    78%, 100% {
+      opacity: 0;
+    }
+  }
+  .customloader .item-3:before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #eec368;
+    opacity: 0.7;
+    animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+    animation-delay: 600ms;
+    transition: 0.5s all ease;
+    transform: scale(1);
+  }
+  .customloader .item-4 {
+    width: 5px;
+    height: 5px;
+    background: #f583a1;
+    border-radius: 50%;
+    background-color: #eead68;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @keyframes scale {
+    0% {
+      transform: scale(1);
+    }
+    50%,
+      75% {
+      transform: scale(2.5);
+    }
+    78%, 100% {
+      opacity: 0;
+    }
+  }
+  .customloader .item-4:before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #eead68;
+    opacity: 0.7;
+    animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+    animation-delay: 800ms;
+    transition: 0.5s all ease;
+    transform: scale(1);
+  }
+  .customloader .item-5 {
+    width: 5px;
+    height: 5px;
+    background: #f583a1;
+    border-radius: 50%;
+    background-color: #ee8c68;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  @keyframes scale {
+    0% {
+      transform: scale(1);
+    }
+    50%,
+      75% {
+      transform: scale(2.5);
+    }
+    78%, 100% {
+      opacity: 0;
+    }
+  }
+  .customloader .item-5:before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #ee8c68;
+    opacity: 0.7;
+    animation: scale 2s infinite cubic-bezier(0, 0, 0.49, 1.02);
+    animation-delay: 1000ms;
+    transition: 0.5s all ease;
+    transform: scale(1);
+  }

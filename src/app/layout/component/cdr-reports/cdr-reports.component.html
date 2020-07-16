@@ -1,0 +1,890 @@
+<div class="row bg-title">
+  <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+    <h4 class="page-title">CDR Reports</h4>
+  </div>
+  <!-- ============================================================== -->
+  <!-- Header Filter -->
+  <!-- ============================================================== -->
+  <div class="col-lg-12 col-sm-10 col-md-10 col-xs-12">
+    <ol class="breadcrumb m-r-0">
+
+      <li *ngIf="alluser.role!='buyer'">
+        <div class="select_wrapper sm-select">
+          <ng-select2 class="input-sm" placeholder="Select Buyer" [(ngModel)]="buyerdropdown"
+            (ngModelChange)="changebuyer()" name="buyerdopdown" [data]="buyersData"></ng-select2>
+        </div>
+        <a (click)="resetbuyer()" *ngIf="alluser.role != 'publisher'"
+          class="btn btn-sm btn-info btn-outline waves-effect waves-light" title="Reset"><i
+            class="fa fa-repeat"></i></a>
+      </li>
+
+      <li *ngIf="showpub">
+        <div class="select_wrapper sm-select">
+
+          <ng-select2 class="input-sm" placeholder="Select Publisher" [(ngModel)]="publisherdropdown"
+            (ngModelChange)="changepublisher()" name="publisherdropdown" [data]="publisher"></ng-select2>
+        </div>
+        <a (click)="resetpublisher()" *ngIf="alluser.role != 'publisher'"
+          class="btn btn-sm btn-info btn-outline waves-effect waves-light" title="Reset"><i
+            class="fa fa-repeat"></i></a>
+      </li>
+
+
+
+      
+      <li>
+        <!-- <ng-select2 [data]="exampleData"
+            >
+</ng-select2> -->
+        <div *ngIf="alluser.role!='buyer'" class="select_wrapper sm-select">
+          <ng-select2 class="input-sm" placeholder="Select Campaign" [(ngModel)]="campaigndropdown"
+            (ngModelChange)="changecampaign()" name="campaigndropdown" [data]="exampleData"
+            style="width: 200px!important;"></ng-select2>
+          <!-- <select  >
+          <option  >Select Campaign</option>
+          <option *ngFor="let camp of campaign" value="{{camp.camp_name}}">{{camp.camp_name}}</option>
+        </select> -->
+        </div>
+        <a (click)="resetcampaign()" class="btn btn-sm btn-info btn-outline waves-effect waves-light" title="Reset"><i
+            class="fa fa-repeat"></i></a>
+      </li>
+
+      <!--  <li *ngIf="alluser.role!='buyer'"> <a (click)="resetcampaign()" class="btn btn-sm btn-info btn-outline waves-effect waves-light" title="Reset"><i
+            class="fa fa-repeat"></i></a>
+      </li> -->
+      <li> <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true"
+          [ranges]="ranges" [opens]="'left'" [showCancel]="true" [linkedCalendars]="true"
+          [alwaysShowCalendars]="alwaysShowCalendars"
+          [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+          placeholder="Select please..." />
+        <a (click)="submit()" class="btn btn-sm btn-info waves-effect waves-light">Submit</a>
+      </li>
+
+      <li><a href="javascript:void(0)" (click)="clickFilter()"
+          class="btn  btn-sm btn-info btn-outline waves-effect waves-light m-l-0" title="Filter"><i
+            class="fa fa-filter"></i> Filter</a></li>
+    </ol>
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Header Filter -->
+  <!-- ============================================================== -->
+  <!-- /.col-lg-12 -->
+</div>
+
+
+
+<!-- show list of buyer qualified calls-->
+<div class="row boxindex" *ngIf="qualifiedBuyers">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <div class="pull-left">
+        <h3 class="box-title m-b-0">Qualified Data</h3>
+        <p class="text-muted m-b-10">Buyers qualified calls and earning</p>
+
+      </div>
+      <ul class="all_doc_file nav nav-tabs navbar-right filtersnav btn-group">
+        <li>
+          <a (click)="qualifiedBuyersList()">x</a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+      <div class="d-flex-row" style="border-top:1px solid rgba(120, 130, 140, 0.13)">
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/buyer-earn.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Buyers Name</small>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/buyer-earn.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Punlihser Name</small>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/buyer-earn.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Compaign Name</small>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/unique_call_ans.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Qualified Calls</small>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/buyer-earn.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Buyer Earnings</small>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/buyer-spend.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Buyer Spending</small>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/total-earn.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Net Earnings</small>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="d-flex-row" style="border-top:1px solid rgba(120, 130, 140, 0.13)"
+        *ngFor="let item of qualifiedCallsBuyerArray">
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <div class="d-flex flex-column justify-content-around">
+            <h6 class="mt-3 m-0">{{item.buyer_name}}</h6>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <div class="d-flex flex-column justify-content-around">
+            <h6 class="mt-3 m-0">{{item.publisherName}}</h6>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <div class="d-flex flex-column justify-content-around">
+            <h6 class="mt-3 m-0">{{item.camp_name}}</h6>
+          </div>
+        </div>
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <div class="d-flex flex-column justify-content-around">
+            <h6 class="mt-3 m-0">{{item.qualifiedCalls}}</h6>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <div class="d-flex flex-column justify-content-around">
+            <h6 class="mt-3 m-0">{{item.buyerEarning}}</h6>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <div class="d-flex flex-column justify-content-around">
+            <h6 class="mt-3 m-0">{{item.buyerSpending}}</h6>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <div class="d-flex flex-column justify-content-around">
+            <h6 class="mt-3 m-0" *ngIf="!totalUniqAnsweredCallsLoader">{{item.buyerEarning - item.buyerSpending}}</h6>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================== -->
+<!-- Count Total Call  -->
+<!-- ============================================================== -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box m-block p-0">
+      <div class="d-flex-row">
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/148937.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">AVERAGE HANDLING TIME</small>
+            <div class="customloader" *ngIf="totalAvgCallsLoader">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+            <h5 class="mt-3 m-0" *ngIf="!totalAvgCallsLoader">{{totalHandlingTime}} Minutes</h5>
+
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-6 d-flex border-md-right p-3 agent_record" (click)="clickEventActive($event)" data-title="total-call" [ngClass]="activeStatus ? 'active' : ''"> -->
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record" (click)="totalCallFunction()" [ngClass]="activeStatusTotal ? 'active' : ''">
+
+        <!-- <div class="col-sm-6 d-flex border-md-right p-3 agent_record" (click)="clickEventActive($event)" data-title="total-call" [ngClass]="activeStatus ? 'active' : ''"> -->
+
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/523089.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">TOTAL CALLS</small>
+            <div class="customloader" *ngIf="totalCallsLoader">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+            <h5 class="mt-3 m-0" *ngIf="!totalCallsLoader">{{this.totalcalls}}</h5>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record" (click)="totalUniqueCallFunction()" [ngClass]="activeStatusUnique ? 'active' : ''">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/unique_call.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">TOTAL UNIQUE CALLS</small>
+            <div class="customloader" *ngIf="totalUniqCallsLoader">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+
+            <h5 class="mt-3 m-0"  *ngIf="!totalUniqCallsLoader" >{{totalUniqueCalls}}</h5>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record" (click)="totalUniqueAnsCallFunction()" [ngClass]="activeStatusUniqueAns ? 'active' : ''">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/unique_call_ans.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">TOTAL UNIQUE ANSWERED CALLS</small>
+            <div class="customloader" *ngIf="totalUniqAnsweredCallsLoader">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+            <h5 class="mt-3 m-0" *ngIf="!totalUniqAnsweredCallsLoader">{{totalUniqueAnsCalls}}</h5>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="d-flex-row" style="border-top:1px solid rgba(120, 130, 140, 0.13)">
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/unique_call_ans.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">QUALIFIED CALLS</small>
+            <div class="customloader" *ngIf="totalUniqAnsweredCallsLoader">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+            <h5 class="mt-3 m-0" *ngIf="!totalUniqAnsweredCallsLoader">{{qualifiedCalls}}</h5>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/buyer-earn.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Buyer Earnings</small>
+            <div class="customloader" *ngIf="totalUniqAnsweredCallsLoader">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+            <h5 class="mt-3 m-0" *ngIf="!totalUniqAnsweredCallsLoader">{{buyerEarning}}</h5>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/buyer-spend.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Buyer Spending</small>
+            <div class="customloader" *ngIf="totalUniqAnsweredCallsLoader">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+            <h5 class="mt-3 m-0" *ngIf="!totalUniqAnsweredCallsLoader">{{buyerSpending}}</h5>
+          </div>
+        </div>
+
+        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+          <i class="fa mr-3 icon-lg text-success"><img src="assets/img/total-earn.svg"></i>
+          <div class="d-flex flex-column justify-content-around">
+            <small class="mb-1 text-muted">Net Earnings</small>
+            <div class="customloader" *ngIf="totalUniqAnsweredCallsLoader">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+            <h5 class="mt-3 m-0" *ngIf="!totalUniqAnsweredCallsLoader">{{buyerEarning - buyerSpending}}</h5>
+          </div>
+
+          <a href="javascript:void(0)" class="mt-3 m-0 btn btn-warning btnlistpop btn-sm"
+            (click)="qualifiedBuyersList()">Buyers List</a>
+
+
+
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Count Total Call -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- List of Cdr -->
+<!-- ============================================================== -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="white-box">
+
+      <div class="pull-left">
+        <h3 class="box-title">Call Detail Record</h3>
+        <a (click)="filterdata()"><small class="mb-1 text-muted" style="color:#ffc36d;">Total Duplicate calls :
+            {{duplicateCount}}</small></a>
+      </div>
+
+
+      <ul class="all_doc_file nav nav-tabs navbar-right filtersnav btn-group">
+        <li><a (click)="refreshalldata()" tooltip="Refresh for new cdr" class="refresh-tooltip"><i
+              class="fa fa-repeat"></i></a></li>
+        <li><a (click)="exportAsXLSX()" tooltip="Excel download"><i class="fa fa-file-excel-o"></i></a></li>
+        <li><a (click)="downloadCSV()" tooltip="CSV download"><i class="fa fa-file-code-o"></i></a></li>
+      </ul>
+
+      <div class="clearfix"></div>
+      <div class="table-responsive performance_table m-t-30">
+        <table class="table table-striped valign-table"
+          [mfData]="data |cdrReportFilter:did:destination:cid:hangby:statusSearch:selected :publisherdropdown:campaigndropdown:buyernumberFilter:disposition:buyer_name:buyerdropdown"
+          #mf="mfDataTable" [mfRowsOnPage]="10">
+          <thead>
+            <tr>
+              <!-- <th>No.</th> -->
+              <th>No</th>
+              <th *ngIf="showpub">
+                <mfDefaultSorter by="publisher_name" class="ancor">Publisher</mfDefaultSorter>
+              </th>
+              <th *ngIf="alluser.role!='buyer'">
+                <mfDefaultSorter by="camp_name">Campaign</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="did">DID</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="cid">CID</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="buyer_id" class="ancor">Buyer Number</mfDefaultSorter>
+              </th>
+
+              <th>
+                <mfDefaultSorter by="buyer_name" class="ancor">Buyer Name</mfDefaultSorter>
+              </th>
+
+              <th>
+                <mfDefaultSorter by="date" class="ancor">Date</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="date">Start</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="callEnd">End</mfDefaultSorter>
+              </th>
+
+              <th>
+                <mfDefaultSorter by="destination">Destination</mfDefaultSorter>
+              </th>
+
+              <th>
+                <mfDefaultSorter by="disposition">Disposition</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="duration">Dur.</mfDefaultSorter>
+              </th>
+
+              <!-- <th>
+                <mfDefaultSorter by="dupes">Dupes</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="hangby">Hang By</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="status">Status</mfDefaultSorter>
+              </th> -->
+              <th>
+                <mfDefaultSorter by="">Rec</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="">Action</mfDefaultSorter>
+              </th>
+              <!--      
+        <th>
+          <mfDefaultSorter by="">Block</mfDefaultSorter>
+      </th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <ng-template #elsepart> -->
+              <tr *ngIf="showmethod1=='loading'">
+                <td colspan="15" align="center">
+                  <div class="customloader">
+                    <div class="item-1"></div>
+                    <div class="item-2"></div>
+                    <div class="item-3"></div>
+                    <div class="item-4"></div>
+                    <div class="item-5"></div>
+                  </div>
+                </td>
+              </tr>
+            <!-- </ng-template> -->
+            
+            <tr *ngFor="let user of mf.data ; index as i;">
+              <td>{{data.indexOf(user) + 1}}</td>
+
+              <td *ngIf="showpub && user.publisher_name!=''">{{user.publisher_name}}</td>
+              <td *ngIf="showpub && user.publisher_name==''"><span class="label label-warning">Not Available</span></td>
+
+              <!-- <td>
+              <span *ngIf="showpub && user.publisher_name!='';else elsePubName">{{user.publisher_name}}</span>
+              <ng-template #elsePubName>
+              <span class="label label-warning">Not Available</span>
+              </ng-template>
+              </td> -->
+
+
+              <!-- <td *ngIf="user.camp_name!='' && alluser.role!='buyer'">{{user.camp_name}}</td>
+              <td *ngIf="user.camp_name=='' && alluser.role!='buyer'"><span class="label label-warning">Not
+              Available</span></td> -->
+
+
+              <td *ngIf="user.camp_name!='' && alluser.role!='buyer'">
+                <span *ngIf="user.camp_name!='' && alluser.role!='buyer';else elseCampName">{{user.camp_name}}</span>
+                <ng-template #elseCampName>
+                  <span class="label label-warning">Not Available</span>
+                </ng-template>
+              </td>
+
+              <td>{{user.did}}</td>
+
+            <!-- <td *ngIf="user.duplicate==1"><span class="label label-warning"tooltip="Duplicate CID">{{user.cid}}</span></td>
+              <td *ngIf="user.duplicate==0">{{user.cid}}</td> -->
+
+              <td>
+                <span *ngIf="user.duplicate==0;else elseCidName">{{user.cid}}</span>
+                <ng-template #elseCidName>
+                  <span class="label label-warning"tooltip="Duplicate CID">{{user.cid}}</span>
+                </ng-template>
+                </td>
+
+              <!-- <td *ngIf="user.buyer_id!='' ">{{user.buyer_id}}</td>
+              <td *ngIf="user.buyer_id=='' "><span class="label label-warning">Not Available</span></td> -->
+
+              <td>
+                <span *ngIf="user.buyer_id!='';else elseBuyerID">{{user.buyer_id}}</span>
+                <ng-template #elseBuyerID>
+                <span class="label label-warning">Not Available</span>
+                </ng-template>
+                </td>
+
+
+              <td>{{user.buyer_name}}</td>
+
+              <td>{{user.date | date:'d MMM, y' }}</td>
+              <td>{{user.date | date:'h:mm:ss a' }}</td>
+              <td>{{user. callEnd| date:'h:mm:ss a' }}</td>
+              <td>{{user.destination}}</td>
+
+
+              <!-- <td *ngIf="user.disposition=='MISSED CALL'"><span class="label1 label-warning">{{user.disposition}}</span>
+              </td>
+              <td *ngIf="user.disposition!='MISSED CALL'">{{user.disposition}}</td> -->
+
+              <td>
+                <span *ngIf="user.disposition!='MISSED CALL';else elseDisposition">{{user.disposition}}</span>
+                <ng-template #elseDisposition>
+                  <span class="label1 label-warning">{{user.disposition}}</span>
+                </ng-template>
+              </td>
+
+
+   
+              <td>{{user.duration *1000 | date:'H:mm:ss':'UTC'}}</td>
+
+              <!-- <td>{{user.callEnd}}</td> -->
+              <!-- <td>{{user.dupes}}</td>
+              <td>{{user.hangby}}</td>
+              <td> <span *ngIf="user.status =='show'"><span class="label label-success">Show</span></span><span
+              *ngIf="user.status !='show'"><span class="label label-warning">Fake</span></span></td> -->
+
+              <!-- <td *ngIf="user.recordingfile != ''"> <button type="button" class="btn btn-sm btn-link"
+                  (click)="playfor(user.recordingfile,user.date)"><span class="fa fa-play"></span></button></td>
+              <td *ngIf="user.recordingfile ==''"><span class="label label-warning">Not Available</span></td> -->
+
+
+              <td>
+                <span *ngIf="user.recordingfile != '';else elseDRecord"><button type="button" class="btn btn-sm btn-link"
+                  (click)="playfor(user.recordingfile,user.date)"><span class="fa fa-play"></span></button></span>
+                <ng-template #elseDRecord>
+                  <span class="label label-warning">Not Available</span>
+                </ng-template>
+              </td>
+
+
+              
+                    <!-- 
+                    <td><a class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" (click)="clicksetting()">
+                    <i class="fa fa-cogs"></i> 
+                    </a> -->
+                    <!--   <a href="javascript:void()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                    <i class="fa fa-user-plus"></i> 
+                    </a>
+                    <a href="javascript:void()" class="edit-modal btn btn-warning btn-outline btn-circle btn-sm m-r-5">
+                    <i class="fa fa-pie-chart"></i> 
+                    </a>
+                    <a href="javascript:void()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                    <i class="fa fa-pause"></i> 
+                    </a>
+                    <a href="javascript:void()" class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5">
+                    <i class="fa fa-trash"></i> 
+                    </a> </td> -->
+
+              
+              <td> <a tooltip="Block" data-toggle="modal" data-target="#openModal1"
+                  (click)="openModal(user.cid,user.did)"
+                  class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5">
+                  <img src="assets/img/call-block.svg" width="14">
+                </a>
+              </td>
+
+            </tr>
+            <tr *ngIf="showmethod1=='no data' || showmethod1== ''">
+              <td colspan="15" align="center" *ngIf="showmethod1=='no data'">No data</td>
+            </tr>
+
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="15">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,50,100]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End List of Cdr -->
+<!-- ============================================================== -->
+
+
+
+<!-- settings -->
+
+<div class="overlayfix" *ngIf="setting">
+  <div class="settingform">
+    <button type="button" class="closeBtn" (click)="clicksetting()">x</button>
+    <button type="button" class="saveBtn btn-info">Save Changes</button>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <ul class="settinglist">
+            <li><bdo>Enable recording</bdo> <span class="pull-right"><input type="checkbox" id="recording"
+                  class="switchinput" /><label for="recording" class="switchbtn">Toggle</label></span></li>
+            <li><bdo>Display CNUM</bdo> <span class="pull-right"><input type="checkbox" id="cnum"
+                  class="switchinput" /><label for="cnum" class="switchbtn">Toggle</label></span></li>
+            <li><bdo>Display Wallet</bdo> <span class="pull-right"><input type="checkbox" id="wallet"
+                  class="switchinput" /><label for="wallet" class="switchbtn">Toggle</label></span></li>
+          </ul>
+        </div>
+        <div class="col-sm-4">
+          <ul class="settinglist">
+            <li><bdo>Phone System</bdo> <span class="pull-right"><input type="checkbox" id="system"
+                  class="switchinput" /><label for="system" class="switchbtn">Toggle</label></span></li>
+            <li><bdo>Enable Inside Routing</bdo> <span class="pull-right"><input type="checkbox" id="inside"
+                  class="switchinput" /><label for="inside" class="switchbtn">Toggle</label></span></li>
+            <li><bdo>Enable Outside Routing</bdo> <span class="pull-right"><input type="checkbox" id="outside"
+                  class="switchinput" /><label for="outside" class="switchbtn">Toggle</label></span></li>
+          </ul>
+        </div>
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <h5 class="m-b-5 m-t-0">Daily TFN(s)</h5>
+                <input type="text" class="form-control" name="">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <h5 class="m-b-5 m-t-0">Monthly TFN(s)</h5>
+                <input type="text" class="form-control" name="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <h5 class="m-b-5 m-t-0">Call Reducer</h5>
+                <input type="text" class="form-control" name="">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <h5 class="m-b-5 m-t-0">Buyer Limit</h5>
+                <input type="text" class="form-control" name="">
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- settings -->
+
+
+<!-- .right-sidebar -->
+<div class="right-sidebar" [ngClass]="status? 'shw-rside' : ''">
+  <div id="filteroverlay" (click)="clickFilter()" [ngClass]="status? 'show' : ''"></div>
+  <div class="slimscrollright">
+    <div class="rpanel-title"> Filter Panel <span (click)="clickFilter()"><i
+          class="ti-close right-side-toggle"></i></span> </div>
+    <div class="r-panel-body">
+      <form class="form-horizontal" action="">
+        <div class="row">
+          <!-- <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Select box</h5>
+            <select class="selectpicker form-control" data-style="form-control" (change)="selectChangeFilter($event)">
+              <option value="0">Select filter type</option>
+              <option value="Date">Date</option>
+              <option value="DID">DID</option>
+              <option value="Destination">Destination</option>
+
+              <option value="Disposition">Disposition</option>
+              <option value="CID">CID</option>
+              <option value="Hangby">Hang By</option>
+              <option value="Status">Status</option>
+            </select>
+          </div> -->
+          <!-- <div class="col-md-12" *ngIf="filtr1">
+                                        <h5 class="m-t-20 m-b-10">Select Date</h5><button class="btn btn-danger btn-xs btnfilterClose" (click)="closefiltr('filtr1')">x</button>
+                                        <input type="text"
+                                        ngxDaterangepickerMd
+                                        [(ngModel)]="selected"
+                                        [showCustomRangeLabel]="true"
+                                        [ranges]="ranges"
+                                        [opens]="'left'"
+                                        [showCancel]="true"
+                                        [linkedCalendars]="true"
+                                        [alwaysShowCalendars]="alwaysShowCalendars"
+                                        [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}"
+                                        class="form-control input-sm daterange"
+                                        placeholder="Choose date range"/>
+                                      </div> -->
+          <div class="col-md-12" *ngIf="filtr1">
+            <h5 class="m-t-20 m-b-10">Select DID</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr1')" tooltip="Reset DID"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" (keyup)="filterAllCount()" [(ngModel)]="did" name="did"
+              placeholder="Enter DID">
+          </div>
+
+          <div class="col-md-12" *ngIf="filtr2">
+            <h5 class="m-t-20 m-b-10">Select Disposition</h5><button
+              class="btn btn-danger btn-xs btnfilterClose filtrreset" (click)="closefiltr('filtr2')"
+              tooltip="Reset Disposition"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" (keyup)="filterAllCount()" [(ngModel)]="disposition"
+              name="disposition" placeholder="Enter Disposition">
+          </div>
+          <div class="col-md-12" *ngIf="filtr3">
+            <h5 class="m-t-20 m-b-10">Select CID</h5><button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr3')" tooltip="Reset CID"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" (keyup)="filterAllCount()" [(ngModel)]="cid" name="cid"
+              placeholder="Enter CID">
+          </div>
+
+
+          <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Buyer Name</h5><button
+              class="btn btn-danger btn-xs btnfilterClose filtrreset" (click)="closefiltr('filtr8')"
+              tooltip="Reset Buyer Name"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="buyer_name" (keyup)="filterAllCount()"
+              name="buyer_name" placeholder="Enter Buyer Name">
+          </div>
+
+          <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Select Buyer Number</h5><button
+              class="btn btn-danger btn-xs btnfilterClose filtrreset" (click)="closefiltr('filtr5')"
+              tooltip="Reset CID"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="buyernumberFilter" (keyup)="filterAllCount()"
+              name="buyernumberFilter" placeholder="Enter Buyer Number">
+          </div>
+          <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Select Destination</h5><button
+              class="btn btn-danger btn-xs btnfilterClose filtrreset" (click)="closefiltr('filtr6')"
+              tooltip="Reset CID"><i class="fa fa-repeat"></i></button>
+            <input type="text" (keyup)="filterAllCount()" class="form-control" [(ngModel)]="	destination"
+              name="destination" placeholder="Enter 	Destination">
+          </div>
+
+          <!-- <div class="col-md-12" *ngIf="filtr4">
+            <h5 class="m-t-20 m-b-10">Select Hang By</h5><button class="btn btn-danger btn-xs btnfilterClose"
+              (click)="closefiltr('filtr4')">x</button>
+            <select class="form-control" [(ngModel)]="hangby" name="hangby">
+              <option>Agent</option>
+              <option>Caller</option>
+            </select>
+          </div> -->
+          <!-- <div class="col-md-12" *ngIf="filtr5">
+            <h5 class="m-t-20 m-b-10">Select Status</h5><button class="btn btn-danger btn-xs btnfilterClose"
+              (click)="closefiltr('filtr5')">x</button>
+            <select class="form-control" [(ngModel)]="statusSearch" name="statusSearch">
+              <option>Active</option>
+              <option>Deactive</option>
+            </select>
+          </div> -->
+
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="m-t-30"></h5>
+            <a id="refresh" class="btn btn-warning btn-outline" (click)="resetfilter()" tooltip="Reset All">Reset
+              All</a>
+          </div>
+          <div class="col-md-6">
+            <h5 class="m-t-30"></h5>
+            <a class="btn btn-danger  btn-outline" (click)="clickFilter()"
+              tooltip="close panle without reset filter">Hide Panel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="mediaplayer" *ngIf="palyer">
+  <button class="playerclose" (click)="playercross()">x</button>
+  <plyr mat-card-image id="player" plyrTitle="Audio" plyrType="audio" [plyrSources]="audioSources"
+    (plyrInit)="player = $event" (plyrPlay)="played($event)" [plyrOptions]="options"></plyr>
+</div>
+<!-- ============================================================== -->
+<!-- End Right sidebar -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- Block UnBlock Modal -->
+<!-- ============================================================== -->
+<div id="openModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="openModalLabel"
+  style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border:none">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Block Report</h4>
+      </div>
+      <div class="popup modal-body">
+        <div class="row ">
+          <div class="col-md-12 ">
+            <div class="cidblock">
+              <h5>CID Block/Unblock</h5>
+
+
+              <div class="swithbtn">
+                <p><span> {{ this.showcid}}</span></p>
+                <input type="checkbox" id="cid" (change)="block_cid($event)" [(ngModel)]="cid_block"
+                  name="cid_block" /><label for="cid">Toggle</label>
+              </div>
+
+              <!--     <div class="row block">
+                <div class="col-md-10">
+                  Block  </div>
+              
+                    <div class="col-md-2"><input type="radio" (click)="blockCid_old()"  name="cid" ></div>
+              </div> -->
+
+
+              <!--    <div class="row block">
+                <div class="col-md-10">
+                  UnBlock
+                </div>
+               
+                    <div class="col-md-2"><input type="radio" (click)="unBlockCid_old()"  name="cid" ></div>
+              </div> -->
+            </div>
+
+
+            <div class="tfnblock">
+              <h5>TFN Block/Unblock</h5>
+              <!-- Block this cid {{ this.showcid}} For this TFN{{showdid}} -->
+              <div class="swithbtn">
+                <p><span> CID {{ this.showcid}} For TFN {{showdid}}</span></p><input type="checkbox" id="tfn"
+                  (change)="block_tfn($event)" [(ngModel)]="tfn_block" name="tfn_block" /><label
+                  for="tfn">Toggle</label>
+              </div>
+
+              <!--     <div class="row block">
+                <div class="col-md-10">
+                  Block 
+                </div>
+               
+                    <div class="col-md-2"><input type="radio"  (click)="blockCidTfn_old()"   name="tfn" ></div>
+              </div> -->
+
+
+              <!--    <div class="row block">
+                <div class="col-md-10">
+                  UnBlock 
+                </div>
+             
+                    <div class="col-md-2"><input type="radio"  (click)="UnblockCidTfn_old()" name="tfn" ></div>
+              </div> -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!--  <div class="modal-footer">
+        <button type="submit" data-dismiss="modal" class="btn btn-info btn-outline">Confrim</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> -->
+
+    </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Block UnBlock Modal -->
+<!-- ============================================================== -->

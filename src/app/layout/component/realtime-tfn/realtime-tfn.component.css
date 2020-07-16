@@ -1,0 +1,46 @@
+.realcall-panel{
+    border-color: #002133;
+}
+.panel-default.realcall-panel > .panel-heading {
+    color: #eee;
+    background-color: #02314c;
+    border-color: #002133;
+}
+.panel-default.realcall-panel  .panel-body{
+    background-color: #02314cf0;
+    color: #c9d5dc
+}
+.realcall-panel .panel-heading{
+    padding: 0;
+}
+.realcall-panel .panel-heading .panel-title{
+   color: #c9d5dc
+}
+.realcall-panel .panel-heading .panel-title>a{
+    padding: 10px;
+    position: relative;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+.badge-calls{
+    position: relative;
+    background: #0a78b9 !important;
+    top: -5px;
+}
+
+.realcall-panel .panel-heading .panel-title>a bdo{
+    text-align: center;
+    margin: 0 auto;
+    /* display: block; */
+    width: 210px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid #02314c;
+    height: 100%;
+    background: #002133;
+    top: 0;
+    line-height: 40px;
+    font-size: 15px;
+    font-weight: 400;
+}

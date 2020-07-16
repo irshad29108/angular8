@@ -1,0 +1,214 @@
+<div class="row bg-title">
+  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+    <h4 class="page-title">TFN List</h4>
+  </div>
+  <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+    <ol class="breadcrumb m-r-0">
+      <!-- <li>
+        <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true" [ranges]="ranges"
+          [opens]="'left'" [showCancel]="true" [linkedCalendars]="true" [alwaysShowCalendars]="alwaysShowCalendars"
+          [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+          placeholder="Select please..." />
+      </li> -->
+      <li>
+        <a class="btn btn-sm btn-outline btn-info waves-effect waves-light" (click)="clickadd()"><i
+            class="fa fa-plus"></i></a>
+        <!-- <a routerLink="/active-hours" class="btn btn-outline btn-info waves-effect m-l-10 waves-light">Add Publisher</a> -->
+        <a class="btn btn-sm btn-outline btn-info waves-effect waves-light m-l-5"><i class="fa fa-refresh"></i></a>
+        <!-- <a (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-5 waves-light"><i
+            class="fa fa-filter"></i> Filter</a> -->
+      </li>
+    </ol>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<div class="row boxindex" *ngIf="add">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <h3 class="box-title m-b-0">{{button}} Moh</h3>
+      <p class="text-muted m-b-10">Just add new TFN in your account</p>
+
+      <form class="form-horizontal commonForm" [formGroup]="TFN" (ngSubmit)="onSubmit()">
+        <div class="row">
+
+          <div class="col-sm-6">
+            <h5 class="m-t-20 m-b-10">TFN Number</h5>
+            <div class="select_wrapper sm-select">
+                <input *ngIf="edittfn" type="number" class="form-control" disabled [(ngModel)]="tfn" formControlName="tfn" name="tfn">
+                <select *ngIf="notedittfn" class="form-control" name="tfn" formControlName="tfn">
+                    <option value="">select Tfn</option>
+                    <option *ngFor="let tfns of tfn1" value="{{tfns.tfn}}">{{tfns.tfn}}</option>
+                    <!-- <option value="used">Used</option> 
+                      <option value="unused">Unused</option> 
+                      <option value="pending">Pending</option> -->
+                  </select>
+              <div *ngIf="submitted && f.tfn.errors" class="invalid-feedback">
+                <div *ngIf="f.tfn.errors.required">TFN number is required</div>
+              </div>
+            </div>
+            <!-- <input type="number" class="form-control" disabled [(ngModel)]="tfn" formControlName="tfn" name="tfn"
+              placeholder="Enter number">
+            <div *ngIf="submitted && f.tfn.errors" class="invalid-feedback">
+              <div *ngIf="f.tfn.errors.required">TFN number is required</div>
+            </div> -->
+          </div>
+          <div class="col-sm-6">
+            <h5 class="m-t-20 m-b-10">Status</h5>
+            <div class="select_wrapper sm-select">
+              <select class="form-control" name="status" [(ngModel)]="status" formControlName="status">
+                <option value="">select Moh</option>
+                <option value="default">Default</option>
+                <!-- <option value="used">Used</option> 
+                  <option value="unused">Unused</option> 
+                  <option value="pending">Pending</option> -->
+              </select>
+              <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                <div *ngIf="f.status.errors.required">Status is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 pull-right text-right">
+
+            <h5 class="m-t-20"></h5>
+
+            <button type="submit" *ngIf="submitbutton" id="deselect-all" class="btn btn-info btn-outline">Update
+              Moh</button>
+            <a id="refresh" (click)="clickadd()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+          </div>
+          <div class="ajax_loader" *ngIf="loading">
+            <img src="assets/img/loading.gif" width="24">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="white-box">
+      <h3 class="box-title">TFN (s)</h3>
+      <div class="table-responsive performance_table">
+        <!-- <div class="ajax_loader" *ngIf="mf.data==null || mf.data==''">Loading data..</div> -->
+        <div class="alert pbxalert alert-success alert-dismissible animated fadeInRight"
+          *ngIf="messageheader != '' && messageheader != null">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{messageheader}}
+        </div>
+        <div class="alert pbxalert alert-warning alert-dismissible animated fadeInRight"
+          *ngIf="messageheadererror != '' && messageheadererror != null">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{messageheadererror}}
+        </div>
+        <div class="table-responsive performance_table">
+          <table class="table table-striped valign-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>
+                  <mfDefaultSorter by="tfn" class="ancor">Number</mfDefaultSorter>
+                </th>
+                <!-- <th>
+                <mfDefaultSorter by="publisherName"> Publisher Name</mfDefaultSorter>
+              </th> -->
+                <!-- <th>
+                <mfDefaultSorter by="createnumber">Date</mfDefaultSorter>
+              </th> -->
+                <!-- <th>
+                <mfDefaultSorter by="price_per_tfn">TFN Price</mfDefaultSorter>
+              </th> -->
+                <!-- <th>
+                <mfDefaultSorter  by="">Assigned</mfDefaultSorter>
+              </th> -->
+
+                <th>
+                  <mfDefaultSorter by="status">Status</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="">Action</mfDefaultSorter>
+                </th> 
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of mf.data ; index as i;">
+                <td>{{i + 1}}</td>
+                <td>{{user.tfn}}</td>
+                <!-- <td>{{user.publisherName}}</td> -->
+                <!-- <td>{{user.purchase_date}}</td> -->
+                <!-- <td>{{user.price_per_tfn}}</td> -->
+                <!-- <td>
+                <span *ngIf="user.publisher =='you'"><i class="fa fa-close fa-lg text-danger"></i>
+                  {{user.publisher}}</span>
+                <span *ngIf="user.publisher =='me'"><i class="fa fa-close fa-lg text-danger"></i>
+                  {{user.publisher}}</span>
+                <span><a (click)="clicksetpublisher()" style="color: #fff; cursor: pointer;"><i
+                      class="fa fa-plus fa-lg"></i> Not assigned</a></span>
+
+              </td> -->
+                <td>
+                  {{user.mohclass}}
+                  <!-- <span *ngIf="user.status =='available'">
+                  <input type="checkbox" checked class="switchinput" id="statuscheck{{i}}" /><label
+                    for="statuscheck{{i}}" class="switchbtn status">Toggle</label>
+
+                </span> -->
+                  <!-- <span *ngIf="user.status !='available'">
+                  <input type="checkbox" class="switchinput" id="statuscheck{{i}}" /><label for="statuscheck{{i}}"
+                    class="switchbtn status">Toggle</label>
+
+                </span> -->
+                </td>
+                <td style="width: 100px; ">
+                   <a (click)="edit(user.tfn,user.mohclass)" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5"
+                    title="edit">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <!-- <a (click)="setPassword()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Set password">
+                    <i class="fa fa-lock"></i> 
+       </a> -->
+                  <!-- <a (click)="managenumber()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Manage number">
+                    <i class="fa fa-phone"></i> 
+       </a>  -->
+
+                  <!-- <a *ngIf="showpub" href="javascript:void()" mwlConfirmationPopover [popoverTitle]="" [popoverMessage]="popoverMessage"
+                  placement="left" (confirm)="delete(user._id,user.tfn)" [popoverClass]="popoverClass"
+                  class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5" (cancel)="cancelClicked = true"
+                  title="trash">
+                  <i class="fa fa-trash"></i>
+                </a> -->
+
+                </td>
+
+              </tr>
+              <tr *ngIf="showmethod=='no data' || showmethod== '';else elsepart">
+                <td colspan="7" align="center" *ngIf="showmethod=='no data';else elsepart2">No data</td>
+                <ng-template #elsepart2>
+                </ng-template>
+              </tr>
+              <ng-template #elsepart>
+                <tr>
+                  <td colspan="15" align="center">
+                    <div class="customloader" >
+                    <div class="item-1"></div>
+                    <div class="item-2"></div>
+                    <div class="item-3"></div>
+                    <div class="item-4"></div>
+                    <div class="item-5"></div>
+                  </div></td>
+                </tr>
+              </ng-template>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="11">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,445 @@
+<div class="row bg-title">
+  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+    <h4 class="page-title">TFN List</h4>
+  </div>
+  <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+    <ol class="breadcrumb m-r-0"> 
+      <li *ngIf="alluser.role=='admin'">
+        <div class="select_wrapper sm-select">
+        <ng-select2 class="input-sm" placeholder="Select Publisher"  name="publisherdropdown" [(ngModel)]="publisherdropdown"  [data]="publisherdrop" ></ng-select2>
+      </div>
+      <a class="btn btn-sm btn-outline btn-info waves-effect waves-light" (click)="resetpublisher()"><i class="fa fa-refresh"></i></a>
+
+      </li>
+      <!-- <li *ngIf="alluser.role=='admin'">
+      <a class="btn btn-sm btn-outline btn-info waves-effect waves-light m-l-5" (click)="resetpublisher()"><i class="fa fa-refresh"></i></a>
+      </li> -->
+      <!-- <li class="nonbtndate">
+        <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true" [ranges]="ranges"
+          [opens]="'left'" [showCancel]="true" [linkedCalendars]="true" [alwaysShowCalendars]="alwaysShowCalendars"
+          [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+          placeholder="Select please..." />
+      </li> -->
+      <li>
+        <a *ngIf="alluser.role!='publisher'" class="btn btn-sm btn-outline btn-info waves-effect waves-light" (click)="clickadd('no')"><i class="fa fa-plus"></i></a>
+        <!-- <a routerLink="/active-hours" class="btn btn-outline btn-info waves-effect m-l-10 waves-light">Add Publisher</a> -->
+        
+        <a (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-5 waves-light"><i
+            class="fa fa-filter"></i> Filter</a>
+      </li>
+    </ol>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+
+<!-- password -->
+
+
+<div class="row boxindex" *ngIf="setpublisher">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <h3 class="box-title m-b-0">Assign TFN</h3>
+      <p class="text-muted m-b-10">Just add new TFN in your account</p>
+
+      <form class="form-horizontal commonForm" action="">
+        <div class="row">
+          <div class="col-sm-4">
+            <!-- <h5 class="m-t-20 m-b-10">Password </h5> -->
+            <input type="text" class="form-control" name="" value="+18883888920">
+          </div>
+          <div class="col-sm-4">
+            <!-- <h5 class="m-t-20 m-b-10">Confirm Password</h5> -->
+            <select class="form-control">
+              <option selected="">Select publisher</option>
+              <option>Irshad</option>
+              <option>Sachin</option>
+            </select>
+          </div>
+
+
+          <div class="col-md-4 pull-right text-right">
+
+            <button type="button" id="deselect-all" class="btn btn-info btn-outline">Add Publisher</button>
+            <a id="refresh" (click)="clicksetpublisher()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- password -->
+
+
+
+<div class="row boxindex" *ngIf="add">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <h3 class="box-title m-b-0">Add TFN (s)</h3>
+      <p class="text-muted m-b-10">Just add new TFN in your account</p>
+
+      <form class="form-horizontal commonForm" [formGroup]="TFN" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-sm-4" *ngIf="TFN.controls.tfn_number_show.value=='' || TFN.controls.tfn_number_show.value== undefined">
+            <h5 class="m-t-20 m-b-10">TFN Number</h5> 
+            <input type="number" class="form-control" formControlName="tfn_number" name="tfn_number"
+              placeholder="Enter number">
+            <div *ngIf="submitted && f.tfn_number.errors" class="invalid-feedback">
+              <div *ngIf="f.tfn_number.errors.required">TFN number is required</div>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="TFN.controls.tfn_number_show.value!='' && TFN.controls.tfn_number_show.value!= undefined">
+            <h5 class="m-t-20 m-b-10">TFN Number</h5> 
+            <input type="number" class="form-control" disabled formControlName="tfn_number" name="tfn_number"
+              placeholder="Enter number">
+            <div *ngIf="submitted && f.tfn_number.errors" class="invalid-feedback">
+              <div *ngIf="f.tfn_number.errors.required">TFN number is required</div>
+            </div>
+          </div>
+         
+          <div class="col-sm-4" *ngIf="TFN.controls.price_per_tfn_show.value=='' || TFN.controls.price_per_tfn_show.value== undefined">
+             <h5 class="m-t-20 m-b-10">Price Per Tfn</h5> 
+            <input type="number" class="form-control" name="price_per_tfn" formControlName="price_per_tfn"
+              placeholder="Price Per Tfn">
+            <div *ngIf="submitted && f.price_per_tfn.errors" class="invalid-feedback">
+              <div *ngIf="f.price_per_tfn.errors.required">Price per Tfn is required</div>
+            </div>
+          </div>
+
+          <div class="col-sm-4" *ngIf="TFN.controls.price_per_tfn_show.value!='' && TFN.controls.price_per_tfn_show.value!= undefined">
+            <h5 class="m-t-20 m-b-10">Price Per Tfn</h5> 
+           <input type="number" class="form-control" disabled name="price_per_tfn" formControlName="price_per_tfn"
+             placeholder="Price Per Tfn">
+           <div *ngIf="submitted && f.price_per_tfn.errors" class="invalid-feedback">
+             <div *ngIf="f.price_per_tfn.errors.required">Price per Tfn is required</div>
+           </div>
+         </div>
+         <div class="col-sm-4" *ngIf="this.alluser.role =='admin'">
+            <h5 class="m-t-20 m-b-10">Choose Publisher</h5>
+            <ng-select2 class="select2custome" placeholder="Select Publisher" formControlName="publisher"   name="publisherdropdown"  [data]="publisherdrop" ></ng-select2>
+            
+            <!-- <select class="form-control" formControlName="publisher">
+              <option *ngFor="let publisher of this.dropdownpublisher" value="{{publisher.pub_id}}">
+                {{publisher.publisher_name}}</option>
+              
+            </select> -->
+            <div *ngIf="submitted && f.publisher.errors" class="invalid-feedback">
+              <div *ngIf="f.publisher.errors.required">Publisher is required</div>
+            </div>
+          </div>
+          <!-- <div class="col-sm-4">
+             <h5 class="m-t-20 m-b-10">Status</h5> 
+            <div class="select_wrapper sm-select">
+              <select class="form-control" formControlName="status">
+                  <option value="">select Status</option>
+                  <option value="available">Available</option>
+                  <option value="used">Used</option> 
+                  <option value="unused">Unused</option> 
+                  <option value="pending">Pending</option>
+              </select>
+              <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                  <div *ngIf="f.status.errors.required">Status is required</div>
+              </div>
+          </div>
+          </div> -->
+
+          <div class="col-md-4 pull-right text-right">
+              
+            <h5 class="m-t-20"></h5>
+              
+            <button type="submit" *ngIf="submitbutton" id="deselect-all" class="btn btn-info btn-outline">
+              {{button}}</button>
+            <a id="refresh" (click)="clickadd()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+          </div>
+          <div class="ajax_loader" *ngIf="loading" >
+            <div class="customloader" >
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- buyerlist -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="white-box">
+        <div class="pull-left"><h3 class="box-title">TFN (s) </h3>
+          </div>
+          <ul class="all_doc_file nav nav-tabs navbar-right filtersnav btn-group">
+            <li>
+                <button  mwlConfirmationPopover [popoverTitle]="" [popoverMessage]="popoverMessage"
+                placement="left" (confirm)="deletepart()" [popoverClass]="popoverClass"
+                class="edit-modal btn btn-danger btn-outline btn-sm" (cancel)="cancelClicked = true"
+                tooltip="Delete TFN">Multiple Delete </button>
+            </li>
+          </ul>
+      <!-- <h3 class="box-title">TFN (s)   </h3> -->
+     <div class="clearfix"></div>
+      <!-- <h3 class="box-title">TFN (s)</h3>
+      <button  mwlConfirmationPopover [popoverTitle]="" [popoverMessage]="popoverMessage"
+      placement="right" (confirm)="deletepart()" [popoverClass]="popoverClass"
+      class="edit-modal btn btn-danger btn-outline  btn-sm m-r-5" (cancel)="cancelClicked = true"
+      tooltip="Delete TFN">Multiple Delete</button><h5>TotalChecked :{{countCheck}}</h5>  -->
+      <div class="table-responsive performance_table">
+          <!-- <div class="ajax_loader" *ngIf="mf.data==null || mf.data==''">Loading data..</div> -->
+
+
+      <div class="alert pbxalert alert-success alert-dismissible animated fadeInRight" *ngIf="messageheader != '' && messageheader != null">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{messageheader}}
+      </div>
+      <div class="alert pbxalert alert-warning alert-dismissible animated fadeInRight" *ngIf="messageheadererror != '' && messageheadererror != null">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{messageheadererror}}
+      </div>
+      
+      <div class="table-responsive performance_table">
+        <table class="table table-striped valign-table" [mfData]="data| tfnFilter :number:publisherdropdown:price:selected:statusname:pub_name_show" #mf="mfDataTable" [mfRowsOnPage]="10">
+          <thead>
+            <tr>
+              <th width="10%">
+                <label>Selected: {{countCheck}}</label> 
+                  <label class="checkbox newcheckbox">
+                <input type="checkbox"  [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"/>
+                <span></span>
+              </label>
+              </th>
+              <th>No.</th>
+              <th>
+                <mfDefaultSorter by="tfn" class="ancor">Number</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="publisherName"> Publisher Name</mfDefaultSorter>
+              </th>
+              <!-- <th>
+                <mfDefaultSorter by="createnumber">Date</mfDefaultSorter>
+              </th> -->
+              <th>
+                <mfDefaultSorter by="price_per_tfn">TFN Price</mfDefaultSorter>
+              </th>
+              <!-- <th>
+                <mfDefaultSorter  by="">Assigned</mfDefaultSorter>
+              </th> -->
+
+              <th>
+                <mfDefaultSorter by="status">Status</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="">Action</mfDefaultSorter>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of mf.data ; index as i;">
+              <td *ngIf="data.indexOf(user) + 1 !=0" class="">
+                <label class="checkbox newcheckbox">
+                    <input type="checkbox" [(ngModel)]="user.isSelected" name="list_name" value="{{user.tfn}}" (change)="isAllSelected()"/>
+<span></span>
+                </label>
+                  </td>
+              <td *ngIf="data.indexOf(user) + 1 !=0">{{data.indexOf(user) + 1}}</td>
+              <td *ngIf="data.indexOf(user) + 1 !=0">{{user.tfn}}</td>
+              <td *ngIf="data.indexOf(user) + 1 !=0">{{user.publisherName}}</td>
+              <!-- <td>{{user.purchase_date}}</td> -->
+              <td *ngIf="data.indexOf(user) + 1 !=0">{{user.price_per_tfn}}</td>
+              <!-- <td>
+                <span *ngIf="user.publisher =='you'"><i class="fa fa-close fa-lg text-danger"></i>
+                  {{user.publisher}}</span>
+                <span *ngIf="user.publisher =='me'"><i class="fa fa-close fa-lg text-danger"></i>
+                  {{user.publisher}}</span>
+                <span><a (click)="clicksetpublisher()" style="color: #fff; cursor: pointer;"><i
+                      class="fa fa-plus fa-lg"></i> Not assigned</a></span>
+
+              </td> -->
+              <td *ngIf="data.indexOf(user) + 1 !=0">
+                  {{user.status}}
+                <!-- <span *ngIf="user.status =='available'">
+                  <input type="checkbox" checked class="switchinput" id="statuscheck{{i}}" /><label
+                    for="statuscheck{{i}}" class="switchbtn status">Toggle</label>
+
+                </span> -->
+                <!-- <span *ngIf="user.status !='available'">
+                  <input type="checkbox" class="switchinput" id="statuscheck{{i}}" /><label for="statuscheck{{i}}"
+                    class="switchbtn status">Toggle</label>
+
+                </span> -->
+              </td>
+
+              <td style="width: 110px; " *ngIf="data.indexOf(user) + 1 !=0">
+
+                 <a href="javascript:void()" (click)= "edit(user._id)" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5"
+                  title="edit">
+                  <i class="fa fa-edit"></i>
+                </a> 
+                <!--   <a (click)="setPassword()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Set password">
+                    <i class="fa fa-lock"></i> 
+       </a>
+       <a (click)="managenumber()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Manage number">
+                    <i class="fa fa-phone"></i> 
+       </a> -->   
+                <a *ngIf="showpub" 
+                  href="javascript:void()"
+                  mwlConfirmationPopover 
+                  [popoverTitle]="" 
+                  [popoverMessage]="user.status==='used'?popoverMessage_used:popoverMessage"  
+                  placement="left" (confirm)="delete(user._id,user.tfn,user.status)" [popoverClass]="popoverClass"
+                  class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5" (cancel)="cancelClicked = true"
+                  >
+                  <i class="fa fa-trash"></i>
+
+                </a>
+
+                <a href="javascript:void()" *ngIf="user.status=='used'"  mwlConfirmationPopover [popoverTitle]="irshad" [popoverMessage]="popoverMessage_aunsign" (confirm)="unAssign(user.tfn)" [popoverClass]="popoverClass"  (cancel)="cancelClicked = true" placement="left" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                  <i class="fa fa-unlock"></i> 
+                </a> 
+  
+
+              </td>
+
+            </tr>
+            <tr *ngIf="showmethod=='no data' || showmethod== '';else elsepart">
+                  <td colspan="7" align="center" *ngIf="showmethod=='no data';else elsepart2">No data</td>
+                  <ng-template #elsepart2>
+                  </ng-template>
+                </tr>
+                <ng-template #elsepart>
+                  <tr>
+                    <td colspan="15" align="center">
+                      <div class="customloader" >
+                      <div class="item-1"></div>
+                      <div class="item-2"></div>
+                      <div class="item-3"></div>
+                      <div class="item-4"></div>
+                      <div class="item-5"></div>
+                    </div></td>
+                  </tr>
+                </ng-template>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="11">
+                <mfBootstrapPaginator (pageChange)="page = $event" [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- .right-sidebar -->
+<div class="right-sidebar" [ngClass]="status? 'shw-rside' : ''">
+    <div id="filteroverlay" (click)="clickFilter()"  [ngClass]="status? 'show' : ''"></div>
+
+  <div class="slimscrollright">
+    <div class="rpanel-title"> Filter Panel <span (click)="clickFilter()"><i class="ti-close right-side-toggle"
+         ></i></span> </div>
+    <div class="r-panel-body">
+      <form class="form-horizontal" action="">
+        <div class="row">
+          <!-- <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Select box</h5>
+            <div class="select_wrapper sm-select">
+            <select class="selectpicker form-control" data-style="form-control" (change)="selectChangeFilter($event)">
+              <option value="0">Select filter type</option>
+              <option value="Number">Number</option>
+              <option value="Name">Name</option>
+              <option value="Formatted">Formatted</option>
+              <option value="Date">Date</option>
+              <option value="Price">TFN price</option>
+              <option value="Status">Status</option>
+            </select>
+            </div>
+          </div> -->
+          <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select Name</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr2')" tooltip="Reset Number"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="pub_name_show" name="pub_name_show" placeholder="Enter Name">
+          </div>
+          
+          <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select Number</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr1')" tooltip="Reset  Number"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="number" name="number" placeholder="Enter Number">
+          </div>
+          <!-- <div class="col-md-12" *ngIf="filtr1">
+                                      <h5 class="m-t-20 m-b-10">Select {{selectedFilter}}</h5>
+                                      <input type="text" class="form-control" (keyup)="filter('Number',$event)" name="" placeholder="Enter {{selectedFilter}}">
+                                    </div> -->
+          <!-- <div class="col-md-12" *ngIf="filtr2">
+            <h5 class="m-t-20 m-b-10">Select name</h5> <button class="btn btn-danger btn-xs btnfilterClose"
+              (click)="closefiltr('filtr2')">x</button>
+            <input type="text" class="form-control" [(ngModel)]="name" name="name" placeholder="Enter Name">
+          </div> -->
+          <!-- <div class="col-md-12" *ngIf="filtr2">
+                                      <h5 class="m-t-20 m-b-10">Select {{selectedFilter}}</h5>
+                                      <input type="text" class="form-control" (keyup)="filter('Name',$event)" name="" placeholder="Enter {{selectedFilter}}">
+                                    </div> -->
+
+          <!-- <div class="col-md-12" *ngIf="filtr5">
+                                      <h5 class="m-t-20 m-b-10">Select {{selectedFilter}}</h5>
+                                      <input type="text" class="form-control" (keyup)="filter('Status',$event)" name="" placeholder="Enter {{selectedFilter}}">
+                                    </div> -->
+          <!-- <div class="col-md-12" *ngIf="filtr4">
+                                      <h5 class="m-t-20 m-b-10">Select {{selectedFilter}}</h5>
+                                      <input type="text" class="form-control" (keyup)="filter('number',$event)" name="" placeholder="Enter {{selectedFilter}}">
+                                    </div> -->
+          <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select TFN Price</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr3')" tooltip="Reset TFN Price"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="price" name="price" placeholder="Enter TFN Price">
+          </div>
+          <!-- <div class="col-md-12" >
+                                        <h5 class="m-t-20 m-b-10">Search</h5>
+                                        <input type="text" class="form-control" (keyup)="filterall($event.target.value)"  placeholder="Enter {{selectedFilter}}">
+                                      </div> -->
+          <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select Status</h5>
+            <button class="btn btn-danger btn-xs btnfilterClose filtrreset" (click)="closefiltr('filtr4')" tooltip="Reset Status"><i class="fa fa-repeat"></i></button>
+            <select class="form-control" [(ngModel)]="statusname" name="statusname">
+              <option value="">select Status</option>
+                  <option value="available">Available</option>
+                  <option value="used">Used</option> 
+                  <!-- <option value="unused">Unused</option> 
+                  <option value="pending">Pending</option> -->
+            </select>
+          </div>
+
+
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+          <h5 class="m-t-30"></h5>
+          <a id="refresh" class="btn btn-warning btn-outline"  (click)="resetfilter()" tooltip="Reset All">Reset All</a> 
+          </div>
+          <div class="col-md-6">
+            <h5 class="m-t-30"></h5>
+            <a class="btn btn-danger  btn-outline"  (click)="clickFilter()" tooltip="close panle without reset filter">Hide Panel</a> 
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Right sidebar -->
+<!-- ============================================================== -->

@@ -1,0 +1,174 @@
+ <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">View Profile</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb m-r-0">
+                    <li> 
+                      <!-- <a data-target="#myModal" data-toggle="modal" class="btn btn-outline btn-info waves-effect waves-light">Edit Profile</a> -->
+                        
+                        </li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+
+<div class="row">
+
+ 
+                     <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <div class="white-box">
+                            <div class="card-body">
+                                <div class="text-center m-t-30"> <img src="assets/plugins/images/users/varun.jpg" class="rounded-circle" width="150">
+                                    <h4 class="card-title m-t-10" >{{objectt.firstname}}</h4>
+                                    <h6 class="card-subtitle">Role: {{objectt.role}}</h6>
+                                  
+                                </div>
+                            </div>
+                            <div>
+                                <hr> </div>
+                            <div class="card-body"> <small class="text-muted">Address on Map </small>
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d112173.0889795998!2d77.13894547280779!3d28.52742286114807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x52c2b7494e204dce!2sNew+Delhi%2C+Delhi!5e0!3m2!1sen!2sin!4v1561540255323!5m2!1sen!2sin" width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                      <div class="col-lg-8 col-xlg-9 col-md-7">
+                     
+                          
+                             <div class="white-box">
+                               <!-- Tabs -->
+                            <ul class="nav customtab nav-tabs" role="tablist">
+                               
+                                <!-- <li class="nav-item active">
+                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#last-month" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+                                </li> -->
+                                <li class="nav-item active" >
+                                    <a class="nav-link" id="pills-setting-tab" data-toggle="pill" href="#previous-month" role="tab" aria-controls="pills-setting" aria-selected="false">Setting</a>
+                                </li>
+                            </ul>
+                            <!-- Tabs -->
+                            <div class="tab-content" id="pills-tabContent">
+                                
+                                <!-- <div class="tab-pane fade active in" id="last-month" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-xs-6 b-r">
+                                                <p class="text-muted">Full Name</p>
+                                             <strong>{{objectt.firstname +' '+ objectt.lastname | titlecase }}</strong>
+                                                <br>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6 b-r"> 
+                                                <p class="text-muted">Contact No.</p>
+                                            <strong>{{objectt.phone}}</strong>
+                                                
+                                            </div>
+                                          
+                                          
+                                        </div>
+                                        <hr>
+                                         <div class="row">
+                                           <div class="col-sm-6 col-xs-6 b-r"> 
+                                               
+                                                <p class="text-muted">Email </p>
+                                           <strong>{{objectt.email}}</strong>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6 b-r"> 
+                                               
+                                                <p class="text-muted">Department</p>
+                                            <strong>{{objectt.department}}</strong>
+                                            </div>
+                                            </div>
+                                               <hr>
+                                              <div class="row">
+                                            <div class="col-sm-6 col-xs-6 b-r"> 
+                                               
+                                                <p class="text-muted">Shift Time</p>
+                                            <strong>{{objectt.shift}}</strong>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6 b-r">
+                                               
+                                                <p class="text-muted">Reporting To</p>
+                                             <strong>{{objectt.reportingTo | titlecase}}</strong>
+                                            </div>
+                                            
+                                        </div> 
+                                         <hr>
+                                        <div class="row">
+                                        <div class="col-sm-6 col-xs-12 b-r"> 
+                                                <p class="text-muted"> Extension id </p>
+                                        <strong>{{objectt.extensionId}}</strong>
+                                              
+                                            </div>
+                                            
+                                        <div class="col-sm-6 col-xs-12 b-r"> 
+                                                <p class="text-muted"> Joining Date</p>
+                                        <strong>{{objectt.joiningDate}}</strong>
+                                             
+                                            </div>
+                                            </div> 
+                                             <hr>
+                                            <div class="row">
+                                        	 <div class="col-sm-12 col-xs-12 b-r">
+                                                <p class="text-muted">Address</p>
+                                        	  <strong>{{objectt.address}}</strong>
+                                                
+                                            </div>
+                                        </div>
+                                       
+                                      
+                                    </div>
+                                </div> -->
+                                <div class="tab-pane fade active in" id="previous-month" role="tabpanel" aria-labelledby="pills-setting-tab">
+                                    <div class="card-body">
+                                    <div class="alert alert-danger" id="notMatch" style="display: none;">Passwords do not match.</div>
+                                    <div class="alert alert-success" id="itmatch" style="display: none;">Password successfully changed.</div>
+                                        <form class="form-horizontal form-material" [formGroup]="ForgetPassword" (ngSubmit)="onSubmit()"   id="UpdatePassword" novalidate="novalidate">
+                                        <!-- <input type="hidden" name="_token" value="PfGzrzRRum2bFLI7XJhWlo0mufowqpIsT2bVF5L2"> -->
+
+                                      
+                                            <div class="form-group">
+                                                <label class="col-md-12">Current Password</label>
+                                                <div class="col-md-12">
+                                                  <input type="password" formControlName="current" class="form-control form-control-line" name="currentpassword" placeholder="Current Password" id="currentpassword" required="" aria-required="true"> 
+                                                  <div *ngIf="submitted && f.current.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.current.errors.required">Current Password is required</div>
+                                                    
+                                                  </div>
+                                                </div>
+                                            </div>
+                                             <div class="form-group">
+                                                <label class="col-md-12">New Password</label>
+                                                <div class="col-md-12">
+                                                 <input type="password" class="form-control form-control-line" formControlName="password" name="newpassword" placeholder="New Password" id="newpassword" required="" aria-required="true">
+                                                 <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.password.errors.required">Password is required</div>
+                                                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                             <div class="form-group">
+                                                <label class="col-md-12">Confirm Password</label>
+                                                <div class="col-md-12">
+                                                    <input type="password" formControlName="confirmPassword" class="form-control form-control-line" name="confirmpassword" id="confirmpassword" placeholder="Confirm New Password">
+                                                    <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                                                        <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                    
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <button type="submit" class="btn btn-success btn-submit">Update Profile</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     </div>

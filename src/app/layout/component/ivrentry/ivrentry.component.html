@@ -1,0 +1,170 @@
+<div class="row bg-title">
+  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+    <h4 class="page-title">Manage IVR </h4>
+  </div>
+  <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+    <ol class="breadcrumb m-r-0">
+      <li>
+        <a class="btn btn-sm btn-outline btn-info waves-effect waves-light" (click)="editIvr(0)"><i
+          class="fa fa-plus"></i></a>
+        <a (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-10 waves-light"><i
+            class="fa fa-filter"></i> Filter</a>
+      </li>
+    </ol>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-12">
+   
+    <div class="white-box">
+      <h3 class="box-title">IVR  </h3>
+     
+      <!-- <div class="alert pbxalert alert-danger alert-dismissible animated fadeInRight">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{messageheader}} You should read this message.
+      </div> -->
+      <div class="table-responsive performance_table">
+          <!-- <div class="ajax_loader" *ngIf="mf.data==null || mf.data==''">Loading data..</div> -->
+
+
+      <!-- <div class="alert pbxalert alert-success alert-dismissible animated fadeInRight" *ngIf="messageheader">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{messageheader}}
+      </div>
+      <div class="alert pbxalert alert-warning alert-dismissible animated fadeInRight" *ngIf="messageheadererror">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{messageheadererror}}
+      </div> -->
+
+      <!-- <div *ngIf="messageheader != ''" class="alert alert-success" >
+          {{messageheader}}
+      </div>
+      <div *ngIf="messageheadererror != ''" class="alert alert-warning " >
+          {{messageheadererror}}
+      </div> -->
+      <div class="table-responsive performance_table">
+
+        <!-- <div class="ajax_loader"*ngIf="loader" >fetching data ..</div> -->
+
+        <table class="table table-striped valign-table" [mfData]="data|ivr:name" #mf="mfDataTable" [mfRowsOnPage]="10" 
+        
+        >
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>
+                <mfDefaultSorter by="name" class="ancor">Name</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="directdial">Directdial</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="description">Description</mfDefaultSorter>
+              </th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of mf.data  ; index as i;">
+              <td>{{i+1}}</td>
+              <td>{{user.name}}</td>
+              <td>{{user.directdial}}</td>
+              <td>{{user.description}}</td>
+              <td>
+                <a placement="top" tooltip="edit" (click)="editIvr(user.id)"
+                class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                <i class="fa fa-edit"></i>
+                
+              </a>
+
+                <a href="javascript:void(0)" mwlConfirmationPopover
+                  tooltip="delete"
+                  [popoverMessage]="popoverMessage"
+                  [popoverClass]="popoverClass"
+                  placement="left"
+                  (confirm)="delete(user.id)"
+                  (cancel)="cancelClicked = true"
+                  class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5"
+                  title="Delete"
+                >
+                <i class="fa fa-trash"></i>
+               </a>
+
+              </td>
+            </tr>
+
+            <!-- <tr *ngIf="showmethod=='no data' || showmethod== '';else elsepart">
+              <td colspan="11" align="center" *ngIf="showmethod=='no data';else elsepart2">No data</td>
+              <ng-template #elsepart2>
+              </ng-template>
+            </tr>
+
+            <ng-template #elsepart>
+              <tr>
+                <td colspan="15" align="center">
+                  <div class="customloader" >
+                  <div class="item-1"></div>
+                  <div class="item-2"></div>
+                  <div class="item-3"></div>
+                  <div class="item-4"></div>
+                  <div class="item-5"></div>
+                </div></td>
+              </tr>
+            </ng-template> -->
+
+            <!-- <tr *ngIf="mf.data==null || mf.data==''"><td>Loading data..</td></tr> -->
+
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="10">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<!-- .right-sidebar -->
+<div class="right-sidebar" [ngClass]="filetePanel? 'shw-rside' : ''">
+  <div class="slimscrollright">
+    <div class="rpanel-title"> Filter Panel <span><i class="ti-close right-side-toggle"
+          (click)="clickFilter()"></i></span> </div>
+
+    <div class="r-panel-body">
+      <form class="form-horizontal" action="">
+        <div class="row">
+          <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Name</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr1') " tooltip="Reset Name"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="name" name="name" placeholder="Enter Name">
+          </div>
+
+          <!-- <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select Filename</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr2')" tooltip="Reset Contact"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="filename" name="filename" placeholder="Enter Contact">
+          </div> -->
+        </div>
+        <div class="row">
+              <div class="col-md-6">
+              <h5 class="m-t-30"></h5>
+              <a id="refresh" class="btn btn-warning btn-outline"  (click)="resetfilter()" tooltip="Reset All">Reset All</a> 
+              </div>
+          <div class="col-md-6">
+            <h5 class="m-t-30"></h5>
+            <a class="btn btn-danger  btn-outline"  (click)="clickFilter()" tooltip="close panle without reset filter">Hide Panel</a> 
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,159 @@
+<div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <h4 class="page-title">Page List</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+          <ol class="breadcrumb m-r-0">
+      
+            <li> <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true" [ranges]="ranges"
+                [opens]="'left'" [showCancel]="true" [linkedCalendars]="true" [alwaysShowCalendars]="alwaysShowCalendars"
+                [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+                placeholder="Select please..." /></li>
+            <li>
+            <li>
+              <!-- <a data-target="#myModal" data-toggle="modal" class="btn btn-outline btn-warning waves-effect waves-light"><i class="fa fa-plus"></i> Add Publisher</a> -->
+              <a (click)="addnewpage()" class="btn btn-sm btn-outline btn-info waves-effect  waves-light"><i
+                  class="fa fa-plus"></i> Add New</a>
+              <a  class="btn btn-sm btn-outline btn-info waves-effect m-l-5 waves-light">Filter</a>
+            </li>
+      
+          </ol>
+        </div>
+      
+        <!-- /.col-lg-12 -->
+      </div>
+      
+
+
+
+
+      <div class="row boxindex" *ngIf="addpage">
+            <div class="col-sm-12">
+              <div class="white-box">
+                <h3 class="box-title m-b-0">Add Page</h3>
+                
+          
+                    <form class="form-horizontal commonForm" action="">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h5 class="m-t-20 m-b-10">Role</h5>
+                                  <input type="text" class="form-control" name="" placeholder="Enter role">
+                                </div>
+                                <div class="col-sm-4">
+                                    <h5 class="m-t-20 m-b-10">Module</h5>
+                                   <input type="email" class="form-control" name="" placeholder="Email module">
+                                </div>
+                                <div class="col-sm-4">
+                                    <h5 class="m-t-20">Page Title</h5>
+                                    <input type="text" class="form-control" name="" placeholder="Page title">
+                                </div>
+                            </div>
+                            <div class="row">
+                             <div class="col-sm-4">
+                                    <h5 class="m-t-20">Page Slug</h5>
+                                    <input type="text" class="form-control" name="" placeholder="slug">
+                                </div>
+                                <div class="col-sm-4">
+                                    <h5 class="m-t-20 m-b-10">Priority</h5>
+                                    <input type="text" class="form-control" name="" placeholder="priority">
+                                </div>
+                                <div class="col-sm-4">
+                                    <h5 class="m-t-20 m-b-10">Show In Menu</h5>
+                                   <input type="password" class="form-control" name="" placeholder="Yes">
+                                </div>
+                               
+                            </div>
+                             <div class="row">
+                                <div class="col-md-4 pull-right text-right">
+ <h5 class="m-t-20"></h5>
+                          <button type="button" id="deselect-all" class="btn btn-info btn-outline">Add Page</button>
+                          <a id="refresh" (click)="addnewpage()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+                         </div>
+                         </div>
+                         </form>
+          
+                
+              </div>
+            </div>
+          </div>
+          
+          
+          <!-- manage number -->
+          
+
+
+
+
+    
+
+    <div class="row">
+            <div class="col-md-12">
+            <div class="white-box">
+            <h3 class="box-title">Pages</h3>
+               <div class="table-responsive performance_table">
+<table class="table table-striped valign-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+<thead>
+<tr>
+<th>No.</th>
+<th>
+  <mfDefaultSorter by="name" class="ancor">Page Title</mfDefaultSorter>
+</th>
+
+<th>
+  <mfDefaultSorter by="live">Role</mfDefaultSorter>
+</th>
+<th>
+  <mfDefaultSorter by="hour">Module Name</mfDefaultSorter>
+</th>
+
+<th>
+  <mfDefaultSorter by="day">Createed Date</mfDefaultSorter>
+</th>
+
+<th>
+  <mfDefaultSorter by="">Show In Menu</mfDefaultSorter>
+</th>
+
+<th>
+  <mfDefaultSorter by="">Action</mfDefaultSorter>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let user of mf.data; index as i;">
+<td>{{i + 1}}</td>
+<td>{{user.name}}</td>
+
+<td>{{user.email}}</td>
+<td>{{user.contact}}</td>
+
+<td>{{user.date}}</td>
+
+<td>{{user.status}} </td>
+
+<td style="width: 140px; ">
+<a href="javascript:void()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="edit">
+            <i class="fa fa-edit"></i> 
+</a>
+
+<a href="javascript:void()" class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5" title="trash">
+            <i class="fa fa-trash"></i> 
+</a>
+
+</td>
+
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="12">
+  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+      
+      </div>
+            </div>
+        </div>

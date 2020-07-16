@@ -1,0 +1,539 @@
+<div class="row bg-title">
+  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+    <h4 class="page-title">Manage Buyers</h4>
+  </div>
+  <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+    <ol class="breadcrumb m-r-0">
+      <li *ngIf="showpub">
+        <div class="select_wrapper sm-select">
+          <!-- <select class="form-control input-sm" placeholder=""  [(ngModel)]="publisherdropdown" name="publisherdropdown">
+          <option >Select Publisher</option>
+          <option *ngFor="let pub of publisher" value="{{pub.uid}}">{{pub.username}}</option>
+
+        </select> -->
+          <ng-select2 class="input-sm" placeholder="Select Publisher" [(ngModel)]="publisherdropdown"
+             name="publisherdropdown" [data]="publisher"></ng-select2>
+        </div>
+        <a (click)="resetpublisher()" *ngIf="alluser.role != 'publisher'"
+          class="btn btn-sm btn-info btn-outline waves-effect waves-light" title="Reset"><i
+            class="fa fa-repeat"></i></a>
+      </li>
+      <li> <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true"
+          [ranges]="ranges" [opens]="'left'" [showCancel]="true" [linkedCalendars]="true"
+          [alwaysShowCalendars]="alwaysShowCalendars"
+          [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+          placeholder="Select please..." /></li>
+      <li>
+        <a class="btn btn-sm btn-outline btn-info waves-effect waves-light" (click)="clickadd()"><i
+            class="fa fa-plus"></i></a>
+        <!-- <a routerLink="/active-hours" class="btn btn-outline btn-info waves-effect m-l-10 waves-light">Add Publisher</a> -->
+        <a (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-10 waves-light"><i
+            class="fa fa-filter"></i> Filter</a>
+
+      </li>
+    </ol>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<div class="row boxindex" *ngIf="buyernumber">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <h3 class="box-title m-b-0">Buyer Number <button class="btn btn-danger pull-right"
+          (click)="managenumber('not_user')">close</button></h3>
+      <p class="text-muted m-b-10">Just add new Buyer Number in your account</p>
+
+      <form class="form-horizontal commonForm" [formGroup]="ManageBuyersNumber" (ngSubmit)="buyernumbersubmit()">
+        <div class="row">
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Add Number</h5>
+
+            <input type="number" class="form-control" formControlName="number" name="" placeholder="Enter number">
+            <div *ngIf="submitted1 && buyernumbervalid.number.errors" class="invalid-feedback">
+              <div *ngIf="buyernumbervalid.number.errors.required">Buyer Number is required</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Add Capping</h5>
+
+            <input type="number" class="form-control" formControlName="capping" name="" placeholder="Enter capping">
+            <div *ngIf="submitted1 && buyernumbervalid.capping.errors" class="invalid-feedback">
+              <div *ngIf="buyernumbervalid.capping.errors.required">Buyer Capping is required</div>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Daily Capping</h5>
+
+            <input type="number" class="form-control" formControlName="global_cap" name="" placeholder="Enter Daily capping">
+            <div *ngIf="submitted1 && buyernumbervalid.capping.errors" class="invalid-feedback">
+              <div *ngIf="buyernumbervalid.global_cap.errors.required">Buyer Capping is required</div>
+            </div>
+          </div>
+
+          <!-- <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Add Queue/Campaign</h5>
+
+            <input type="number" class="form-control" formControlName="queue" name="" placeholder="Enter queue/campaign">
+            <div *ngIf="submitted1 && buyernumbervalid.queue.errors" class="invalid-feedback">
+              <div *ngIf="buyernumbervalid.queue.errors.required">Buyer Queue is required</div>
+            </div>
+          </div> -->
+          <div class="col-sm-3">
+             
+                  <!-- <img *ngIf="loading1" src="assets/img/loading.gif" width="24">  -->
+                  
+            <button type="submit" *ngIf="submitbutton1" class="btn btn-info btnm"><i class="fa fa-plus"></i></button>
+            <button type="submit" *ngIf="!submitbutton1" class="btn btn-info btnm">Edit</button>
+          </div>
+          <img *ngIf="loading1" src="assets/img/loading.gif" width="24" class="center_load">
+        </div>
+      </form>
+
+
+        <div class="row m-t-30">
+          <div class="col-sm-12">
+            <table class="table valign-table">
+              <thead>
+                <tr>
+                  <td>No</td>
+                  <td>Number</td>
+                  <td>Capping</td>
+                  <td>Daily Capping</td>
+                  <!-- <td>Queue</td> -->
+                  <td style="text-align: right;">Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let number of getbuyernumber;index as i">
+                  <td>{{i + 1}}</td>
+                  <td>{{number.number}}</td>
+                  <td>{{number.capping}}</td>
+                  <td>{{number.global_cap}}</td>
+                  <!-- <td>{{number.queue}}</td> -->
+                  <td align="right">
+                    <a placement="top" tooltip="edit" (click)="editBuyerCapping(number.number,number.capping,number.global_cap)"
+                  class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                  <i class="fa fa-edit"></i>
+                </a>
+                    <button mwlConfirmationPopover [popoverTitle]="popoverTitle"
+                      [popoverMessage]="popoverMessage" [popoverClass]="popoverClass" placement="left"
+                      (confirm)="deletenumber(number.buyer_id)" (cancel)="cancelClicked = true"
+                      class="btn btn-danger btn-circle  btn-sm "><i class="fa fa-trash"></i></button></td>
+                </tr>
+                
+
+              <tr class="" *ngIf="showmethod=='no data' || showmethod== '';else elsepart">
+                  <td colspan="5" align="center" *ngIf="showmethod=='no data';else elsepart2">No data</td>
+                  <ng-template #elsepart2>
+                  </ng-template>
+                </tr>
+                <ng-template #elsepart>
+                  <tr>
+                    <td colspan="15" align="center">
+                      <div class="customloader" >
+                      <div class="item-1"></div>
+                      <div class="item-2"></div>
+                      <div class="item-3"></div>
+                      <div class="item-4"></div>
+                      <div class="item-5"></div>
+                    </div></td>
+                  </tr>
+                </ng-template>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- manage number -->
+
+
+
+<!-- password -->
+
+
+<div class="row boxindex" *ngIf="setpassword">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <h3 class="box-title m-b-0">Set Password</h3>
+      <p class="text-muted m-b-10">Just add new publisher in your account</p>
+
+      <form class="form-horizontal commonForm">
+        <div class="row">
+          <div class="col-sm-4">
+            <!-- <h5 class="m-t-20 m-b-10">Password </h5> -->
+            <input type="text" class="form-control" name="" placeholder="Enter password">
+          </div>
+          <div class="col-sm-4">
+            <!-- <h5 class="m-t-20 m-b-10">Confirm Password</h5> -->
+            <input type="email" class="form-control" name="" placeholder="Confirm password">
+          </div>
+
+
+          <div class="col-md-4 pull-right text-right">
+
+            <button type="button" id="deselect-all" class="btn btn-info btn-outline">Set Password</button>
+            <a id="refresh" (click)="setPassword()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- password -->
+
+
+
+<div class="row boxindex" *ngIf="add">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <h3 class="box-title m-b-0">{{button}} Buyer</h3>
+      <p class="text-muted m-b-10">Just {{button}} Buyer in your account</p>
+
+      <form class="form-horizontal commonForm" [formGroup]="ManageBuyers" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-sm-4">
+            <h5 class="m-t-20 m-b-10">Buyer Name</h5>
+            <input type="text" class="form-control" name="" placeholder="Enter fullname" formControlName="name">
+            <div *ngIf="submitted && buyer.name.errors" class="invalid-feedback">
+              <div *ngIf="buyer.name.errors.required">Buyer Name is required</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <h5 class="m-t-20 m-b-10">Email</h5>
+            <input type="email" class="form-control" name="" placeholder="Email id" formControlName="email">
+            <div *ngIf="submitted && buyer.email.errors" class="invalid-feedback">
+              <div *ngIf="buyer.email.errors.required">Email is required</div>
+              <div *ngIf="buyer.email.errors.email">Email must be a valid email address</div>
+
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <h5 class="m-t-20">Contact</h5>
+            <input type="number" class="form-control" name="" placeholder="Contact number" formControlName="contact">
+            <div *ngIf="submitted && buyer.contact.errors" class="invalid-feedback">
+              <div *ngIf="buyer.contact.errors.required">Contact is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <h5 class="m-t-20">Address</h5>
+            <input type="text" class="form-control" name="" placeholder="Address" formControlName="address">
+            <div *ngIf="submitted && buyer.address.errors" class="invalid-feedback">
+              <div *ngIf="buyer.address.errors.required">Address is required</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <h5 class="m-t-20 m-b-10">Price per Call ($)</h5>
+            <input type="number" class="form-control" name="" placeholder="$" formControlName="price_per_call">
+            <div *ngIf="submitted && buyer.price_per_call.errors" class="invalid-feedback">
+              <div *ngIf="buyer.price_per_call.errors.required">Price per Call is required</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <h5 class="m-t-20 m-b-10">Buffer Time (in seconds)</h5>
+            <input type="number" formControlName="buffer_time" class="form-control" name="" placeholder="Buffer time">
+            <div *ngIf="submitted && buyer.buffer_time.errors" class="invalid-feedback">
+              <div *ngIf="buyer.buffer_time.errors.required">Buffer Time is required</div>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="ispublisher">
+            <h5 class="m-t-20 m-b-10">Choose Publisher</h5>
+
+            <select class="form-control" formControlName="publisher">
+              <option *ngFor="let publisher of this.dropdownpublisher" value="{{publisher.pub_id}}">
+                {{publisher.publisher_name}}</option>
+              <div *ngIf="submitted && buyer.publisher.errors" class="invalid-feedback">
+                <div *ngIf="buyer.publisher.errors.required">Publisher is required</div>
+              </div>
+            </select>
+
+          </div>
+          <div class="col-sm-4">
+            <h5 class="m-t-20 m-b-10">Password</h5>
+            <input type="password" class="form-control" formControlName="password" placeholder="password">
+            <div *ngIf="submitted && buyer.password.errors" class="invalid-feedback">
+              <div *ngIf="buyer.password.errors.required">Password is required</div>
+              <div *ngIf="buyer.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <h5 class="m-t-20">Confirm Password</h5>
+            <input type="password" class="form-control" formControlName="confirmPassword"
+              placeholder="Confirm password">
+            <div *ngIf="submitted && buyer.confirmPassword.errors" class="invalid-feedback">
+              <div *ngIf="buyer.confirmPassword.errors.required">Confirm Password is required</div>
+              <div *ngIf="buyer.confirmPassword.errors.mustMatch">Passwords must match</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+        
+          <div class="col-md-4 pull-right text-right">
+            <h5 class="m-t-20"></h5>
+            <button type="submit"  id="deselect-all" class="btn btn-info btn-outline">{{button}} Buyer</button>
+            <a id="refresh" (click)="clickadd()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+          </div>
+          <div class="ajax_loader" *ngIf="loading" >
+            <div class="customloader" >
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- buyerlist -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="white-box">
+      <h3 class="box-title">Buyers</h3>
+      <div class="table-responsive performance_table">
+        <!-- <div class="ajax_loader" *ngIf="mf.data==null || mf.data==''">Loading data..</div> -->
+
+
+     <div class="alert pbxalert alert-success alert-dismissible animated fadeInRight" *ngIf="messageheader != '' && messageheader !=null">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{messageheader}}
+    </div>
+    <div class="alert pbxalert alert-warning alert-dismissible animated fadeInRight" *ngIf="messageheadererror != '' && messageheadererror !=null">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{messageheadererror}}
+    </div> 
+      <div class="table-responsive performance_table">
+        <table class="table table-striped valign-table" [mfData]="data| filter:name:contact:email:price:status:selected:publisherdropdown" #mf="mfDataTable" [mfRowsOnPage]="10">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>
+                <mfDefaultSorter by="name" class="ancor">Name</mfDefaultSorter>
+              </th>
+
+              <th>
+                <mfDefaultSorter by="email">Email</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="contact">Contact No.</mfDefaultSorter>
+              </th>
+              <!-- <th>
+<mfDefaultSorter by="createnumber">Address</mfDefaultSorter>
+</th> -->
+              <th>
+                <mfDefaultSorter by="price_per_call">Price per call</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="buffer_time">Buffer Time</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="created_at">Created Date</mfDefaultSorter>
+              </th>
+
+
+              <th>
+                <mfDefaultSorter by="status">Status</mfDefaultSorter>
+              </th>
+               <th>
+                <mfDefaultSorter by="publisherName">Publisher</mfDefaultSorter>
+              </th> 
+              <th>
+                <mfDefaultSorter by="">Action</mfDefaultSorter>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of mf.data ; index as i;">
+              <td>{{i + 1}}</td>
+              <td>{{user.name}}</td>
+
+              <td>{{user.email}}</td>
+              <td>{{user.contact}}</td>
+              <!-- <td>{{user.address}}</td> -->
+              <td>{{user.price_per_call}}</td>
+              <td>{{user.buffer_time}}</td>
+             
+              <td>{{user.created_at| date: 'dd/MM/yyyy'}}</td>
+              
+              <td> <span *ngIf="user.status =='active'">
+                  <input type="checkbox" (click)="statuschange(user.buyer_id,'inactive')" checked class="switchinput" id="statuscheck{{i}}" /><label
+                    for="statuscheck{{i}}" class="switchbtn status">Toggle</label>
+
+                </span>
+                <span *ngIf="user.status !='active'">
+                  <input type="checkbox" (click)="statuschange(user.buyer_id,'active')" class="switchinput" id="statuscheck{{i}}" /><label for="statuscheck{{i}}"
+                    class="switchbtn status">Toggle</label>
+
+                </span></td>
+                <td>{{user.publisherName}}</td>
+              <!-- <td>{{user.pub_id | publisher }}</td> -->
+              <td style="width: 170px; ">
+
+                <a placement="top" tooltip="edit" (click)="editbuyer(user.buyer_id)"
+                  class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                  <i class="fa fa-edit"></i>
+                </a>
+                <!-- <a placement="top" tooltip="Set password" (click)="setPassword()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+  <i class="fa fa-lock"></i> 
+</a> -->
+                <a placement="top" tooltip="Manage number" (click)="managenumber(user.buyer_id)"
+                  class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                  <i class="fa fa-phone"></i>
+                </a>
+
+                <a href="javascript:void()" mwlConfirmationPopover [popoverTitle]="popoverTitle"
+                  [popoverMessage]="popoverMessage" [popoverClass]="popoverClass" placement="left"
+                  (confirm)="delete(user.buyer_id)" (cancel)="cancelClicked = true"
+                  class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5" placement="top" tooltip="Trash">
+                  <i class="fa fa-trash"></i>
+                </a>
+
+              </td>
+
+            </tr>
+            <tr class="" *ngIf="showmethod1=='no data' || showmethod1== '';else elsepart">
+              <td colspan="10" align="center" *ngIf="showmethod1=='no data';else elsepart2">No data</td>
+              <ng-template #elsepart2>
+              </ng-template>
+            </tr>
+            <ng-template #elsepart>
+              <tr>
+                <td colspan="15" align="center">
+                  <div class="customloader" >
+                  <div class="item-1"></div>
+                  <div class="item-2"></div>
+                  <div class="item-3"></div>
+                  <div class="item-4"></div>
+                  <div class="item-5"></div>
+                </div></td>
+              </tr>
+            </ng-template>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="10">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- .right-sidebar -->
+<div class="right-sidebar" [ngClass]="status? 'shw-rside' : ''">
+    <div id="filteroverlay" (click)="clickFilter()"  [ngClass]="status? 'show' : ''"></div>
+  <div class="slimscrollright">
+    <div class="rpanel-title"> Filter Panel <span (click)="clickFilter()"><i class="ti-close right-side-toggle"
+          ></i></span> </div>
+    <div class="r-panel-body">
+      <form class="form-horizontal" action="">
+        <div class="row">
+          <!-- <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Select box</h5>
+            <select class="selectpicker form-control" data-style="form-control" (change)="selectChangeFilter($event)">
+              <option value="0">Select filter type</option>
+              <option value="Name">Name</option>
+              <option value="Contact">Contact</option>
+              <option value="Email">Email</option>
+              <option value="Price">Price per call</option>
+              <option value="Role">Status</option>
+            </select>
+          </div> -->
+          <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select Name</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr1') " tooltip="Reset Name"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="name" name="name" placeholder="Enter Name">
+          </div>
+          <!-- <div class="col-md-12" *ngIf="filtr1">
+                    <h5 class="m-t-20 m-b-10">Select {{selectedFilter}}</h5>
+                    <input type="text" class="form-control" [(ngModel)]="name" name="name" placeholder="Enter {{selectedFilter}}">
+                  </div> -->
+          <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select Contact</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr2')" tooltip="Reset Contact"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="contact" name="contact" placeholder="Enter Contact">
+          </div>
+          <!-- <div class="col-md-12" *ngIf="filtr2">
+                    <h5 class="m-t-20 m-b-10">Select {{selectedFilter}}</h5>
+                    <input type="text" class="form-control"  [(ngModel)]="contact"  name="contact" placeholder="Enter {{selectedFilter}}">
+                  </div> -->
+          <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select Email</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr3')" tooltip="Reset Email"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="email" name="email" placeholder="Enter Email">
+          </div>
+          <!-- <div class="col-md-12" *ngIf="filtr3">
+                    <h5 class="m-t-20 m-b-10">Select {{selectedFilter}}</h5>
+                    <input type="text" class="form-control" [(ngModel)]="email" name="email"   placeholder="Enter {{selectedFilter}}">
+                  </div> -->
+          <!-- <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select Price</h5> <button class="btn btn-danger btn-xs btnfilterClose"
+              (click)="closefiltr('filtr4')">x</button>
+            <input type="text" class="form-control" [(ngModel)]="price" name="price" placeholder="Enter Price per Call">
+          </div> -->
+          <!-- <div class="col-md-12" *ngIf="filtr4">
+                    <h5 class="m-t-20 m-b-10">Select {{selectedFilter}}</h5>
+                    <input type="text" class="form-control"  [(ngModel)]="price"  name="price" placeholder="Enter {{selectedFilter}}">
+                  </div> -->
+          <!-- <div class="col-md-12" >
+            <h5 class="m-t-20 m-b-10">Select status</h5> <button class="btn btn-danger btn-xs btnfilterClose"
+              (click)="closefiltr('filtr5')">x</button>
+            <select class="form-control" [(ngModel)]="status" name="status">
+              <option value="active">Active</option>
+              <option value="deactive">Deactive</option>
+            </select>
+          </div> -->
+          <!-- <div class="col-md-12" *ngIf="filtr5">
+                      <h5 class="m-t-20 m-b-10">Select {{selectedFilter}}</h5>
+                     <select class="form-control" [(ngModel)]="status" name="status"  >
+                         <option value="active">Active</option>
+                         <option value="deactive">Deactive</option>
+                     </select>
+                    </div> -->
+
+        </div>
+        <div class="row">
+                              <div class="col-md-6">
+                              <h5 class="m-t-30"></h5>
+                              <a id="refresh" class="btn btn-warning btn-outline"  (click)="resetfilter()" tooltip="Reset All">Reset All</a> 
+                              </div>
+                              <div class="col-md-6">
+                                <h5 class="m-t-30"></h5>
+                                <a class="btn btn-danger  btn-outline"  (click)="clickFilter()" tooltip="close panle without reset filter">Hide Panel</a> 
+                                </div>
+                            </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Right sidebar -->
+<!-- ============================================================== -->

@@ -1,0 +1,30 @@
+.btnm{margin-top: 42px;}
+.boxindex{position: relative;}
+.boxindex:before{position: fixed; height: 100%; width: 100%; background: rgba(255,255,255,0.7); left: 0; top: 0; z-index: 111;}
+.boxindex .white-box{z-index: 999; position: relative;}
+.select2-dropdown {
+    background-color: #002133;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    position: absolute; 
+    left: -100000px;
+    width: 300px!important;
+    z-index: 999999!important;
+}
+
+
+
+
+input[type="checkbox"] {
+    margin: 4px 0 0;
+    margin-top: 1px \9;
+    line-height: normal;
+    width: 20px!important;
+    height: 17px!important;
+    
+}
+.filtersnav{
+    margin: 0;
+}

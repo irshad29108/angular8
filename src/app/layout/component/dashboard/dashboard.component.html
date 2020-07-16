@@ -1,0 +1,788 @@
+<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Dashboard</h4>
+    </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12" style="display: none">
+        <ol class="breadcrumb m-r-0">
+            <!-- <li> 
+        <input type="text"
+            ngxDaterangepickerMd
+            [(ngModel)]="currentDate"
+            [showCustomRangeLabel]="true"
+            [ranges]="ranges"
+            [opens]="'left'"
+            [showCancel]="true"
+            [linkedCalendars]="true"
+            [alwaysShowCalendars]="alwaysShowCalendars"
+            [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}"
+            class="form-control input-sm daterange"
+            placeholder="Select please..."/>
+        </li> -->
+            <li>
+                <!-- <a routerLink="/active-hours" class="btn btn-outline btn-info waves-effect m-l-10 waves-light">Add Publisher</a> -->
+                <!-- <a (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-10 waves-light"><i class="fa fa-filter"></i> Filter</a> -->
+            </li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div *ngIf="!isMonitor">
+    <div *ngIf="isbuyer">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box m-block p-0">
+                    <div class="d-flex-row">
+
+
+                        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+                            <i class="fa mr-3 icon-lg text-success"><img src="assets/img/523089.svg"></i>
+                            <div class="d-flex flex-column justify-content-around">
+                                <small class="mb-1 text-muted">TOTAL CALLS</small>
+                                <div class="customloader" *ngIf="totalCallsLoader">
+                                    <div class="item-1"></div>
+                                    <div class="item-2"></div>
+                                    <div class="item-3"></div>
+                                    <div class="item-4"></div>
+                                    <div class="item-5"></div>
+                                </div>
+                                <h5 class="mt-3 m-0" *ngIf="!totalCallsLoader">{{this.totalcalls}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+                            <i class="fa mr-3 icon-lg text-success"><img src="assets/img/unique_call.svg"></i>
+                            <div class="d-flex flex-column justify-content-around">
+                                <small class="mb-1 text-muted">TOTAL UNIQUE CALLS</small>
+                                <div class="customloader" *ngIf="totalUniqCallsLoader">
+                                    <div class="item-1"></div>
+                                    <div class="item-2"></div>
+                                    <div class="item-3"></div>
+                                    <div class="item-4"></div>
+                                    <div class="item-5"></div>
+                                </div>
+
+                                <h5 class="mt-3 m-0" *ngIf="!totalUniqCallsLoader">{{totalUniqueCalls}}</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+                            <i class="fa mr-3 icon-lg text-success"><img src="assets/img/148937.svg"></i>
+                            <div class="d-flex flex-column justify-content-around">
+                                <small class="mb-1 text-muted">AVERAGE HANDLING TIME</small>
+                                <div class="customloader" *ngIf="totalAvgCallsLoader">
+                                    <div class="item-1"></div>
+                                    <div class="item-2"></div>
+                                    <div class="item-3"></div>
+                                    <div class="item-4"></div>
+                                    <div class="item-5"></div>
+                                </div>
+                                <h5 class="mt-3 m-0" *ngIf="!totalAvgCallsLoader">{{totalHandlingTime}} Minutes</h5>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6 d-flex border-md-right p-3 agent_record">
+                            <i class="fa mr-3 icon-lg text-success"><img src="assets/img/unique_call_ans.svg"></i>
+                            <div class="d-flex flex-column justify-content-around">
+                                <small class="mb-1 text-muted">TOTAL UNIQUE ANSWERED CALLS</small>
+                                <div class="customloader" *ngIf="totalUniqAnsweredCallsLoader">
+                                    <div class="item-1"></div>
+                                    <div class="item-2"></div>
+                                    <div class="item-3"></div>
+                                    <div class="item-4"></div>
+                                    <div class="item-5"></div>
+                                </div>
+                                <h5 class="mt-3 m-0" *ngIf="!totalUniqAnsweredCallsLoader">{{totalUniqueAnsCalls}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+         <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+               <li role="presentation" class="active">
+                 <a href="#weekly" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Weekly</a>
+               </li>
+               <li role="presentation" class="">
+                 <a href="#monthly" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Monthly</a>
+               </li>
+               <li role="presentation" class="">
+                 <a href="#hourly" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Hourly</a>
+               </li>
+            </ul>
+         
+            <div id="myTabContent" class="tab-content">
+               <div role="tabpanel" class="tab-pane fade active in" id="weekly" aria-labelledby="home-tab">
+                  <p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+               </div>
+               <div role="tabpanel" class="tab-pane fade" id="monthly" aria-labelledby="profile-tab">
+                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+               </div>
+               <div role="tabpanel" class="tab-pane fade" id="hourly" aria-labelledby="profile-tab">
+                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+               </div>
+            </div>
+        </div>
+    </div> -->
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="white-box">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="box-title">Reporting </h3>
+                        <!-- <div class="fa-loader" *ngIf="loader">
+                        <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                    </div> -->
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="customloader" *ngIf="loader">
+                            Loading
+                            <div class="item-1"></div>
+                            <div class="item-2"></div>
+                            <div class="item-3"></div>
+                            <div class="item-4"></div>
+                            <div class="item-5"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="btn_tabs pull-right">
+                            <button class="btn_tb" (click)="getaHourly()"
+                                [style.background-color]="this.color">Hourly</button>
+                            <button class="btn_tb" (click)="getaWeekly()">Weekly</button>
+                            <button class="btn_tb" (click)="getaMonthly()">Monthly</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--    <ul class="list-inline text-right">
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #00bfc7;"></i>Total Calls</h5>
+                    </li>
+                    <li>
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #0024c7;"></i>Total Unique Calls</h5>
+                    </li>
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #fdc006;"></i>Total Unique Answered Calls</h5>
+                    </li>
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #9675ce;"></i>AHT</h5>
+                    </li>
+                </ul> -->
+                <div class="loader-rel">
+                    <div class="customloader" *ngIf="loader">
+                        Loading
+                        <div class="item-1"></div>
+                        <div class="item-2"></div>
+                        <div class="item-3"></div>
+                        <div class="item-4"></div>
+                        <div class="item-5"></div>
+                    </div>
+
+                    <div style="display: block;" class="dashboardchart ">
+                        <canvas baseChart width="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+                            [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+                            [plugins]="lineChartPlugins" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                </div>
+
+                <br>
+
+
+                <!-- <div mk-morris-js [options]="chartLineOptions" [data]="datas" type="Line"></div> -->
+
+                <!-- <h3 class="box-title m-b-0">Performance Table </h3> -->
+                <!-- <p class="text-muted m-b-20">Create responsive tables by wrapping any <code>:Date</code> in <code>.table-responsive </code></p> -->
+                <!-- <div class="table-responsive performance_table">
+                <table class="table valign-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th style="text-align: right;"><span class="datadate">28/3</span> Thursday</th>
+                            <th style="text-align: right;"><span class="datadate">27/3</span> Wednesday</th>
+                            <th style="text-align: right;"><span class="datadate">26/3</span> Tuesday</th>
+                            <th style="text-align: right;"><span class="datadate">25/3</span> Monday</th>
+                            <th style="text-align: right;"><span class="datadate">24/3</span> Sunday</th>
+                            <th style="text-align: right;"><span class="datadate">23/3</span> Saturday</th>
+                            <th style="text-align: right;"><span class="datadate">22/3</span> Friday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="titleperform">Impressions</a></td>
+                            <td align="right">0</td>
+                            <td align="right">0</td>
+                            <td align="right">0</td>
+                            <td align="right">0</td>
+                            <td align="right">0</td>
+                            <td align="right">0</td>
+                            <td align="right">0</td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="titleperform">Incoming</a></td>
+                            <td align="right">
+                                <div class="label label-table label-warning">45</div>
+                            </td>
+                            <td align="right">46</td>
+                            <td align="right">20</td>
+                            <td align="right">67</td>
+                            <td align="right">13</td>
+                            <td align="right">46</td>
+                            <td align="right">19</td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="titleperform">Connected</a></td>
+                            <td align="right">
+                                <div class="label label-table label-success">45</div>
+                            </td>
+                            <td align="right">46</td>
+                            <td align="right">20</td>
+                            <td align="right">67</td>
+                            <td align="right">13</td>
+                            <td align="right">46</td>
+                            <td align="right">19</td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="titleperform">Not Connect</a></td>
+                            <td align="right">8</td>
+                            <td align="right">46</td>
+                            <td align="right">20</td>
+                            <td align="right">67</td>
+                            <td align="right">13</td>
+                            <td align="right">46</td>
+                            <td align="right">19</td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="titleperform">Completed</a></td>
+                            <td align="right">8</td>
+                            <td align="right">46</td>
+                            <td align="right">20</td>
+                            <td align="right">67</td>
+                            <td align="right">13</td>
+                            <td align="right">46</td>
+                            <td align="right">19</td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="titleperform">Converted</a></td>
+                            <td align="right">8</td>
+                            <td align="right">46</td>
+                            <td align="right">20</td>
+                            <td align="right">67</td>
+                            <td align="right">13</td>
+                            <td align="right">46</td>
+                            <td align="right">19</td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="titleperform">Avg Call Length</a></td>
+                            <td align="right"><span class="text-muted"><i class="fa fa-clock-o"></i> 00:01:34</span>
+                            </td>
+                            <td align="right"><span class="text-muted"><i class="fa fa-clock-o"></i> 00:01:34</span>
+                            </td>
+                            <td align="right"><span class="text-muted"><i class="fa fa-clock-o"></i> 00:01:34</span>
+                            </td>
+                            <td align="right"><span class="text-muted"><i class="fa fa-clock-o"></i> 00:01:34</span>
+                            </td>
+                            <td align="right"><span class="text-muted"><i class="fa fa-clock-o"></i> 00:01:34</span>
+                            </td>
+                            <td align="right"><span class="text-muted"><i class="fa fa-clock-o"></i> 00:01:34</span>
+                            </td>
+                            <td align="right"><span class="text-muted"><i class="fa fa-clock-o"></i> 00:01:34</span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="titleperform">Revenue</a></td>
+                            <td align="right">
+                                <div class="label label-table label-success">$45</div>
+                            </td>
+                            <td align="right">$46</td>
+                            <td align="right">$20</td>
+                            <td align="right">$67</td>
+                            <td align="right">$13</td>
+                            <td align="right">$46</td>
+                            <td align="right">$19</td>
+                        </tr>
+                        <tr>
+                            <td><a href="javascript:void(0)" class="titleperform">Payout</a></td>
+                            <td align="right">
+                                <div class="label label-table label-info">$45</div>
+                            </td>
+                            <td align="right">$46</td>
+                            <td align="right">$20</td>
+                            <td align="right">$67</td>
+                            <td align="right">$13</td>
+                            <td align="right">$46</td>
+                            <td align="right">$19</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> -->
+
+
+
+                <!-- <div class="white-box"> -->
+                <!-- <h3 class="box-title">Top Performers</h3> -->
+                <!-- <p class="text-muted m-b-30">Use default tab with class <code>customtab</code></p> -->
+                <!-- Nav tabs -->
+                <!-- <ul class="nav customtab nav-tabs" role="tablist"> -->
+                <!-- <li role="presentation" class="active"><a href="#publishers" aria-controls="home" role="tab"
+                        data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i
+                                class="ti-home"></i></span><span class="hidden-xs"> Realtime</span></a></li> -->
+                <!-- <li role="presentation" class=""><a href="#targets" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span class="hidden-xs">Targets</span></a></li>
+                                <li role="presentation" class=""><a href="#campaigns" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-email"></i></span> <span class="hidden-xs">Campaigns</span></a></li> -->
+
+                <!-- </ul> -->
+                <!-- Tab panes -->
+                <!-- <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="publishers">
+                    <div class="table-responsive">
+                        <table id="myTable" class="table table-striped valign-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th style="text-align: right;">Form Did</th>
+                                    <th style="text-align: right;">Channel</th>
+                                    <th style="text-align: right;">Talking To</th>
+                                    <th style="text-align: right;">Destinations</th>
+                                    <th style="text-align: right;">Queue</th>
+                                    <th style="text-align: right;">Campain Id</th>
+                                    <th style="text-align: right;">Duration</th>
+                                    <th style="text-align: right;">Profit</th>
+                                            <th style="text-align: center;">Action</th> -->
+                <!-- </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let user of data; index as i;">
+                                    <td>{{user.from_did}}</td>
+                                    <td align="right">{{user.from_did}}</td>
+                                    <td align="right">{{user.channel}}</td>
+                                    <td align="right">{{user.talking_to}}</td>
+                                    <td align="right">{{user.buyer_number}}</td>
+                                    <td align="right">{{user.queue}}</td>
+                                    <td align="right">{{user.camp_id}}</td>
+                                    <td align="right">{{user.duration}}</td> -->
+                <!-- <td align="right">$0</td>
+                                            <td align="right">
+                                               
+                                             
+                                                <button type="button" class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i class="ti-pencil-alt"></i></button>
+                                                <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i class="ti-pie-chart"></i></button>
+                                            </td> -->
+                <!-- </tr>
+                                <tr *ngIf="showmethod=='no data' || showmethod== '';else elsepart">
+                                    <td colspan="8" align="center" *ngIf="showmethod=='no data';else elsepart2">No data
+                                    </td>
+                                    <ng-template #elsepart2>
+                                    </ng-template>
+                                </tr>
+                                <ng-template #elsepart>
+                                    <tr>
+                                        <td colspan="8" align="center">Loading data..</td>
+                                    </tr>
+                                </ng-template> -->
+
+                <!-- </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="targets">
+                    <div class="table-responsive">
+                        <table id="myTable" class="table table-striped valign-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th style="text-align: right;">Live</th>
+                                    <th style="text-align: right;">Hour</th>
+                                    <th style="text-align: right;">Impressions</th>
+                                    <th style="text-align: right;">Call</th>
+                                    <th style="text-align: right;">Conv.</th>
+                                    <th style="text-align: right;">Revenue</th>
+                                    <th style="text-align: right;">Payout</th>
+                                    <th style="text-align: right;">Profit</th>
+                                    <th style="text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="campaigns">
+                    <div class="table-responsive">
+                        <table id="myTable" class="table table-striped valign-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th style="text-align: right;">Live</th>
+                                    <th style="text-align: right;">Hour</th>
+                                    <th style="text-align: right;">Impressions</th>
+                                    <th style="text-align: right;">Call</th>
+                                    <th style="text-align: right;">Conv.</th>
+                                    <th style="text-align: right;">Revenue</th>
+                                    <th style="text-align: right;">Payout</th>
+                                    <th style="text-align: right;">Profit</th>
+                                    <th style="text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td align="right">0</td>
+                                    <td align="right">2</td>
+                                    <td align="right">0</td>
+                                    <td align="right">70</td>
+                                    <td align="right">67</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">$0</td>
+                                    <td align="right">
+
+
+                                        <button type="button"
+                                            class="btn btn-info btn-outline btn-circle btn-xs m-r-5"><i
+                                                class="ti-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-warning btn-outline btn-circle btn-xs"><i
+                                                class="ti-pie-chart"></i></button>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div> -->
+                <!-- </div>  -->
+
+
+
+
+
+                <!-- </div> -->
+                <!-- <div class="col-md-4 col-sm-4 col-xs-12"> -->
+
+
+
+
+
+
+
+                <!-- <div class="white-box">
+            <h3 class="box-title">Messages</h3>
+            <p class="text-muted m-b-30">Use default tab with class <code>customtab</code></p> -->
+                <!-- Nav tabs -->
+                <!-- <ul class="nav customtab nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#unread" aria-controls="home" role="tab"
+                        data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i
+                                class="ti-home"></i></span><span class="hidden-xs"> Unread</span></a></li>
+                <li role="presentation" class=""><a href="#all" aria-controls="profile" role="tab" data-toggle="tab"
+                        aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span
+                            class="hidden-xs">All</span></a></li>
+
+
+            </ul> -->
+                <!-- Tab panes -->
+                <!-- <div class="tab-content"> -->
+                <!-- <div role="tabpanel" class="tab-pane fade active in" id="unread">
+
+                    <div class="list-group messages_dash scroll-window" slimScroll [options]="opts"
+                        [scrollEvents]="scrollEvents">
+                        <a href="javascript:void(0)" class="list-group-item unreadmsg">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Call Blocked <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item unreadmsg">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item unreadmsg">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Call Blocked <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item unreadmsg">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item unreadmsg">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item unreadmsg">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item unreadmsg">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item unreadmsg">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item unreadmsg">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+
+                    </div>
+                </div> -->
+
+                <!-- <div role="tabpanel" class="tab-pane fade" id="all">
+
+                    <div class="list-group messages_dash scroll-window" slimScroll [options]="opts"
+                        [scrollEvents]="scrollEvents">
+                        <a href="javascript:void(0)" class="list-group-item">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Call Blocked <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Call Blocked <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item">
+                            <i class="fa fa-envelope-o"></i>
+                            <h4 class="list-group-item-heading">Credit Card charge failed <small>3 days ago</small></h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. </p>
+                        </a>
+
+                    </div>
+                </div>
+            </div> -->
+
+
+                <!-- </div> -->
+                <!-- </div> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="isbuyer==false">Welcome to Dashboard</div>
+<div *ngIf="isMonitor">Welcome to Dashboard</div>

@@ -1,0 +1,727 @@
+<div class="row bg-title">
+  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+    <h4 class="page-title">Manage Campaigns</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="tab_step">
+
+      <!-- [style.border-bottom]="backgroundColor" -->
+      <ul id="myTabs" class="nav_tabs" role="tablist">
+        <li role="presentation" class="active"><a (click)="home()" href="#campaign-setting" class="act_v" id="home-tab"
+            role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><i class="fa fa-sliders"></i>
+            Campaign Setting</a> </li>
+        <!-- <li role="presentation"><a href="#offer" (click)="offer()" role="tab" id="profile-tab" data-toggle="tab"
+            aria-controls="profile"><i class="fa fa-users"></i> Offer <i class="fa fa-circle"></i></a></li> -->
+        <li role="presentation"><a href="#performance-summary" (click)="Summary()" role="tab" id="profile-tab"
+            data-toggle="tab" aria-controls="profile"><i class="fa fa-line-chart"></i> Performance Summary</a></li>
+      </ul>
+
+      <div class="tabs_body">
+        <div id="myTabContent" class="tab-content">
+          <div role="tabpanel" class="tab-pane fade in active" id="campaign-setting" aria-labelledby="home-tab">
+
+
+            <!-- <h4 class="tabs_title">Your Campaign is live! Optimize your Campaign with these next steps</h4> -->
+            <div class="row">
+              <!-- <div class="col-md-3 col-sm-6">
+                <div class="body-content-box">
+                  <img src="assets/img/img-icon1.png" alt="img" class="icons_ac">
+                  <h4 class="text_white">Title here</h4>
+                  <p class="text_white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.</p>
+                  <a href="#" class="btn btn-primary read_m">GENERATE TAGES</a>
+                </div>
+              </div> -->
+              <!-- <div class="col-md-3 col-sm-6">
+                <div class="body-content-box">
+                  <img src="assets/img/img-icon1.png" alt="img" class="icons_ac">
+                  <h4 class="text_white">Title here</h4>
+                  <p class="text_white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.</p>
+                  <a href="#" class="btn btn-primary read_m">GENERATE TAGES</a>
+                </div>
+              </div> -->
+              <!-- <div class="col-md-3 col-sm-6">
+                <div class="body-content-box">
+                  <img src="assets/img/img-icon1.png" alt="img" class="icons_ac">
+                  <h4 class="text_white">Title here</h4>
+                  <p class="text_white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.</p>
+                  <a href="#" class="btn btn-primary read_m">GENERATE TAGES</a>
+                </div>
+              </div> -->
+              <!-- <div class="col-md-3 col-sm-6">
+                <div class="body-content-box">
+                  <img src="assets/img/img-icon1.png" alt="img" class="icons_ac">
+                  <h4 class="text_white">Title here</h4>
+                  <p class="text_white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.</p>
+                  <a href="#" class="btn btn-primary read_m">GENERATE TAGES</a>
+                </div>
+              </div> -->
+            </div>
+            <!--/row-->
+            <div class="alert pbxalert alert-success alert-dismissible animated fadeInRight"
+              *ngIf="messageheader != '' && messageheader != null">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{messageheader}}
+            </div>
+            <div class="alert pbxalert alert-warning alert-dismissible animated fadeInRight"
+              *ngIf="messageheadererror != '' && messageheadererror != null">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{messageheadererror}}
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="white-box">
+                  <h4 class="box-title tabs_title">general Information</h4>
+                  <div class=" commonForm">
+                    <form class="form-horizontal managefrm" [formGroup]="Campaign" (ngSubmit)="onSubmit()">
+
+
+
+
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="">Campaign Name</div>
+                        </div>
+                        <div class="col-md-9 input">
+                          <input type="text" class="form-control" formControlName="campname"
+                            placeholder="Enter campaign name" disabled>
+                          <div *ngIf="submitted && campaign.campname.errors" class="invalid-feedback">
+                            <div *ngIf="campaign.campname.errors.required">Campaign Name is required</div>
+                          </div>
+                        </div>
+                        <div class="col-md-3 ">
+                          <div class="">Queue Name</div>
+                        </div>
+                        <div class="col-md-9 input">
+                          <input type="text" class="form-control" formControlName="queue_name"
+                            placeholder="Enter Queue Name" disabled>
+
+                        </div>
+
+                        <div class="col-md-3 ">
+                          <div class="">Queue Number</div>
+                        </div>
+                        <div class="col-md-9 input">
+                          <input type="text" class="form-control" disabled formControlName="queue_number"
+                            placeholder="Enter Queue Number">
+
+                        </div>
+                        
+                        <div class="col-md-3 ">
+                          <div class="">Buffer Time</div>
+                        </div>
+                        <div class="col-md-9 input">
+                          <input type="text" class="form-control" formControlName="buffer_time"
+                            placeholder="Buffer Time">
+                          <div *ngIf="submitted && campaign.buffer_time.errors" class="invalid-feedback">
+
+                            <div *ngIf="campaign.buffer_time.errors.required">Buffer Time is required</div>
+                          </div>
+                        </div>
+                        <div class="col-md-3 ">
+                          <div class="">Price Per Call</div>
+                        </div>
+                        <div class="col-md-9 input">
+                          <input type="text" class="form-control" formControlName="price_per_call"
+                            placeholder="Price Per Call">
+                          <div *ngIf="submitted && campaign.price_per_call.errors" class="invalid-feedback">
+                            <div *ngIf="campaign.price_per_call.errors.required">Price Per Call is required</div>
+                          </div>
+                        </div>
+                        <div class="col-md-3 ">
+                          <div class="">Select Timezone</div>
+                        </div>
+                        <div class="col-md-9 input">
+                          <ng-select2 class="select2custome" placeholder="Select Timezone" formControlName="zone"
+                            [data]="timezone"></ng-select2>
+                          <!-- <select class="form-control" formControlName="zone">
+                            <option value="">select Timezone</option>
+                            <option value="Asia/Muscat">(GMT+04:00) Abu Dhabi, Muscat</option>
+                            <option value="Asia/Baku">(GMT+04:00) Baku</option>
+                            <option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
+                            <option value="Asia/Kabul">(GMT+04:30) Kabul</option>
+                            <option value="Asia/Yekaterinburg">(GMT+05:00) Yekaterinburg</option>
+                            <option value="Asia/Karachi">(GMT+05:00) Islamabad, Karachi, Tashkent</option>
+                            <option value="Asia/Calcutta">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+                            <option value="Asia/Calcutta">(GMT+05:30) Sri Jayawardenapura</option>
+                            <option value="Asia/Katmandu">(GMT+05:45) Kathmandu</option>
+                            <option value="Asia/Almaty">(GMT+06:00) Almaty, Novosibirsk</option>
+                            <option value="Asia/Dhaka">(GMT+06:00) Astana, Dhaka</option>
+                            <option value="Asia/Rangoon">(GMT+06:30) Yangon (Rangoon)</option>
+                            <option value="Asia/Bangkok">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
+                          </select> -->
+                          <div *ngIf="submitted && campaign.zone.errors" class="invalid-feedback">
+                            <div *ngIf="campaign.zone.errors.required">Select Timezone is required</div>
+                          </div>
+                        </div>
+                        <div class="col-md-3 ">
+                          <div class="">Select Route</div>
+                        </div>
+                        <div class="col-md-9 input">
+                          <div class="select_wrapper sm-select">
+                            <select class="form-control" formControlName="route" disabled>
+                              <option value="">select Routing</option>
+                              <option value="0">InSide Routing</option>
+                              <option value="1">OutSide Route</option>
+                            </select>
+                          </div>
+                          <div *ngIf="submitted && campaign.route.errors" class="invalid-feedback">
+                            <div *ngIf="campaign.route.errors.required">Campaign Route is required</div>
+                          </div>
+                        </div>
+                        <div class="col-md-3 col-xs-12" *ngIf="alluser.role!='publisher'">
+                          <div class="">Choose Publisher</div>
+                        </div>
+                        <div class="col-md-8 col-xs-10 input  " *ngIf="alluser.role!='publisher'">
+
+                          <ng-select2 class="select2custome" formControlName="publisher" placeholder="Select Publisher"
+                            name="publisherdropdown" [data]="publisher" (ngModelChange)="somethingChanged2()"
+                            [(ngModel)]="publisherdropdown"></ng-select2>
+
+                          <div *ngIf="submitted && campaign.publisher.errors" class="invalid-feedback">
+                            <div *ngIf="campaign.publisher.errors.required">Publisher is required</div>
+                          </div>
+                        </div>
+                        <div class="col-md-1 col-xs-2 input" *ngIf="alluser.role!='publisher'">
+                          <a class="btn btn-sm btn-outline btn-info waves-effect waves-light"
+                            (click)="openModal('publisher')"><i class="fa fa-plus"></i></a>
+                        </div>
+                        <div class="col-md-3 col-xs-12" *ngIf="buyerNumberboolean">
+                          <div class="">Choose Buyer</div>
+                        </div>
+                        <div class="col-md-8 col-xs-10 input" *ngIf="buyerNumberboolean">
+
+                          <div class="select_wrapper sm-select">
+                            <angular2-multiselect [(ngModel)]="buyerdrop" formControlName="buyer"
+                              [data]="allBuyerDropdownMain" [settings]="buyerSettings" (onSelect)="somethingChanged()"
+                              (onDeSelect)="somethingChanged()" (onSelectAll)="somethingChanged()"
+                              (onDeSelectAll)="somethingChanged()">
+                            </angular2-multiselect>
+                            <div *ngIf="submitted && campaign.buyer.errors" class="invalid-feedback">
+                              <div *ngIf="campaign.buyer.errors.required">Choose Buyer is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-1 col-xs-2 input" *ngIf="buyerNumberboolean">
+                          <a class="btn btn-sm btn-outline btn-info waves-effect waves-light"
+                            (click)="openModal('Buyer')"><i class="fa fa-plus"></i></a>
+                        </div>
+
+                        <div class="col-md-3 col-xs-12">
+                          <div class="">Choose Tfn </div>
+                        </div>
+                        <div class="col-md-8 col-xs-10 input">
+                          <div class="select_wrapper sm-select">
+                            <angular2-multiselect formControlName="Tfn" [(ngModel)]="tfnShow" [data]="itemList"
+                              [settings]="settings" (onSelect)="onItemSelect($event)"
+                              (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                              (onDeSelectAll)="onDeSelectAll($event)">
+                            </angular2-multiselect>
+                            <div *ngIf="submitted && campaign.Tfn.errors" class="invalid-feedback">
+                              <div *ngIf="campaign.Tfn.errors.required">Choose Tfn is required</div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="col-md-1 col-xs-2 input">-->
+                        <div class="col-md-1  col-xs-2 input" *ngIf="alluser.role!='publisher'">
+                          <a class="btn btn-sm btn-outline btn-info waves-effect waves-light"
+                            (click)="openModal('TfnNumber')"><i class="fa fa-plus"></i></a>
+                        </div>
+                        <div class="col-md-3 " *ngIf="queueboolean">
+                          Queue
+                        </div>
+                        <div class="col-md-9 input" *ngIf="queueboolean">
+
+
+                          <input type="number" class="form-control" formControlName="queue" placeholder="Queue">
+                          <!-- <div *ngIf="submitted && campaign.queue.errors" class="invalid-feedback">
+                              <div *ngIf="campaign.queue.errors.required">Queue is required</div> -->
+
+                        </div>
+
+                        <div class="col-md-3 col-xs-12" *ngIf="buyerNumberboolean">
+                          <div class="">Choose Buyer Number </div>
+                        </div>
+                        <div class="col-md-8 col-xs-10 input" *ngIf="buyerNumberboolean">
+
+                          <div class="select_wrapper sm-select">
+                            <!-- <img  src="assets/img/loading.gif" *ngIf="loadingbuyernumber" width="24" class="load_img"> -->
+                            <angular2-multiselect [data]="BuyerNumberDropdown" [(ngModel)]="selectedItems"
+                              (onSelect)="onBuyerSelectAll($event)" (onDeSelect)="OnBuyerDeSelect($event)"
+                              formControlName="buyerNumber" (onSelectAll)="onBuyerSelectAll2($event)"
+                              [settings]="buyerDropdownSettings" (onDeSelectAll)="onBuyerDeSelectAll($event)">
+                              <c-item>
+                                <ng-template let-item="item">
+                                  <label
+                                    style="min-width: 150px; color:#eee; margin:0; font-weight:400;">{{item.itemName}}</label>
+                                  <label class="priorty"
+                                    style="float:right; color:#6f99b1; font-size:11px;  margin:0; font-weight:400;">Priority:
+                                    <span> <select (click)="$event.stopPropagation()"
+                                        style="width: 30px; padding: 2px; background: transparent; border: 1px solid #6f99b1;margin-left: 10px;"
+                                        (change)="onBuyerSelect($event)">
+                                        <!--  <label
+                                          style="min-width: 150px; color:#eee; margin:0; font-weight:400;">{{item.itemName}}</label>  -->
+                                        <ng-container *ngIf="selectedItems.length != 0;else elsepart4">
+
+                                          <!-- <ng-container *ngFor="let p of buyernumberPeority">  -->
+                                          <ng-container *ngFor="let itemm of priority; index as i">
+                                            <option
+                                              value="{{item.itemName}}-{{itemm.name}}-{{item.pause_status}}-{{item.capping}}-{{item.global_cap}}-{{item.queue}}-{{item.buyer_id}}"
+                                              *ngIf="itemm.name==item.priority ;else elsepart" selected>
+                                              {{item.priority}}</option>
+                                            <ng-template #elsepart>
+                                              <option
+                                                value="{{item.itemName}}-{{itemm.name}}-{{item.pause_status}}-{{item.capping}}-{{item.global_cap}}-{{item.queue}}-{{item.buyer_id}}">
+                                                {{itemm.name}}
+                                              </option>
+                                            </ng-template>
+
+
+                                          </ng-container>
+                                          <!-- </ng-container> -->
+                                        </ng-container>
+                                        <ng-template #elsepart4>
+                                          <ng-container *ngFor="let itemm of priority">
+                                            <label
+                                              style="min-width: 150px; color:#eee; margin:0; font-weight:400;">{{item.itemName}}</label>
+                                            <option
+                                              value="{{item.itemName}}-{{itemm.name}}-{{item.pause_status}}-{{item.capping}}-{{item.global_cap}}-{{item.queue}}-{{item.buyer_id}}">
+                                              {{itemm.name}}
+                                            </option>
+                                          </ng-container>
+                                        </ng-template>
+                                      </select>
+                                    </span>
+                                  </label>
+                                </ng-template>
+                              </c-item>
+
+                            </angular2-multiselect>
+                            <ng-template #elsepart3>
+                              <angular2-multiselect [data]="BuyerNumberDropdown" disabled [(ngModel)]="selectedItems"
+                                formControlName="buyerNumber" [settings]="buyerDropdownSettings">
+                              </angular2-multiselect>
+                            </ng-template>
+                          </div>
+
+
+                        </div>
+                        <div class="col-md-1 col-xs-2 input" *ngIf="buyerNumberboolean">
+                          <a class="btn btn-sm btn-outline btn-info waves-effect waves-light"
+                            (click)="openModal('BuyerNumber')"><i class="fa fa-plus"></i></a>
+                        </div>
+                        <div class="col-md-4 pull-right text-right">
+                          <h5 class="m-t-40"></h5>
+                          <button type="submit" id="deselect-all" class="btn btn-info btn-outline"> Submit</button>
+
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/tabs1-->
+
+          <!-- <div role="tabpanel" class="tab-pane fade" id="offer" aria-labelledby="profile-tab">
+          
+            
+<div mk-morris-js [options]="chartLineOptions" [data]="datas" type="Line"></div>
+          </div> -->
+          <!--/tabs2-->
+
+          <div role="tabpanel" class="tab-pane fade" id="performance-summary" aria-labelledby="profile-tab">
+
+            <!-- <div class="col-md-12 col-sm-12 col-xs-12"> -->
+            <div class="white-box">
+              <div class="row">
+                <div class="col-md-4">
+                  <h3 class="box-title">Reporting </h3>
+                </div>
+                <div class="col-md-4">
+                  <div class="customloader" *ngIf="loader">
+                    Loading
+                    <div class="item-1"></div>
+                    <div class="item-2"></div>
+                    <div class="item-3"></div>
+                    <div class="item-4"></div>
+                    <div class="item-5"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- <ul class="list-inline text-right">
+                  <li>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #00bfc7;"></i>Total Calls</h5>
+                  </li>
+                  <li>
+                  <li>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #0024c7;"></i>Total Unique Calls</h5>
+                  </li>
+                  <li>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #fdc006;"></i>Total Unique Answered Calls</h5>
+                  </li>
+                  <li>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #9675ce;"></i>AHT</h5>
+                  </li>
+                </ul> -->
+              <div class="loader-rel">
+                <div class="customloader" *ngIf="loader">
+                  Loading
+                  <div class="item-1"></div>
+                  <div class="item-2"></div>
+                  <div class="item-3"></div>
+                  <div class="item-4"></div>
+                  <div class="item-5"></div>
+                </div>
+
+                <div style="display: block;">
+                  <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <div class="white-box">
+              <div class="row">
+                <div class="col-md-4">
+                  <h3 class="box-title">Reporting </h3>
+                </div>
+                <div class="col-md-4">
+                  <div class="customloader" *ngIf="loader">
+                    Loading
+                    <div class="item-1"></div>
+                    <div class="item-2"></div>
+                    <div class="item-3"></div>
+                    <div class="item-4"></div>
+                    <div class="item-5"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- <ul class="list-inline text-right">
+                  <li>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #00bfc7;"></i>Total Calls</h5>
+                  </li>
+                  <li>
+                  <li>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #0024c7;"></i>Total Unique Calls</h5>
+                  </li>
+                  <li>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #fdc006;"></i>Total Unique Answered Calls</h5>
+                  </li>
+                  <li>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #9675ce;"></i>AHT</h5>
+                  </li>
+                </ul> -->
+              <div class="loader-rel">
+                <div class="customloader" *ngIf="loader">
+                  Loading
+                  <div class="item-1"></div>
+                  <div class="item-2"></div>
+                  <div class="item-3"></div>
+                  <div class="item-4"></div>
+                  <div class="item-5"></div>
+                </div>
+
+                <div style="display: block;">
+                  <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                    [chartType]="doughnutChartType">
+
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+
+          </div>
+          <!--/tabs3-->
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ===========================publisher Add model================================================== -->
+<jw-modal id="publisher">
+  <form class="form-horizontal commonForm" [formGroup]="ManagePublisher" (ngSubmit)="onSubmitPublisher()">
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Full Name</h5>
+        <input type="text" class="form-control" formControlName="name" placeholder="Enter fullname">
+        <div *ngIf="submittedPublisher && errorPublisher.name.errors" class="invalid-feedback">
+          <div *ngIf="errorPublisher.name.errors.required">Name is required</div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Email</h5>
+        <input type="email" class="form-control" formControlName="email" placeholder="Email id">
+        <div *ngIf="submittedPublisher && errorPublisher.email.errors" class="invalid-feedback">
+          <div *ngIf="errorPublisher.email.errors.required">Email is required</div>
+          <div *ngIf="errorPublisher.email.errors.email">Email must be a valid email address</div>
+
+        </div>
+        <!-- <div class="invalid-feedback">{{message}}</div> -->
+
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Contact</h5>
+        <input type="number" class="form-control" formControlName="contact" placeholder="Contact number">
+        <div *ngIf="submittedPublisher && errorPublisher.contact.errors" class="invalid-feedback">
+          <div *ngIf="errorPublisher.contact.errors.required">Contact is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Price per TFN ($)</h5>
+        <input type="number" class="form-control" formControlName="tfn" placeholder="$">
+        <div *ngIf="submittedPublisher && errorPublisher.tfn.errors" class="invalid-feedback">
+          <div *ngIf="errorPublisher.tfn.errors.required">Price per TFN is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Password</h5>
+        <input type="password" class="form-control" formControlName="password" placeholder="password">
+        <div *ngIf="submittedPublisher && errorPublisher.password.errors" class="invalid-feedback">
+          <div *ngIf="errorPublisher.password.errors.required">Password is required</div>
+          <div *ngIf="errorPublisher.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Confirm Password</h5>
+        <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm password">
+        <div *ngIf="submittedPublisher && errorPublisher.confirmPassword.errors" class="invalid-feedback">
+          <div *ngIf="errorPublisher.confirmPassword.errors.required">Confirm Password is required</div>
+          <div *ngIf="errorPublisher.confirmPassword.errors.mustMatch">Passwords must match</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Choose Role</h5>
+
+        <select class="form-control" formControlName="role">
+          <ng-container *ngFor="let role of this.allRole">
+            <option *ngIf="role.name !='buyer' && role.name!='admin'" value="{{role.name}}">{{role.name}}</option>
+          </ng-container>
+
+          <div *ngIf="submittedPublisher && errorPublisher.role.errors" class="invalid-feedback">
+            <div *ngIf="errorPublisher.role.errors.required">Role is required</div>
+          </div>
+        </select>
+
+      </div>
+      <div class="col-md-4">
+        <!-- <img *ngIf="loading" src="assets/img/loading.gif" width="24">  -->
+      </div>
+
+      <div class="col-md-4 pull-right text-right">
+        <h5 class="m-t-20"></h5>
+        <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Add Publisher</button>
+        <a id="refresh" (click)="closeModal('publisher');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+      <!-- <div class="ajax_loader" *ngIf="loading">
+        <img src="assets/img/loading.gif" width="24">
+      </div> -->
+    </div>
+  </form>
+
+</jw-modal>
+<!-- ===========================publisher End model================================================== -->
+<!-- ===========================Buyer Add model================================================== -->
+
+<jw-modal id="Buyer">
+  <form class="form-horizontal commonForm" [formGroup]="ManageBuyers" (ngSubmit)="onSubmitBuyer()">
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Buyer Name</h5>
+        <input type="text" class="form-control" name="" placeholder="Enter fullname" formControlName="name">
+        <div *ngIf="submittedBuyer && buyer.name.errors" class="invalid-feedback">
+          <div *ngIf="buyer.name.errors.required">Buyer Name is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Email</h5>
+        <input type="email" class="form-control" name="" placeholder="Email id" formControlName="email">
+        <div *ngIf="submittedBuyer && buyer.email.errors" class="invalid-feedback">
+          <div *ngIf="buyer.email.errors.required">Email is required</div>
+          <div *ngIf="buyer.email.errors.email">Email must be a valid email address</div>
+
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Contact</h5>
+        <input type="number" class="form-control" name="" placeholder="Contact number" formControlName="contact">
+        <div *ngIf="submittedBuyer && buyer.contact.errors" class="invalid-feedback">
+          <div *ngIf="buyer.contact.errors.required">Contact is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Address</h5>
+        <input type="text" class="form-control" name="" placeholder="Address" formControlName="address">
+        <div *ngIf="submittedBuyer && buyer.address.errors" class="invalid-feedback">
+          <div *ngIf="buyer.address.errors.required">Address is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Price per Call ($)</h5>
+        <input type="number" class="form-control" name="" placeholder="$" formControlName="price_per_call">
+        <div *ngIf="submittedBuyer && buyer.price_per_call.errors" class="invalid-feedback">
+          <div *ngIf="buyer.price_per_call.errors.required">Price per Call is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Buffer Time (in seconds)</h5>
+        <input type="number" formControlName="buffer_time" class="form-control" name="" placeholder="Buffer time">
+        <div *ngIf="submittedBuyer && buyer.buffer_time.errors" class="invalid-feedback">
+          <div *ngIf="buyer.buffer_time.errors.required">Buffer Time is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4" *ngIf="this.alluser.role !='publisher'">
+        <h5 class="m-t-20 m-b-10">Choose Publisher</h5>
+
+        <select class="form-control" formControlName="publisher">
+          <ng-container *ngFor="let publisher of dropdownpublisher">
+            <option *ngIf="publisher.role=='publisher'" value="{{publisher.pub_id}}">
+              {{publisher.publisher_name}}
+            </option>
+          </ng-container>
+          <div *ngIf="submittedBuyer && buyer.publisher.errors" class="invalid-feedback">
+            <div *ngIf="buyer.publisher.errors.required">Publisher is required</div>
+          </div>
+        </select>
+
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Password</h5>
+        <input type="password" class="form-control" formControlName="password" placeholder="password">
+        <div *ngIf="submittedBuyer && buyer.password.errors" class="invalid-feedback">
+          <div *ngIf="buyer.password.errors.required">Password is required</div>
+          <div *ngIf="buyer.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Confirm Password</h5>
+        <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm password">
+        <div *ngIf="submittedBuyer && buyer.confirmPassword.errors" class="invalid-feedback">
+          <div *ngIf="buyer.confirmPassword.errors.required">Confirm Password is required</div>
+          <div *ngIf="buyer.confirmPassword.errors.mustMatch">Passwords must match</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+
+      <div class="col-md-4 pull-right text-right">
+        <h5 class="m-t-20"></h5>
+        <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Add Buyer</button>
+        <a id="refresh" (click)="closeModal('Buyer');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+      <!-- <div class="ajax_loader" *ngIf="loading">
+        <img src="assets/img/loading.gif" width="24">
+      </div> -->
+    </div>
+  </form>
+</jw-modal>
+<!-- ===========================Buyer End model================================================== -->
+<!-- ===========================Buyer Number Add model================================================== -->
+<jw-modal id="BuyerNumber">
+  <form class="form-horizontal commonForm" [formGroup]="ManageBuyersNumber" (ngSubmit)="onSubmitBuyerNumber()">
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Select Buyer name</h5>
+        <select class="form-control" formControlName="buyer_id">
+          <option selected value="">select Buyer</option>
+          <option *ngFor="let Buyer of allBuyerDropdown;" value="{{Buyer.buyer_id}}">
+            {{Buyer.name}}
+          </option>
+        </select>
+
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Add Number</h5>
+
+        <input type="number" class="form-control" formControlName="number" name="" placeholder="Enter number">
+        <div *ngIf="submittedBuyerNumber && buyernumbervalid.number.errors" class="invalid-feedback">
+          <div *ngIf="buyernumbervalid.number.errors.required">Buyer Number is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Add Capping</h5>
+
+        <input type="number" class="form-control" formControlName="capping" name="" placeholder="Enter capping">
+        <div *ngIf="submittedBuyerNumber && buyernumbervalid.capping.errors" class="invalid-feedback">
+          <div *ngIf="buyernumbervalid.capping.errors.required">Buyer Capping is required</div>
+        </div>
+      </div>
+      <!-- <div class="col-sm-3">
+        <h5 class="m-t-20 m-b-10">Add Queue/Campaign</h5>
+
+        <input type="number" class="form-control" formControlName="queue" name="" placeholder="Enter queue/campaign">
+        <div *ngIf="submittedBuyerNumber && buyernumbervalid.queue.errors" class="invalid-feedback">
+          <div *ngIf="buyernumbervalid.queue.errors.required">Buyer Queue is required</div>
+        </div>
+      </div> -->
+      <div class="col-md-4 pull-right text-right">
+        <h5 class="m-t-20"></h5>
+        <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Add Buyer Number</button>
+        <a id="refresh" (click)="closeModal('BuyerNumber');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+
+      <!-- <img *ngIf="loading1" src="assets/img/loading.gif" width="24" class="center_load"> -->
+    </div>
+  </form>
+</jw-modal>
+<!-- ===========================Buyer Number End model================================================== -->
+<!-- ===========================Tfn model================================================== -->
+<jw-modal id="TfnNumber">
+  <form class="form-horizontal commonForm" [formGroup]="TfnNumber" (ngSubmit)="onSubmitTfn()">
+    <div class="row">
+      <div class="col-sm-6">
+        <h5 class="m-t-20 m-b-10">TFN Number</h5>
+        <input type="number" class="form-control" formControlName="tfn_number" name="tfn_number"
+          placeholder="Enter number">
+        <div *ngIf="submittedTfn && gettfn.tfn_number.errors" class="invalid-feedback">
+          <div *ngIf="gettfn.tfn_number.errors.required">TFN number is required</div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-6">
+        <h5 class="m-t-20 m-b-10">Price Per Tfn</h5>
+        <input type="number" class="form-control" name="price_per_tfn" formControlName="price_per_tfn"
+          placeholder="Price Per Tfn">
+        <div *ngIf="submittedTfn && gettfn.price_per_tfn.errors" class="invalid-feedback">
+          <div *ngIf="gettfn.price_per_tfn.errors.required">Price per Tfn is required</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 pull-right text-right">
+
+        <h5 class="m-t-20"></h5>
+
+        <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Add TFN</button>
+        <a id="refresh" (click)="closeModal('TfnNumber');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+      <!-- <div class="ajax_loader" *ngIf="loading">
+        <img src="assets/img/loading.gif" width="24">
+      </div> -->
+    </div>
+  </form>
+</jw-modal>

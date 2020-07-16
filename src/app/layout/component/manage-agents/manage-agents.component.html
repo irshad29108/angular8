@@ -1,0 +1,288 @@
+ <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Manage Agents</h4> </div>
+                   <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb m-r-0">
+                    <li> 
+                      <a class="btn btn-sm btn-outline btn-info waves-effect waves-light" (click)="clickadd()"><i class="fa fa-plus"></i></a>
+                        <!-- <a routerLink="/active-hours" class="btn btn-outline btn-info waves-effect m-l-10 waves-light">Add Publisher</a> -->
+                         <a (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-10 waves-light"><i class="fa fa-filter"></i> Filter</a>
+                        </li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+
+
+
+
+
+
+<div class="row boxindex" *ngIf="add">
+    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Add Monitor</h3>
+                            <p class="text-muted m-b-10">Just add new publisher in your account</p>
+
+                            <form class="form-horizontal commonForm" action="">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h5 class="m-t-20 m-b-10">Monitor Name</h5>
+                                  <input type="text" class="form-control" name="" placeholder="Enter fullname">
+                                </div>
+                                <div class="col-sm-3">
+                                    <h5 class="m-t-20 m-b-10">Email</h5>
+                                   <input type="email" class="form-control" name="" placeholder="Email id">
+                                </div>
+                                <div class="col-sm-3">
+                                    <h5 class="m-t-20">Contact</h5>
+                                    <input type="text" class="form-control" name="" placeholder="Contact number">
+                                </div>
+                                 <div class="col-sm-3">
+                                    <h5 class="m-t-20">Address</h5>
+                                    <input type="text" class="form-control" name="" placeholder="Address">
+                                </div>
+                            </div>
+                          
+                             <div class="row">
+                                <div class="col-md-4 pull-right text-right">
+ <h5 class="m-t-20"></h5>
+                          <button type="button" id="deselect-all" class="btn btn-info btn-outline">Add Monitor</button>
+                          <a id="refresh" (click)="clickadd()" class="btn btn-danger btn-outline m-l-10">Close</a>
+                         </div>
+                         </div>
+                         </form>
+                        </div>
+                    </div>
+</div>
+
+
+<!-- password -->
+
+
+<div class="row boxindex" *ngIf="setpassword">
+    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Set Password</h3>
+                            <p class="text-muted m-b-10">Just add new publisher in your account</p>
+
+                            <form class="form-horizontal commonForm" action="">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <!-- <h5 class="m-t-20 m-b-10">Password </h5> -->
+                                  <input type="text" class="form-control" name="" placeholder="Enter password">
+                                </div>
+                                <div class="col-sm-4">
+                                    <!-- <h5 class="m-t-20 m-b-10">Confirm Password</h5> -->
+                                   <input type="email" class="form-control" name="" placeholder="Confirm password">
+                                </div>
+                               
+                          
+                                <div class="col-md-4 pull-right text-right">
+
+                          <button type="button" id="deselect-all" class="btn btn-info btn-outline">Set Password</button>
+                          <a id="refresh" (click)="setPassword()" class="btn btn-danger btn-outline m-l-10">Close</a>
+                         </div>
+                         </div>
+                         </form>
+                        </div>
+                    </div>
+</div>
+
+<!-- password -->
+
+
+<!-- addnumber -->
+
+
+
+<div class="row boxindex" *ngIf="buyernumber">
+    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Add Queue Numbers <button class="btn btn-danger pull-right" (click)="managenumber()">close</button></h3>
+                            <p class="text-muted m-b-10">Just add new publisher in your account</p>
+
+                            <form class="form-horizontal commonForm" action="">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h5 class="m-t-20 m-b-10">Choose Number</h5>
+                                
+                                  <select class="form-control">
+                                      <option>9876543321</option>
+                                      <option>9876543327</option>
+                                      <option>9876543320</option>
+                                  </select>
+                               
+                                </div>
+                                <div class="col-sm-3">
+                                  
+                                   <button type="button" class="btn btn-info btnm"><i class="fa fa-plus"></i></button>
+                                </div>
+                                 
+                             
+                            </div>
+                            <div class="row m-t-30">
+                                <div class="col-sm-12">
+                                   <table class="table valign-table">
+                                     <thead>
+                                       <tr>
+                                         <td>#</td>
+                                         <td>Number</td>
+                                         <td style="text-align: right;">Action</td>
+                                       </tr>
+                                     </thead>
+                                     <tbody>
+                                       <tr>
+                                         <td>1</td>
+                                         <td>1243</td>
+                                         <td align="right"><button class="btn btn-danger btn-circle  btn-sm "><i class="fa fa-trash"></i></button></td>
+                                       </tr>
+                                     </tbody>
+                                   </table>
+                                </div>
+                              
+                            </div>
+                         
+                         </form>
+                        </div>
+                    </div>
+</div>
+
+
+
+
+
+<!-- monitorlist -->
+
+                   <div class="row">
+                    <div class="col-md-12">
+                    <div class="white-box">
+                    <h3 class="box-title">Agents</h3>
+                       <div class="table-responsive performance_table">
+<table class="table table-striped valign-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+  <thead>
+  <tr>
+  <th>No.</th>
+      <th>
+          <mfDefaultSorter by="name" class="ancor">Name</mfDefaultSorter>
+      </th>
+    
+      <th>
+          <mfDefaultSorter by="live">Email</mfDefaultSorter>
+      </th>
+      <th>
+          <mfDefaultSorter by="hour">Contact No.</mfDefaultSorter>
+      </th>
+        <th>
+          <mfDefaultSorter by="createnumber">Address</mfDefaultSorter>
+      </th>
+      
+       <th>
+          <mfDefaultSorter by="day">Createed Date</mfDefaultSorter>
+      </th>
+       
+       <th>
+          <mfDefaultSorter by="">Action</mfDefaultSorter>
+      </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of mf.data; index as i;">
+  <td>{{i + 1}}</td>
+      <td>{{user.name}}</td>
+     
+      <td>{{user.email}}</td>
+      <td>{{user.contact}}</td>
+       <td>{{user.address}}</td>
+      <td>{{user.date}}</td>
+      
+      <td style="width: 140px; ">
+      <a href="javascript:void()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="edit">
+                    <i class="fa fa-edit"></i> 
+       </a>
+       <a (click)="setPassword()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Set password">
+                    <i class="fa fa-lock"></i> 
+       </a>
+       <a (click)="managenumber()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Manage number">
+                    <i class="fa fa-phone"></i> 
+       </a>
+     
+       <a href="javascript:void()" class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5" title="trash">
+                    <i class="fa fa-trash"></i> 
+       </a>
+      
+       </td>
+      
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+      <td colspan="12">
+          <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+      </td>
+  </tr>
+  </tfoot>
+</table>
+</div>
+              
+              </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                 <!-- .right-sidebar -->
+                <div class="right-sidebar" [ngClass]="status? 'shw-rside' : ''">
+                        <div id="filteroverlay" (click)="clickFilter()"  [ngClass]="status? 'show' : ''"></div>
+                    <div class="slimscrollright">
+                        <div class="rpanel-title"> Filter Panel <span (click)="clickFilter()"><i class="ti-close right-side-toggle"></i></span> </div>
+                        <div class="r-panel-body">
+                             <form class="form-horizontal" action="">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="m-t-20 m-b-10">Select box</h5>
+                                    <select class="selectpicker form-control" data-style="form-control">
+                                        <option>Mustard</option>
+                                        <option>Ketchup</option>
+                                        <option>Relish</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 class="m-t-20 m-b-10">Input Text</h5>
+                                   <input type="text" class="form-control" name="">
+                                </div>
+                              
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="m-t-20 m-b-10">Select box</h5>
+                                    <select class="selectpicker form-control" data-style="form-control">
+                                        <option>Mustard</option>
+                                        <option>Ketchup</option>
+                                        <option>Relish</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 class="m-t-20 m-b-10">Input Text</h5>
+                                   <input type="text" class="form-control" name="">
+                                </div>
+                               
+                            </div>
+                             <div class="row">
+                                <div class="col-md-12">
+ <h5 class="m-t-30"></h5>
+                          <button id="deselect-all" class="btn btn-info btn-outline" href="#">Apply Filter</button>
+                          <a id="refresh" class="btn btn-warning btn-outline m-l-5" href="#">Reset</a>
+                         </div>
+                         </div>
+                         </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->

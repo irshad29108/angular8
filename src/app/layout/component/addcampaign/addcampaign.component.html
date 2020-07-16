@@ -1,0 +1,173 @@
+<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Setup Your Campaign</h4>
+    </div>
+    <!--  <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i class="ti-settings text-white"></i></button>
+        <a href="javascript: void(0);" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Buy Admin Now</a>
+        <ol class="breadcrumb">
+            <li><a href="#">Dashboard</a></li>
+            <li class="active">Starter Page</li>
+        </ol>
+    </div> -->
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <form id="msform" [formGroup]="Campaign" (ngSubmit)="onSubmit()">
+
+
+            <fieldset>
+                <h2 class="fs-title">SETUP YOUR CAMPAIGN</h2>
+                <h3 class="fs-subtitle">Please name your Campaign and select the country where you would like to accept
+                    phone calls.</h3>
+                <h5 _ngcontent-ser-c6="" class="m-t-20 m-b-5 text-left"><small>Campaign Name</small></h5>
+
+                <input type="text" class="form-control" formControlName="title" name="title"
+                    placeholder="Campaign Name" />
+                <div *ngIf="submitted && campaign.title.errors" class="invalid-feedback">
+                    <div *ngIf="campaign.title.errors.required">Campaign Name is required</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 _ngcontent-ser-c6="" class="m-t-10 m-b-5 text-left"><small>Buffer Time (in seconds)</small>
+                        </h5>
+                        <input type="text" class="form-control" formControlName="buffer_time" name="fname"
+                            placeholder="Buffer time" />
+                        <div *ngIf="submitted && campaign.title.errors" class="invalid-feedback">
+                            <div *ngIf="campaign.title.errors.required">Campaign title is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 _ngcontent-ser-c6="" class="m-t-10 m-b-5 text-left"><small>Price per call ($)</small></h5>
+                        <input type="text" class="form-control" formControlName="price_per_call" name="fname"
+                            placeholder="Call Price" />
+                        <div *ngIf="submitted && campaign.price_per_call.errors" class="invalid-feedback">
+                            <div *ngIf="campaign.price_per_call.errors.required">Call Price is required</div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <h5 _ngcontent-ser-c6="" class="m-t-10 m-b-5 text-left"><small>Select Timezone</small></h5>
+                <div class="select_wrapper">
+                    <select class="form-control" formControlName="zone">
+                        <option>select Timezone</option>
+                        <option value="Asia/Muscat">(GMT+04:00) Abu Dhabi, Muscat</option>
+                        <option value="Asia/Baku">(GMT+04:00) Baku</option>
+                        <option value="Asia/Yerevan">(GMT+04:00) Yerevan</option>
+                        <option value="Asia/Kabul">(GMT+04:30) Kabul</option>
+                        <option value="Asia/Yekaterinburg">(GMT+05:00) Yekaterinburg</option>
+                        <option value="Asia/Karachi">(GMT+05:00) Islamabad, Karachi, Tashkent</option>
+                        <option value="Asia/Calcutta">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+                        <option value="Asia/Calcutta">(GMT+05:30) Sri Jayawardenapura</option>
+                        <option value="Asia/Katmandu">(GMT+05:45) Kathmandu</option>
+                        <option value="Asia/Almaty">(GMT+06:00) Almaty, Novosibirsk</option>
+                        <option value="Asia/Dhaka">(GMT+06:00) Astana, Dhaka</option>
+                        <option value="Asia/Rangoon">(GMT+06:30) Yangon (Rangoon)</option>
+                        <option value="Asia/Bangkok">(GMT+07:00) Bangkok, Hanoi, Jakarta</option>
+                    </select>
+                    <div *ngIf="submitted && campaign.zone.errors" class="invalid-feedback">
+                        <div *ngIf="campaign.zone.errors.required">Select Timezone is required</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 _ngcontent-ser-c6="" class="m-t-10 m-b-5 text-left"><small>Select Route</small></h5>
+                        <div class="select_wrapper">
+                            <select class="form-control" (change)="ChangeRoute()" formControlName="route">
+                                <option>select Routing</option>
+                                <option value="0">InSide Routing</option>
+                                <option value="1">OutSide Route</option>
+                            </select>
+                            <div *ngIf="submitted && campaign.route.errors" class="invalid-feedback">
+                                <div *ngIf="campaign.route.errors.required">Campaign title is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h5 _ngcontent-ser-c6="" class="m-t-10 m-b-5 text-left"><small>Select Buyer</small></h5>
+                        <div class="select_wrapper">
+                            <!-- <select class="form-control" formControlName="buyer" (change)="somethingChanged()">
+                                <option>Choose Buyers</option>
+                                <option *ngFor="let buyer of allBuyerDropdown" value="{{buyer.buyer_id}}">{{buyer.name}}
+                                </option>
+                            </select> -->
+                            
+                            <!-- <div *ngIf="submitted && campaign.buyer.errors" class="invalid-feedback">
+                                <div *ngIf="campaign.buyer.errors.required">Choose Buyer is required</div>
+                            </div> -->
+                        </div>
+
+                    </div>
+                    <div class="col-md-6" *ngIf="show">
+                        <h5 _ngcontent-ser-c6="" class="m-t-10 m-b-5 text-left"><small>Select Buyer Number</small></h5>
+                        <div class="select_wrapper">
+                            <angular2-multiselect [data]="BuyerNumberDropdown" formControlName="buyerNumber"
+                                [(ngModel)]="buyerNumber" [settings]="buyerDropdownSettings"
+                                (onSelect)="onBuyerSelect($event)" (onDeSelect)="OnBuyerDeSelect($event)"
+                                (onSelectAll)="onBuyerSelectAll($event)" (onDeSelectAll)="onBuyerDeSelectAll($event)">
+                            </angular2-multiselect>
+                            <!-- <div *ngIf="submitted && campaign.selectedItems.errors" class="invalid-feedback">
+                                <div *ngIf="campaign.selectedItems.errors.required">Choose Tfns is required</div>
+                            </div> -->
+                        </div>
+
+                    </div>
+                    <div class="col-md-6" *ngIf="queue">
+                        <h5 _ngcontent-ser-c6="" class="m-t-10 m-b-5 text-left"><small>Queue</small></h5>
+                        <input type="text" class="form-control" formControlName="queue" name="fname"
+                            placeholder="Queue" />
+                    </div>
+                    <div class="col-md-6">
+                        <h5 _ngcontent-ser-c6="" class="m-t-10 m-b-5 text-left"><small>Select TFNS</small></h5>
+                        <div class="select_wrapper">
+                                <angular2-multiselect [data]="dropdownList"  formControlName="Tfn" [settings]="dropdownSettings">
+                                        <c-item>
+                                                <ng-template let-item="item">
+                                                  <label style="min-width: 150px; color:#eee; margin:0; font-weight:400;">{{item.itemName}}</label>
+                                                  <label class="priorty" style="float:right; color:#6f99b1; font-size:11px;  margin:0; font-weight:400;">Priority:
+                                                 <span> <select style="width: 30px; padding: 2px; background: transparent; border: 1px solid #6f99b1;margin-left: 10px;" >
+                                                 <option [value]="itemm.id" *ngFor="let itemm of priority">{{itemm.name}}</option>  
+                                                </select>
+                                            </span>
+                                            </label>
+                                                </ng-template>
+                                        </c-item> 
+                                        <c-badge>
+                                                <ng-template let-item="item">
+                                                 <label style="margin: 0px;">{{item.itemName}}</label>
+                                                
+                                                </ng-template>
+                                       </c-badge>     
+                                      </angular2-multiselect>
+                               
+                            <!-- <angular2-multiselect [data]="dropdownList" formControlName="Tfn"
+                                [(ngModel)]="Tfn" [settings]="dropdownSettings"
+                                (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                                (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                            </angular2-multiselect> -->
+                            <div *ngIf="submitted && campaign.Tfn.errors" class="invalid-feedback">
+                                <div *ngIf="campaign.Tfn.errors.required">Choose Tfns is required</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+<div class="form-group m-t-30">
+                <input type="submit" name="next" class="next action-button" value="Save Campaign" />
+                </div>
+            </fieldset>
+
+
+
+        </form>
+    </div>
+
+
+</div>

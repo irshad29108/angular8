@@ -1,0 +1,127 @@
+.overlayfix{background: rgba(255,255,255,0.7); position: fixed; left: 0; bottom: 0; height: 100%; width: 100%; z-index: 9999; }
+.settingform{padding: 30px 0 20px; background: #02314c; color: #fff; width: 100%; bottom: 0; position: absolute; left: 0}
+.closeBtn{    
+	background: #fb4d4d;
+    border: 2px solid #02314c;
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    position: absolute;
+    top: -15px;
+    right: 50px;
+}
+.saveBtn{    
+
+    border: 2px solid #02314c;
+    min-width: 135px;
+    height: 35px;
+    border-radius: 6px;
+    position: absolute;
+    top: -15px;
+    right: 90px;
+}
+
+input.form-control, textarea.form-control, select.form-control {
+  padding: 15px;
+  border: 1px solid #3c5e71;
+  border-radius: 0px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: montserrat;
+  color: #ffffff94;
+  font-size: 13px;
+  height: 50px;
+  background: #02314c;
+}
+
+input:focus, textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #ffc36dc4;
+  outline-width: 0;
+  transition: All 0.5s ease-in;
+  -webkit-transition: All 0.5s ease-in;
+  -moz-transition: All 0.5s ease-in;
+  -o-transition: All 0.5s ease-in;
+}
+.fileup{
+  position: relative;
+}
+.fileup input::-webkit-file-upload-button {
+  outline: none !important;
+  width: 0px;
+  height: 0px;
+  background: none;
+  vertical-align: center;
+  font-size: 0px;
+  box-shadow: none !important;
+  border: 0px;
+  display: inline-block;
+  /* margin: auto 0 auto auto; */
+  line-height: 27px;
+  }
+.imgloader{
+  position: absolute;
+right: 20px;
+top: 16px;
+z-index: 1;
+}
+
+
+
+.settinglist{padding: 0; margin: 0;}
+.settinglist>li{padding: 5px; margin-bottom: 5px; list-style: none; vertical-align: middle; display: inline-block;width: 100%}
+.settinglist>li bdo{padding-top: 5px; display: inline-block; vertical-align: sub;}
+
+.settingform .form-control{background: #01253a; border-color: #011826; border-radius: 0px;}
+.settingform h5{font-weight: 300;}
+
+
+
+.btnm{margin-top: 42px;}
+
+.boxindex{position: relative;}
+.boxindex:before{position: fixed; height: 100%; width: 100%; background: rgba(255,255,255,0.7); left: 0; top: 0; z-index: 111;}
+.boxindex .white-box{z-index: 999; position: relative;}
+
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInRight {
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+}

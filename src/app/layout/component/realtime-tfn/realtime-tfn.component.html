@@ -1,0 +1,186 @@
+<div class="row bg-title">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <!-- <h4 class="page-title">Realtime-TFN</h4>  -->
+      <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link " href="javascript:void(0)" routerLink='/dashboard/realtime'>Realtime</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link active" href="javascript:void(0)" routerLink='/dashboard/realtime-tfn'>TFN-Realtime</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)" routerLink='/dashboard/app-realtime-buyer'>Buyer-Realtime</a>
+              </li>
+          </ul>
+      <!-- <div class="btn-group" role="group" aria-label="Realtime">
+        <a class="btn btn-primary" href="javascript:void(0)" routerLink='/realtime'>Realtime</a>
+        <a class="btn btn-primary" href="javascript:void(0)" routerLink='/realtime-tfn'>TFN-Realtime</a>
+        <a class="btn btn-primary" href="javascript:void(0)" routerLink='/app-realtime-buyer'>Buyer-Realtime</a>
+      </div> -->
+    
+    </div>
+ <!--  <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+      <button class="right-side-toggle waves-effect waves-light btn-info btn-circle pull-right m-l-20"><i class="ti-settings text-white"></i></button>
+      <a href="javascript: void(0);" target="_blank" class="btn btn-danger pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Buy Admin Now</a>
+      <ol class="breadcrumb">
+          <li><a href="#">Dashboard</a></li>
+          <li class="active">Starter Page</li>
+      </ol>
+  </div> -->
+  <!-- /.col-lg-12 -->
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="white-box">
+        <div class="ajax_loader" *ngIf="loading">
+          <!-- <img src="assets/img/loading.gif" width="24"> -->
+          <div class="customloader">
+            <div class="item-1"></div>
+            <div class="item-2"></div>
+            <div class="item-3"></div>
+            <div class="item-4"></div>
+            <div class="item-5"></div>
+          </div>
+        </div>
+        <h3 class="box-title">TFN-Realtime </h3>
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" *ngIf="data.length>0;else elsepart">
+              <ng-container *ngFor="let realData of data;index as i">
+              <div class="panel panel-default realcall-panel" *ngIf="realData.calls.length>0" >
+                <div class="panel-heading" role="tab" id="heading{{i + 1}}">
+                  <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{i + 1}}">
+                    <span *ngIf="realData.calls[0].pub_name!='';else elsePublName">{{realData.calls[0].pub_name}}</span>
+                    <ng-template #elsePublName>
+                     <div [innerHtml] = UnknownTemplate></div>
+                     </ng-template>
+                    
+                    <span class="badge badge-calls">{{realData.count}}</span> <bdo>TFN: {{realData.did}}</bdo>
+                  </a>
+                </h4>
+                </div>
+                <div id="collapse{{i + 1}}" class="panel-collapse collapse {{i + 1==1?'in':''}}" role="tabpanel" aria-labelledby="heading">
+                  <div class="panel-body">
+                      <div class="table-responsive ">
+                      <table class="table table-striped valign-table">
+                          <thead>
+                              <tr>
+                                  <th>Sr.</th>
+                                  <th>From DID</th>
+                                  <th>Compaign</th>
+                                  <th>Publisher</th>
+                                  <th>Talking To</th>
+                                  <th>Buyer Name</th>
+                                  <th>Buyer No.</th>
+                                  <th>Queue</th>
+                                  <th>Duration</th>
+                                  <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let call of realData.calls;index as j">
+                                  <td>{{j+1}}</td>
+                                  <td>{{call.from_did}}</td>
+                                  <td>{{call.camp_name}}</td>
+                                  <td>{{call.pub_name}}</td>
+                                  <td>{{call.talking_to}}</td>
+                                  <td>{{call.buyer_name}}</td>
+                                  <td>{{call.buyer_number}}</td>
+                                  <td>{{call.queue}}</td>
+                                  <td>{{call.duration}}</td>
+                                  <td>
+  
+                                    <a href="javascript:void()"  tooltip="call Hangup" mwlConfirmationPopover [popoverTitle]="" [popoverMessage]="popoverMessage" (confirm)="callHangup(user.channel)" [popoverClass]="popoverClass"  (cancel)="cancelClicked = true" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                                      <i class="fa fa-tty"></i> 
+                                    </a> 
+                                  
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                     </div>
+                </div>
+              </div>
+            </ng-container>
+              <!-- <div class="panel panel-default realcall-panel">
+                      <div class="panel-heading" role="tab" id="heading2">
+                        <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                          Amit Verma <span class="badge badge-calls">3</span>  <bdo>TFN: 1800348800</bdo>
+                        </a>
+                      </h4>
+                      </div>
+                      <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                            <table class="table table-striped valign-table">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th>TFN</th>
+                                        <th>Talking To</th>
+                                        <th>Destination</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1839434723</td>
+                                        <td>6754893</td>
+                                        <td>154728812</td>
+                                        <td>00:12:23</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                           </div>
+                      </div>
+                    </div> -->
+
+              <!-- <div class="panel panel-default realcall-panel">
+                <div class="panel-heading" role="tab" id="heading3">
+                  <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                    Amit Verma <span class="badge badge-calls">3</span>  <bdo>TFN: 1800348800</bdo>
+                  </a>
+                </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+                  <div class="panel-body">
+                      <div class="table-responsive ">
+                      <table class="table table-striped valign-table">
+                          <thead>
+                              <tr>
+                                  <th>Sr.</th>
+                                  <th>TFN</th>
+                                  <th>Talking To</th>
+                                  <th>Destination</th>
+                                  <th>Duration</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>1</td>
+                                  <td>1839434723</td>
+                                  <td>6754893</td>
+                                  <td>154728812</td>
+                                  <td>00:12:23</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                      </div>
+                </div>
+              </div> -->
+
+              </div>
+
+              <ng-template #elsepart>
+                <div  class="" align="center">No data.</div>
+              </ng-template>
+      </div>
+  </div>
+</div>

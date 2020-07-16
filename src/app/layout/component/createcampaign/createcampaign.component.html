@@ -1,0 +1,547 @@
+<div class="row bg-title">
+  <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+    <h4 class="page-title">Setup Your Campaign</h4>
+  </div>
+</div>
+
+<div class="row">
+  <!-- ============================================================== -->
+  <!-- Add Campaign  -->
+  <!-- ============================================================== -->
+  <div class="col-sm-12">
+    <form id="msform" [formGroup]="addCampaign" (ngSubmit)="onSubmit()">
+      <!-- progressbar -->
+      <ul id="progressbar">
+        <li class="active">Start Your Campaign <span>Name your Campaign and choose time Zone.</span></li>
+        <li [ngClass]="{'active': tab==='tab2' || tab==='tab3' || tab==='tab4'} "> Publisher and Routing
+          <span>Get a unique Tracking Number where you or your partners can send calls or use for
+            advertising.</span></li>
+        <li [ngClass]="{'active':  tab==='tab3' || tab==='tab4'}">Add a Target <span>Forward your calls to
+            buyers, call centers, or anywhere you'd like them to go.</span></li>
+        <li [ngClass]="{'active': tab==='tab4'}">Set it Live! <span>Test your Tracking Number to see RouteCent
+            operate in real-time.</span></li>
+      </ul>
+
+      <!-- +++++++fieldset 1 (Campaign Name,Buffer Time,Price per Call,time Zone)++++++-->
+
+      <fieldset [ngClass]="{'show': tab==='tab1'}">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+            style="width: 25%;">
+            <span class="sr-only">25% Complete</span>
+          </div>
+
+        </div>
+
+        <h2 class="fs-title">SETUP YOUR CAMPAIGN</h2>
+        <h3 class="fs-subtitle">Name your Campaign , Buffer Time , Price per call and Timezone</h3>
+        <input type="text" formControlName="name" class="form-control" name="fname"
+          placeholder="e.g. Facebook France Insurance" />
+        <div *ngIf="submittedCampaign && camp.name.errors" class="invalid-feedback">
+          <div *ngIf="camp.name.errors.required">Campaign Name is required</div>
+        </div>
+        <input type="number" formControlName="buffer_time" class="form-control" name="fname"
+          placeholder="Buffer Time" />
+        <div *ngIf="submittedCampaign && camp.buffer_time.errors" class="invalid-feedback">
+          <div *ngIf="camp.buffer_time.errors.required">Buffer Time is required</div>
+        </div>
+        <input type="number" formControlName="price_per_call" class="form-control" name="fname"
+          placeholder="Price Per Call" />
+        <div *ngIf="submittedCampaign && camp.price_per_call.errors" class="invalid-feedback">
+          <div *ngIf="camp.price_per_call.errors.required">Price Per Call is required</div>
+        </div>
+        <div class="select_wrapper bigselect">
+          <ng-select2 class="input-xxlg select2custome" placeholder="Select Timezone" formControlName="country"
+            name="publisherdropdown" [data]="timezone"></ng-select2>
+          <div *ngIf="submittedCampaign && camp.country.errors" class="invalid-feedback">
+            <div *ngIf="camp.country.errors.required">Time Zone is required</div>
+          </div>
+        </div>
+        <input type="button" name="next" class="next action-button" value="Save and continue" (click)="nextStep(2)" />
+      </fieldset>
+      <!-- End fieldset 1 -->
+
+      <!-- +++++fieldset 2 (publisher,Routing)++++++-->
+
+      <fieldset [ngClass]="{'show': tab==='tab2'}">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+            style="width: 50%;">
+            <span class="sr-only">50% Complete</span>
+          </div>
+
+        </div>
+        <a class="campaignbackk" (click)="nextStep(1)"><i class="fa fa-arrow-left"></i> Back</a>
+        <h2 class="fs-title">Choose Publisher and Routing</h2>
+        <span *ngIf="this.alluser.role=='admin'">
+          <input type="button" name="next" class="next action-button" (click)="openModal('publisher')"
+            value="Add Publisher +" />
+        </span>
+        <h3 class="fs-subtitle">Select an existing publihser or add to new Publisher</h3>
+
+        <div class="select_wrapper customselect2" *ngIf="this.alluser.role !='publisher'">
+          <ng-select2 class="input-xxlg select2custome" placeholder="Select Publisher" formControlName="publisher"
+            (ngModelChange)="somethingChanged2()" ([ngModel])="publisherdropdown" name="publisherdropdown"
+            [data]="allpulisher"></ng-select2>
+          <div *ngIf="submittedCampaign && camp.publisher.errors" class="invalid-feedback">
+            <div *ngIf="camp.publisher.errors.required">Publisher is required</div>
+          </div>
+        </div>
+        <div class="select_wrapper">
+          <select class="form-control" (change)="ChangeRoute()" formControlName="route">
+            <option selected value="">Select Routing</option>
+            <option value="0">In-side Route</option>
+            <option value="1">Out-side Route</option>
+          </select>
+          <div *ngIf="submittedCampaign && camp.route.errors" class="invalid-feedback">
+            <div *ngIf="camp.route.errors.required">Route is required</div>
+          </div>
+        </div>
+        <input type="button" name="next" class="next action-button" value="Save and continue" (click)="nextStep(3)" />
+        <!-- <input type="button" name="next" class="next action-button" value="Back" (click)="nextStep(1)" /> -->
+      </fieldset>
+      <!-- End fieldset 2 -->
+
+      <!-- ++++++fieldset 3 (Buyer,Buyer Number,Queue)+++++ -->
+
+      <fieldset [ngClass]="{'show': tab==='tab3'}">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+            style="width: 75%;">
+            <span class="sr-only">75% Complete</span>
+          </div>
+
+        </div>
+        <a class="campaignbackk" (click)="nextStep(2)"><i class="fa fa-arrow-left"></i> Back</a>
+
+        <h2 class="fs-title">Add a Target</h2>
+        <span *ngIf="addCampaign.controls.route.value==1">
+          <input type="button" name="next" class="next action-button" (click)="openModal('Buyer')"
+            value="Add Buyer +" />
+          <input type="button" name="next" class="next action-button" (click)="openModal('BuyerNumber')"
+            value="Add Buyer Number +" />
+        </span>
+        <h3 class="fs-subtitle">Purchase or select an existing number to track this Campaign's calls on the
+          Alivepbx platform. If you will be purchasing calls from a publisher, then assign this number to a
+          publisher, otherwise, assign the number to yourself.</h3>
+
+        <div class="select_wrapper" *ngIf="addCampaign.controls.route.value==1">
+          <!-- <select class="form-control" (change)="somethingChanged()" formControlName="buyer">
+            <option selected value="">select Buyer</option>
+            <option *ngFor="let Buyer of allBuyer;" value="{{Buyer.buyer_id}}">
+              {{Buyer.name}}
+            </option>
+          </select> -->
+          <angular2-multiselect [data]="allBuyer" formControlName="buyer" (ngModelChange)="somethingChanged()"
+            [(ngModel)]="buyerdrop" [settings]="buyerSettings" (onSelect)="onBuyerDropDownSelect($event)"
+            (onDeSelect)="OnBuyerDropDownDeSelect($event)" (onSelectAll)="onBuyerDropDownSelectAll($event)"
+            (onDeSelectAll)="onBuyerDropDownDeSelectAll($event)">
+          </angular2-multiselect>
+          <div *ngIf="submittedCampaign " class="invalid-feedback">
+            <div >Buyer is required</div>
+          </div>
+        </div>
+        <div class="select_wrapper " *ngIf="showBuyerNumber">
+          <!-- <img  src="assets/img/loading.gif" *ngIf="loadingbuyernumber" width="24" class="load_img"> -->
+          <angular2-multiselect [data]="BuyerNumberDropdown" [(ngModel)]="selectedItems"
+            (onSelect)="onBuyerSelectAll($event)" (onSelectAll)="onBuyerSelectAll2($event)"
+            (onDeSelect)="OnBuyerDeSelect($event)" formControlName="buyerNumber" [settings]="buyerDropdownSettings">
+            <c-item>
+              <ng-template let-item="item">
+                <label style="min-width: 150px; color:#eee; margin:0; font-weight:400;">{{item.itemName}}</label>
+                <label class="priorty"
+                  style="float:right; color:#6f99b1; font-size:11px;  margin:0; font-weight:400;">Priority:
+                  <span> <select 
+                    (click)="$event.stopPropagation()" 
+                    style="width: 30px; padding: 2px; background: transparent; border: 1px solid #6f99b1;margin-left: 10px;"
+                      (change)="onBuyerSelect($event)">
+                      <!-- <label
+                    style="min-width: 150px; color:#eee; margin:0; font-weight:400;">{{item.itemName}}</label>  -->
+                      <!-- <ng-container *ngIf="selectedItems.length != 0;else elsepart4">  -->
+
+                      <!-- <ng-container *ngFor="let p of buyernumberPeority">  -->
+                      <ng-container *ngFor="let itemm of priority; index as i">
+                        <option
+                          value="{{item.itemName}}-{{itemm.name}}-{{item.pause_status}}-{{item.capping}}-{{item.global_cap}}-{{item.queue}}-{{item.buyer_id}}"
+                          *ngIf="itemm.name==item.priority ;else elsepart" selected>
+                          {{item.priority}}</option>
+                        <ng-template #elsepart>
+                          <option
+                            value="{{item.itemName}}-{{itemm.name}}-{{item.pause_status}}-{{item.capping}}-{{item.global_cap}}-{{item.queue}}-{{item.buyer_id}}">
+                            {{itemm.name}}
+                          </option>
+                        </ng-template>
+
+
+                        <!-- </ng-container> -->
+
+                      </ng-container>
+                      <!-- <ng-template #elsepart4>
+                        <ng-container *ngFor="let itemm of priority">
+                          <label
+                            style="min-width: 150px; color:#eee; margin:0; font-weight:400;">{{item.itemName}}</label>
+                          <option
+                            value="{{item.itemName}}-{{itemm.name}}-{{item.pause_status}}-{{item.capping}}-{{item.global_cap}}-{{item.queue}}-{{item.buyer_id}}">
+                            {{itemm.name}}
+                          </option>
+                        </ng-container>
+                      </ng-template> -->
+                    </select>
+                  </span>
+                </label>
+              </ng-template>
+            </c-item>
+
+
+          </angular2-multiselect>
+          <div *ngIf="submittedCampaign" class="invalid-feedback">
+            <div>Buyer Number is required</div>
+          </div>
+
+        </div>
+        <input *ngIf="queue" type="number" formControlName="queue" class="form-control" name="fname"
+        
+          placeholder="Queue Number" />
+          <div *ngIf="submittedCampaign" class="invalid-feedback">
+            <div>Queue Number is required</div>
+          </div>
+        <input type="button" name="next" class="next action-button" value="Save and continue" (click)="nextStep(4)" />
+        <!-- <input type="button" name="next" class="next action-button" value="Back" (click)="nextStep(2)" /> -->
+      </fieldset>
+      <!-- End fieldset 3 -->
+
+      <!-- ++++++ fieldset 4 (TFn)+++++ -->
+      
+      <fieldset [ngClass]="{'show': tab==='tab4'}">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+            style="width: 100%;">
+            <span class="sr-only">100% Complete</span>
+          </div>
+
+
+        </div>
+        <a class="campaignbackk" (click)="nextStep(3)"><i class="fa fa-arrow-left"></i> Back</a>
+
+        <h2 class="fs-title">SET IT LIVE</h2>
+        <input *ngIf="alluser.role!='publisher'" type="button" name="next" class="next action-button"
+          (click)="openModal('Tfn')" value="Add Tfn +" />
+        <h3 class="fs-subtitle">Purchase or select an existing number to track this Campaign's calls on the
+          RouteCent platform. If you will be purchasing calls from a publisher, then assign this number to a
+          publisher, otherwise, assign the number to yourself.</h3>
+
+
+        <div class="select_wrapper sm-select customselect2">
+
+          <angular2-multiselect formControlName="Tfn" [(ngModel)]="selecteddata" [data]="itemList" [settings]="settings"
+            (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+            (onDeSelectAll)="onDeSelectAll($event)">
+          </angular2-multiselect>
+
+          <div *ngIf="submittedCampaign && camp.Tfn.errors" class="invalid-feedback">
+            <div *ngIf="camp.Tfn.errors.required">Choose Tfn is required</div>
+          </div>
+        </div>
+
+        <input type="Submit" name="next" class="next action-button" value="Save and continue" />
+        <!-- <input type="button" name="next" class="next action-button" value="Back" (click)="nextStep(3)" /> -->
+      </fieldset>
+      <!-- End fieldset 4 -->
+    </form>
+  </div>
+  <!-- ============================================================== -->
+  <!-- End Add Campaign -->
+  <!-- ============================================================== -->
+
+</div>
+<!-- ============================================================== -->
+<!-- Add Publisher Modal -->
+<!-- ============================================================== -->
+<jw-modal id="publisher">
+  <form class="form-horizontal commonForm" [formGroup]="ManagePublisher" (ngSubmit)="onSubmitPublisher()">
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Full Name</h5>
+        <input type="text" class="form-control" formControlName="name" placeholder="Enter fullname">
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Email</h5>
+        <input type="email" class="form-control" formControlName="email" placeholder="Email id">
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+          <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+
+        </div>
+        <!-- <div class="invalid-feedback">{{message}}</div> -->
+
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Contact</h5>
+        <input type="number" class="form-control" formControlName="contact" placeholder="Contact number">
+        <div *ngIf="submitted && f.contact.errors" class="invalid-feedback">
+          <div *ngIf="f.contact.errors.required">Contact is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Price per TFN ($)</h5>
+        <input type="number" class="form-control" formControlName="tfn" placeholder="$">
+        <div *ngIf="submitted && f.tfn.errors" class="invalid-feedback">
+          <div *ngIf="f.tfn.errors.required">Price per TFN is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Password</h5>
+        <input type="password" class="form-control" formControlName="password" placeholder="password">
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+          <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Confirm Password</h5>
+        <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm password">
+        <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+          <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+          <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Choose Role</h5>
+
+        <select class="form-control" formControlName="role">
+          <ng-container *ngFor="let role of this.allRole">
+            <option *ngIf="role.name !='buyer' && role.name!='admin'" value="{{role.name}}">{{role.name}}</option>
+          </ng-container>
+
+          <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+            <div *ngIf="f.role.errors.required">Role is required</div>
+          </div>
+        </select>
+
+      </div>
+      <div class="col-md-4">
+        <!-- <img *ngIf="loading" src="assets/img/loading.gif" width="24">  -->
+      </div>
+
+      <div class="col-md-4 pull-right text-right">
+        <h5 class="m-t-20"></h5>
+        <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Add Publisher</button>
+        <a id="refresh" (click)="closeModal('publisher');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+      <!-- <div class="ajax_loader" *ngIf="loading">
+        <img src="assets/img/loading.gif" width="24">
+      </div> -->
+    </div>
+  </form>
+
+</jw-modal>
+<!-- ============================================================== -->
+<!-- End Publisher Modal -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- Add Buyer Modal -->
+<!-- ============================================================== -->
+<jw-modal id="Buyer">
+  <form class="form-horizontal commonForm" [formGroup]="ManageBuyers" (ngSubmit)="onSubmitBuyer()">
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Buyer Name</h5>
+        <input type="text" class="form-control" name="" placeholder="Enter fullname" formControlName="name">
+        <div *ngIf="submittedBuyer && buyer.name.errors" class="invalid-feedback">
+          <div *ngIf="buyer.name.errors.required">Buyer Name is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Email</h5>
+        <input type="email" class="form-control" name="" placeholder="Email id" formControlName="email">
+        <div *ngIf="submittedBuyer && buyer.email.errors" class="invalid-feedback">
+          <div *ngIf="buyer.email.errors.required">Email is required</div>
+          <div *ngIf="buyer.email.errors.email">Email must be a valid email address</div>
+
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Contact</h5>
+        <input type="number" class="form-control" name="" placeholder="Contact number" formControlName="contact">
+        <div *ngIf="submittedBuyer && buyer.contact.errors" class="invalid-feedback">
+          <div *ngIf="buyer.contact.errors.required">Contact is required</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Address</h5>
+        <input type="text" class="form-control" name="" placeholder="Address" formControlName="address">
+        <div *ngIf="submittedBuyer && buyer.address.errors" class="invalid-feedback">
+          <div *ngIf="buyer.address.errors.required">Address is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Price per Call ($)</h5>
+        <input type="number" class="form-control" name="" placeholder="$" formControlName="price_per_call">
+        <div *ngIf="submittedBuyer && buyer.price_per_call.errors" class="invalid-feedback">
+          <div *ngIf="buyer.price_per_call.errors.required">Price per Call is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Buffer Time (in seconds)</h5>
+        <input type="number" formControlName="buffer_time" class="form-control" name="" placeholder="Buffer time">
+        <div *ngIf="submittedBuyer && buyer.buffer_time.errors" class="invalid-feedback">
+          <div *ngIf="buyer.buffer_time.errors.required">Buffer Time is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4" *ngIf="this.alluser.role !='publisher'">
+        <h5 class="m-t-20 m-b-10">Choose Publisher</h5>
+        <ng-select2 class="select2custome" placeholder="Select Publisher" formControlName="publisher"
+          name="publisherdropdown" [data]="allpulisher"></ng-select2>
+        <!-- <select class="form-control" formControlName="publisher">
+          <ng-container *ngFor="let publisher of allpulisher">
+            <option *ngIf="publisher.role=='publisher'" value="{{publisher.uid}}">
+              {{publisher.fullname}}
+            </option>
+          </ng-container>
+          
+        </select> -->
+        <div *ngIf="submittedBuyer && buyer.publisher.errors" class="invalid-feedback">
+          <div *ngIf="buyer.publisher.errors.required">Publisher is required</div>
+        </div>
+
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Password</h5>
+        <input type="password" class="form-control" formControlName="password" placeholder="password">
+        <div *ngIf="submittedBuyer && buyer.password.errors" class="invalid-feedback">
+          <div *ngIf="buyer.password.errors.required">Password is required</div>
+          <div *ngIf="buyer.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20">Confirm Password</h5>
+        <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm password">
+        <div *ngIf="submittedBuyer && buyer.confirmPassword.errors" class="invalid-feedback">
+          <div *ngIf="buyer.confirmPassword.errors.required">Confirm Password is required</div>
+          <div *ngIf="buyer.confirmPassword.errors.mustMatch">Passwords must match</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+
+      <div class="col-md-4 pull-right text-right">
+        <h5 class="m-t-20"></h5>
+        <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Add Buyer</button>
+        <a id="refresh" (click)="closeModal('Buyer');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+      <!-- <div class="ajax_loader" *ngIf="loading">
+        <img src="assets/img/loading.gif" width="24">
+      </div> -->
+    </div>
+  </form>
+</jw-modal>
+<!-- ============================================================== -->
+<!-- End Buyer Modal -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- Add BuyerNumber Modal -->
+<!-- ============================================================== -->
+<jw-modal id="BuyerNumber">
+  <form class="form-horizontal commonForm" [formGroup]="ManageBuyersNumber" (ngSubmit)="onSubmitBuyerNumber()">
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Select Buyer name</h5>
+        <select class="form-control" formControlName="buyer_id">
+          <option selected value="">select Buyer</option>
+          <option *ngFor="let Buyer of allBuyer;" value="{{Buyer.id}}">
+            {{Buyer.itemName}}
+          </option>
+        </select>
+
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Add Number</h5>
+
+        <input type="number" class="form-control" formControlName="number" name="" placeholder="Enter number">
+        <div *ngIf="submittedBuyerNumber && buyernumbervalid.number.errors" class="invalid-feedback">
+          <div *ngIf="buyernumbervalid.number.errors.required">Buyer Number is required</div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Add Capping</h5>
+
+        <input type="number" class="form-control" formControlName="capping" name="" placeholder="Enter capping">
+        <div *ngIf="submittedBuyerNumber && buyernumbervalid.capping.errors" class="invalid-feedback">
+          <div *ngIf="buyernumbervalid.capping.errors.required">Buyer Capping is required</div>
+        </div>
+      </div>
+      <!-- <div class="col-sm-3">
+        <h5 class="m-t-20 m-b-10">Add Queue/Campaign</h5>
+
+        <input type="number" class="form-control" formControlName="queue" name="" placeholder="Enter queue/campaign">
+        <div *ngIf="submittedBuyerNumber && buyernumbervalid.queue.errors" class="invalid-feedback">
+          <div *ngIf="buyernumbervalid.queue.errors.required">Buyer Queue is required</div>
+        </div>
+      </div> -->
+      <div class="col-md-4 pull-right text-right">
+        <h5 class="m-t-20"></h5>
+        <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Add Buyer Number</button>
+        <a id="refresh" (click)="closeModal('BuyerNumber');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+
+      <!-- <img *ngIf="loading1" src="assets/img/loading.gif" width="24" class="center_load"> -->
+    </div>
+  </form>
+</jw-modal>
+<!-- ============================================================== -->
+<!-- End BuyerNumber Modal -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- Add Tfn Modal -->
+<!-- ============================================================== -->
+<jw-modal id="Tfn">
+  <form class="form-horizontal commonForm" [formGroup]="TFN" (ngSubmit)="onSubmitTfn()">
+    <div class="row">
+      <div class="col-sm-6">
+        <h5 class="m-t-20 m-b-10">TFN Number</h5>
+        <input type="number" class="form-control" formControlName="tfn_number" name="tfn_number"
+          placeholder="Enter number">
+        <div *ngIf="submittedTfn && gettfn.tfn_number.errors" class="invalid-feedback">
+          <div *ngIf="gettfn.tfn_number.errors.required">TFN number is required</div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-6">
+        <h5 class="m-t-20 m-b-10">Price Per Tfn</h5>
+        <input type="number" class="form-control" name="price_per_tfn" formControlName="price_per_tfn"
+          placeholder="Price Per Tfn">
+        <div *ngIf="submittedTfn && gettfn.price_per_tfn.errors" class="invalid-feedback">
+          <div *ngIf="gettfn.price_per_tfn.errors.required">Price per Tfn is required</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 pull-right text-right">
+
+        <h5 class="m-t-20"></h5>
+
+        <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Add TFN</button>
+        <a id="refresh" (click)="closeModal('Tfn');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+      <!-- <div class="ajax_loader" *ngIf="loading">
+        <img src="assets/img/loading.gif" width="24">
+      </div> -->
+    </div>
+  </form>
+</jw-modal>
+<!-- ============================================================== -->
+<!-- End Tfn Modal -->
+<!-- ============================================================== -->

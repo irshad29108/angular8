@@ -1,0 +1,260 @@
+ <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Ringpool</h4> </div>
+                  <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <ol class="breadcrumb m-r-0">
+                    <li> 
+                      <a class="btn btn-sm btn-outline btn-info waves-effect waves-light" (click)="clickadd()"><i class="fa fa-plus"></i></a>
+                        <!-- <a routerLink="/active-hours" class="btn btn-outline btn-info waves-effect m-l-10 waves-light">Add Publisher</a> -->
+                         <a (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-10 waves-light"><i class="fa fa-filter"></i> Filter</a>
+                        </li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+
+
+
+
+<!-- password -->
+
+
+<div class="row boxindex" *ngIf="setpublisher">
+    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Select Publisher</h3>
+                            <p class="text-muted m-b-10">Just add new publisher in your account</p>
+
+                            <form class="form-horizontal commonForm" action="">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <!-- <h5 class="m-t-20 m-b-10">Password </h5> -->
+                                  <input type="text" class="form-control" name=""  value="+18883888920">
+                                </div>
+                                <div class="col-sm-4">
+                                    <!-- <h5 class="m-t-20 m-b-10">Confirm Password</h5> -->
+                                   <select class="form-control">
+                                       <option selected="">Select publisher</option>
+                                       <option>Irshad</option>
+                                       <option>Sachin</option>
+                                   </select>
+                                </div>
+                               
+                          
+                                <div class="col-md-4 pull-right text-right">
+
+                          <button type="button" id="deselect-all" class="btn btn-info btn-outline">Add Publisher</button>
+                          <a id="refresh" (click)="clicksetpublisher()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+                         </div>
+                         </div>
+                         </form>
+                        </div>
+                    </div>
+</div>
+
+<!-- password -->
+
+
+
+<div class="row boxindex" *ngIf="add">
+    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title m-b-0">Create Ringpool</h3>
+                            <p class="text-muted m-b-10">Just add new publisher in your account</p>
+
+                            <form class="form-horizontal commonForm" action="">
+                            <div class="row"> 
+                            <div class="col-sm-4">
+                                    <h5 class="m-t-20 m-b-10">Select Country</h5>
+                                   <select class="form-control" (change)="selectChangeHandler($event)">
+                                   <option value="select">Select Country</option>
+                                       <option *ngFor="let country of countryList;" value="{{country.code}}">{{country.name}}</option>
+                                      
+                                   </select>
+                                </div>
+                                <div class="col-sm-4" *ngIf="selectcountry">
+                                    <h5 class="m-t-20 m-b-10">Name</h5>
+                                  <input type="text" class="form-control" name="" placeholder="Ringpool Title">
+                                </div>
+                               
+                         
+                                <div class="col-sm-4" *ngIf="selectcountry">
+                                    <h5 class="m-t-20 m-b-10">Close Browser Delay <small>(In second)</small></h5>
+                                  <input type="text" class="form-control" name="" placeholder="30">
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-sm-4" *ngIf="selectcountry">
+                                    <h5 class="m-t-20 m-b-10">Browser Idle Limit <small>(In second)</small></h5>
+                                  <input type="text" class="form-control" name="" placeholder="300">
+                                </div>
+                                <div class="col-sm-4" *ngIf="selectcountry">
+                                    <h5 class="m-t-20 m-b-10">Pool Size <small>(In digit)</small></h5>
+                                  <input type="text" class="form-control" name="" placeholder="9">
+                                </div>
+                                <div class="col-md-4 pull-right text-right">
+ <div class="btnm">
+                          <button type="button" id="deselect-all" class="btn btn-info btn-outline">Save Ringpool</button>
+                          <a id="refresh" (click)="clickadd()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+                         </div>
+                         </div>
+                         </div>
+                         </form>
+                        </div>
+                    </div>
+</div>
+
+
+
+
+
+<!-- buyerlist -->
+
+                   <div class="row">
+                    <div class="col-md-12">
+                    <div class="white-box">
+                    <h3 class="box-title">Ringpool (s)</h3>
+                       <div class="table-responsive performance_table">
+<table class="table table-striped valign-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+  <thead>
+  <tr>
+  <th>No.</th>
+  <th>
+          <mfDefaultSorter by="hour">Name</mfDefaultSorter>
+      </th>
+      <th>
+          <mfDefaultSorter by="live">Country</mfDefaultSorter>
+      </th>
+      
+        <th>
+          <mfDefaultSorter by="createnumber">Close Browser Delay</mfDefaultSorter>
+      </th>
+        <th>
+          <mfDefaultSorter by="createnumber">Browser Idle Limit</mfDefaultSorter>
+      </th>
+        <th>
+          <mfDefaultSorter by="createnumber">Pool Size</mfDefaultSorter>
+      </th>
+       <th>
+          <mfDefaultSorter by="day">Allocating</mfDefaultSorter>
+      </th>
+       
+       <th>
+          <mfDefaultSorter by="">Status</mfDefaultSorter>
+      </th>
+       <th>
+          <mfDefaultSorter by="">Action</mfDefaultSorter>
+      </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of mf.data; index as i;">
+  <td>{{i + 1}}</td>
+      <td>{{user.name}}</td>
+     
+      <td>
+      <span *ngIf="user.country =='UK'"><img src="./assets/img/uk.png" width="22"></span>
+      <span *ngIf="user.country =='USA'"><img src="./assets/img/us.png" width="22"></span>
+      <span *ngIf="user.country =='IND'"><img src="./assets/img/ind.png" width="22"></span>
+
+      </td>
+      
+       <td>{{user.browserDelay}}</td>
+        <td>{{user.browserIdle}}</td>
+        <td>{{user.poolsize}}</td>
+         <td>{{user.allocatdate}}</td>
+     
+   
+    
+      <td> <span *ngIf="user.status =='active'"><i class="fa fa-toggle-on fa-lg text-success"></i></span><span *ngIf="user.status !='active'"><i class="fa fa-toggle-off fa-lg text-danger"></i></span></td>
+      <td style="width: 100px; ">
+      <a href="javascript:void()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="edit">
+                    <i class="fa fa-edit"></i> 
+       </a>
+     <!--   <a (click)="setPassword()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Set password">
+                    <i class="fa fa-lock"></i> 
+       </a>
+       <a (click)="managenumber()" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="Manage number">
+                    <i class="fa fa-phone"></i> 
+       </a> -->
+     
+       <a href="javascript:void()" class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5" title="trash">
+                    <i class="fa fa-trash"></i> 
+       </a>
+      
+       </td>
+      
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+      <td colspan="9">
+          <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+      </td>
+  </tr>
+  </tfoot>
+</table>
+</div>
+              
+              </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                 <!-- .right-sidebar -->
+                <div class="right-sidebar" [ngClass]="status? 'shw-rside' : ''">
+                        <div id="filteroverlay" (click)="clickFilter()"  [ngClass]="status? 'show' : ''"></div>
+
+                    <div class="slimscrollright">
+                        <div class="rpanel-title"> Filter Panel <span (click)="clickFilter()"><i class="ti-close right-side-toggle"></i></span> </div>
+                        <div class="r-panel-body">
+                             <form class="form-horizontal" action="">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="m-t-20 m-b-10">Select box</h5>
+                                    <select class="selectpicker form-control" data-style="form-control">
+                                        <option>Mustard</option>
+                                        <option>Ketchup</option>
+                                        <option>Relish</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 class="m-t-20 m-b-10">Input Text</h5>
+                                   <input type="text" class="form-control" name="">
+                                </div>
+                              
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="m-t-20 m-b-10">Select box</h5>
+                                    <select class="selectpicker form-control" data-style="form-control">
+                                        <option>Mustard</option>
+                                        <option>Ketchup</option>
+                                        <option>Relish</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <h5 class="m-t-20 m-b-10">Input Text</h5>
+                                   <input type="text" class="form-control" name="">
+                                </div>
+                               
+                            </div>
+                             <div class="row">
+                                <div class="col-md-12">
+ <h5 class="m-t-30"></h5>
+                          <button id="deselect-all" class="btn btn-info btn-outline" href="#">Apply Filter</button>
+                          <a id="refresh" class="btn btn-warning btn-outline m-l-5" href="#">Reset</a>
+                         </div>
+                         </div>
+                         </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->

@@ -1,0 +1,272 @@
+<div class="row bg-title">
+  <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+    <h4 class="page-title">Manage Campaigns</h4>
+  </div>
+  <div class="col-lg-9 col-sm-12 col-md-8 col-xs-12">
+    <ol class="breadcrumb m-r-0">
+      <li *ngIf="datashow.role != 'publisher'">
+        <div class="select_wrapper sm-select">
+          <ng-select2 class="input-sm" placeholder="Select Publisher" [(ngModel)]="publisherdropdown"
+            name="publisherdropdown" [data]="allpulisher"></ng-select2>
+        </div>
+        <a (click)="resetpublisher()" *ngIf="datashow.role != 'publisher'"
+          class="btn btn-sm btn-info btn-outline waves-effect waves-light" title="Reset"><i
+            class="fa fa-repeat"></i></a>
+
+      </li>
+
+      <li class="nonbtndate"> <input type="text" ngxDaterangepickerMd [(ngModel)]="select" [showCustomRangeLabel]="true"
+          [ranges]="ranges" [opens]="'left'" [showCancel]="true" [linkedCalendars]="true"
+          [alwaysShowCalendars]="alwaysShowCalendars"
+          [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+          placeholder="Select please..." /></li>
+          <a (click)="resetcal()" 
+          class="btn btn-sm btn-info btn-outline waves-effect waves-light" title="Reset"><i
+            class="fa fa-repeat"></i></a>
+      <li>
+        <a (click)="clickEvent()" class="btn btn-sm btn-outline btn-info waves-effect waves-light">Filter</a>
+      </li>
+
+    </ol>
+  </div>
+
+  <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="white-box">
+      <h3 class="box-title">Campaigns</h3>
+      <div class="table-responsive performance_table">
+        <div class="alert pbxalert alert-success alert-dismissible animated fadeInRight"
+          *ngIf="messageheader != '' && messageheader != null">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{messageheader}}
+        </div>
+        <div class="alert pbxalert alert-warning alert-dismissible animated fadeInRight"
+          *ngIf="messageheadererror != '' && messageheadererror != null">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{messageheadererror}}
+        </div>
+
+        <div class="table-responsive performance_table">
+
+          <div class="ajax_loader" *ngIf="loader">fetching data ..</div>
+          <table class="table table-striped valign-table"
+            [mfData]="data|campaignFilter:name:buffer_time:Timezone:queue_name:queue_number:select:publisherdropdown"
+            #mf="mfDataTable" [mfRowsOnPage]="10">
+            <thead>
+              <tr>
+                <th>
+                  <mfDefaultSorter by="">Status</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="camp_name">campaign Name</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="publisherName" class="ancor">publisher</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="buffer_time">Buffer Time</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="price_per_call">Price Per call</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="inside_route">Routing</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="time_zone">Time Zone</mfDefaultSorter>
+                </th>
+
+                <th>
+                  <mfDefaultSorter by="queue_name">Queue Name</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter by="queue_no">Queue Number</mfDefaultSorter>
+                </th>
+
+                <th>
+                  <mfDefaultSorter by="created_at">Create At </mfDefaultSorter>
+                </th>
+
+                <th>
+                  <mfDefaultSorter by="">Action</mfDefaultSorter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of mf.data; index as i;">
+                <td>
+                  <span *ngIf="user.status =='active'"><label class="label label-success">active </label></span>
+                  <span *ngIf="user.status =='setup' || user.status==''"><label
+                      class="label label-danger">Setup</label></span>
+                </td>
+                <td><a href="javascipt.void(0)" style="color: #e4e7ea;text-decoration:none;"
+                    routerLink="/dashboard/campaigns/manage/{{user._id}}&{{user.campaign_id}}">{{user.camp_name|ellipsis:20 }}</a>
+                </td>
+                <td>{{user.publisherName }}</td>
+                <td>{{user.buffer_time}}</td>
+                <td>{{user.price_per_call}}</td>
+                <td *ngIf="user.inside_route==''">OutSide Routing</td>
+                <td *ngIf="user.inside_route!=''">Inside Routing</td>
+                <td>{{user.time_zone}}</td>
+                <td>{{user.queue_name| ellipsis:20}}</td>
+                <td>{{user.queue_no}}</td>
+                <td>{{user.created_at| date: 'dd/MM/yyyy'}}</td>
+
+                <td style="width: 170px; ">
+                  <a routerLink="/dashboard/campaigns/manage/{{user._id}}&{{user.campaign_id}}" tooltip="Edit Campaign"
+                    class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                    <i class="fa fa-edit"></i>
+                  </a>
+
+                  <a href="javascript:void()" tooltip="view report"
+                    routerLink='/dashboard/CDR-manage/CDR-reports/@camp&{{user.campaign_id}}'
+                    class="edit-modal btn btn-warning btn-outline btn-circle btn-sm m-r-5">
+                    <i class="fa fa-pie-chart"></i>
+                  </a>
+                  <a href="javascript:void(0)" (click)="openModal('play',user.campaign_id)" tooltip="Play"
+                    class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5">
+                    <i class="fa fa-pause"></i>
+                  </a>
+
+                  <a mwlConfirmationPopover tooltip="delete" [popoverTitle]="popoverTitle"
+                    [popoverMessage]="popoverMessage" [popoverClass]="popoverClass" placement="left"
+                    (confirm)="delete(user.campaign_id,user.inside_route,user.queue_no)" (cancel)="cancelClicked = true"
+                    class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5">
+                    <i class="fa fa-trash"></i>
+                  </a>
+
+                </td>
+
+              </tr>
+              <tr *ngIf="showmethod=='no data' || showmethod== '';else elsepart">
+                <td colspan="11" align="center" *ngIf="showmethod=='no data';else elsepart2">No data</td>
+                <ng-template #elsepart2>
+                </ng-template>
+              </tr>
+              <ng-template #elsepart>
+                <tr>
+                  <td colspan="15" align="center">
+                    <div class="customloader">
+                      <div class="item-1"></div>
+                      <div class="item-2"></div>
+                      <div class="item-3"></div>
+                      <div class="item-4"></div>
+                      <div class="item-5"></div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="11">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,50,100]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="right-sidebar" [ngClass]="status? 'shw-rside' : ''">
+  <div id="filteroverlay" (click)="clickFilter()" [ngClass]="status? 'show' : ''"></div>
+
+  <div class="slimscrollright">
+    <div class="rpanel-title"> Filter Panel <span (click)="clickFilter()"><i class="fa fa-angle-double-right right-side-toggle"
+          ></i></span> </div>
+    <div class="r-panel-body">
+      <form class="form-horizontal" action="">
+        <div class="row">
+
+          <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Campaign Name</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr1')" tooltip="Reset Name"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="name" name="name" placeholder="Enter Campaign Name">
+          </div>
+          <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Timezone</h5>
+
+            <button class="btn btn-danger btn-xs btnfilterClose filtrreset" (click)="closefiltr('filtr3')"
+              tooltip="Reset Timezone"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="Timezone" name="Timezone" placeholder="Enter Timezone">
+          </div>
+
+          <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Queue Name</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr4')" tooltip="Reset Queue Name"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="queue_name" name="queue_name"
+              placeholder="Enter Queue Name">
+          </div>
+
+          <div class="col-md-12">
+            <h5 class="m-t-20 m-b-10">Queue Number</h5> <button class="btn btn-danger btn-xs btnfilterClose filtrreset"
+              (click)="closefiltr('filtr5')" tooltip="Reset Queue Number"><i class="fa fa-repeat"></i></button>
+            <input type="text" class="form-control" [(ngModel)]="queue_number" name="queue_number"
+              placeholder="Enter Queue Number">
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <h5 class="m-t-30"></h5>
+            <a id="refresh" class="btn btn-warning btn-outline" (click)="resetfilter()" tooltip="Reset All">Reset
+              All</a>
+          </div>
+          <div class="col-xs-6">
+            <h5 class="m-t-30"></h5>
+            <a class="btn btn-danger  btn-outline" (click)="clickFilter()"
+              tooltip="close panle without reset filter">Hide Panel</a>
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Right sidebar -->
+<!-- ============================================================== -->
+<jw-modal id="play">
+<form class="form-horizontal commonForm" [formGroup]="play">
+    <div class="customloader" *ngIf="submittedLoader">
+      <div class="item-1"></div>
+      <div class="item-2"></div>
+      <div class="item-3"></div>
+      <div class="item-4"></div>
+      <div class="item-5"></div>
+    </div>
+    <div class="row  m-b-20">
+      <div class="col-sm-6">
+        <h5 class="m-t-20  m-b-10">Select TFNS</h5>
+        <angular2-multiselect formControlName="TFN" [(ngModel)]="selecteddata" [data]="itemList" [settings]="settings"
+          (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+          (onDeSelectAll)="onDeSelectAll($event)">
+        </angular2-multiselect>
+        <div *ngIf="submitted1 && Play.TFN.errors" class="invalid-feedback">
+          <div *ngIf="Play.TFN.errors.required">Tfn is required</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <h5 class="m-t-20 m-b-10">Queue Number</h5>
+        <input type="text" class="form-control" disabled formControlName="queue_no" placeholder="Queue Number">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 pull-right text-right">
+        <button type="submit" id="deselect-all" (click)="playtfn()"
+          class="btn btn-info btn-outline m-l-10">Play</button>
+        <button type="submit" id="deselect-all" (click)="pause()" class="btn btn-info btn-outline m-l-10">Pause</button>
+        <a id="refresh" (click)="closeModal('play');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+    </div>
+  </form>
+</jw-modal>

@@ -1,0 +1,17 @@
+<span *ngIf="playershow">
+<div class="mediaplayer" *ngIf="sideNavService.mplayer"> 
+    <button class="playerclose" (click)="sideNavService.closePlayer()">x</button>
+    
+<!-- <plyr mat-card-image  id="player" plyrTitle="Audio" plyrType="audio" [plyrSources]="audioSources" (plyrInit)="player = $event" (plyrPlay)="played($event)" [plyrOptions]="options"></plyr>  -->
+<!-- <iframe [src]='audioSources' allow="autoplay"     width= "100%" id="audio" frameborder="0"
+    webkitallowfullscreen mozallowfullscreen allowfullscreen> -->
+    <audio  controls autoplay style="width:100%" mat-card-image  id="player"> 
+        <source [src]='audioSources' type="audio/wav" ></audio>
+<!-- </iframe> -->
+</div> 
+</span>
+<!-- <div class="mediaplayer" *ngIf="sideNavService.mplayer"> 
+    <button class="playerclose" (click)="sideNavService.closePlayer()">x</button>
+    <mat-basic-audio-player [audioUrl]="msbapAudioUrl" [title]="msbapTitle" 
+    [displayTitle]="msbapDisplayTitle" [displayVolumeControls]="msaapDisplayVolumeControls" ></mat-basic-audio-player>
+</div> -->

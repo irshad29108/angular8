@@ -1,0 +1,4 @@
+.btnm{margin-top: 42px;}
+.boxindex{position: relative;}
+.boxindex:before{position: fixed; height: 100%; width: 100%; background: rgba(255,255,255,0.7); left: 0; top: 0; z-index: 111;}
+.boxindex .white-box{z-index: 999999; position: relative;}

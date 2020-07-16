@@ -1,0 +1,36 @@
+.notify .point.notii {
+    min-width: 17px;
+    height: 17px;
+    /* -webkit-border-radius: 30px; */
+    /* -moz-border-radius: 30px; */
+    /* border-radius: 30px; */
+    /* background-color: #ff7676; */
+    /* position: absolute; */
+     right: -8px; 
+    top: -21px;
+    line-height: 1;
+    padding: 3px;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+}
+.livecall>a>span{  
+  font-size: 20px;
+    float: right;
+    padding: 0 10px;
+    line-height: 1;
+    margin-top: 15px;
+    color: #00cc96;
+}
+.livecall>a>span>bdo{font-size: 13px; display: block;color: #ffc36d;}
+.livecall .notify .heartbit {
+    top: 0px;
+    right: auto;
+    left: -44px;
+    border: 5px solid #ffffff;
+}
+
+.completed>a>span{color: #53e9ff}
+
+
+

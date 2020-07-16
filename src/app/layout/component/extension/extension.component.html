@@ -1,0 +1,158 @@
+<div class="row bg-title">
+  <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+    <h4 class="page-title">Extension </h4>
+  </div>
+  <div class="col-lg-10 col-sm-8 col-md-8 col-xs-12">
+    <ol class="breadcrumb m-r-0">
+      <li >
+        <div class="select_wrapper sm-select">
+          <!-- <select class="form-control input-sm" placeholder=""  [(ngModel)]="publisherdropdown" name="publisherdropdown">
+          <option >Select Publisher</option>
+          <option *ngFor="let pub of publisher" value="{{pub.uid}}">{{pub.username}}</option>
+
+        </select> -->
+        <ng-select2 class="input-sm" placeholder="Select Queue Number" [(ngModel)]="queuenumber"
+            (ngModelChange)="changeQueueNumber()" name="queuenumber" [data]="QueueNumber"></ng-select2>
+
+        </div>
+
+      </li>
+      <li>
+        <a class="btn btn-sm btn-outline btn-info waves-effect waves-light"
+                            (click)="openModal('QueueNumber')"><i class="fa fa-plus"></i></a>
+      </li>
+      <!-- <li>
+
+        <a (click)="resetcampaign()" class="btn btn-sm btn-info btn-outline waves-effect waves-light" title="Reset"><i
+            class="fa fa-repeat"></i></a>
+      </li> -->
+
+      <!--  <li *ngIf="alluser.role!='buyer'"> <a (click)="resetcampaign()" class="btn btn-sm btn-info btn-outline waves-effect waves-light" title="Reset"><i
+            class="fa fa-repeat"></i></a>
+      </li> -->
+      <!-- <li> <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" [showCustomRangeLabel]="true"
+          [ranges]="ranges" [opens]="'left'" [showCancel]="true" [linkedCalendars]="true"
+          [alwaysShowCalendars]="alwaysShowCalendars"
+          [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+          placeholder="Select please..." />
+        <a (click)="submit()" class="btn btn-sm btn-info waves-effect waves-light">Submit</a>
+      </li>
+
+      <li><a href="javascript:void(0)" (click)="clickFilter()"
+          class="btn  btn-sm btn-info btn-outline waves-effect waves-light m-l-0" title="Filter"><i
+            class="fa fa-filter"></i> Filter</a></li> -->
+    </ol>
+  </div>
+ 
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="white-box">
+      <div class="pull-left ">
+        <h3 class="box-title">Extension</h3>
+        
+       </div>
+      <div class="table-responsive performance_table m-t-30">
+        <table class="table table-striped valign-table"
+          [mfData]="data"
+          #mf="mfDataTable" [mfRowsOnPage]="10">
+          <thead>
+            <tr>
+              <th>No</th>
+
+              <th>
+                <mfDefaultSorter by="queuenumber">Queue</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="ext" class="ancor">Extension</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter >Action</mfDefaultSorter>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let ext of mf.data;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{queuenumber}}</td>
+            <td>{{ext}}</td>
+            <td>   <a mwlConfirmationPopover tooltip="delete" [popoverTitle]="popoverTitle"
+              [popoverMessage]="popoverMessage" [popoverClass]="popoverClass" placement="left"
+              (confirm)="delete(ext)" (cancel)="cancelClicked = true"
+              class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5">
+              <i class="fa fa-trash"></i>
+            </a></td>
+          </tr>
+          <tr *ngIf="showmethod=='no data' || showmethod== '';else elsepart">
+            <td colspan="4" align="center" *ngIf="showmethod=='no data';else elsepart2">No data</td>
+            <ng-template #elsepart2>
+            </ng-template>
+          </tr>
+          <ng-template #elsepart>
+            <tr>
+              <td colspan="4" align="center">
+                <div class="customloader" >
+                <div class="item-1"></div>
+                <div class="item-2"></div>
+                <div class="item-3"></div>
+                <div class="item-4"></div>
+                <div class="item-5"></div>
+              </div></td>
+            </tr>
+          </ng-template>
+            
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25,50,100]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<jw-modal id="QueueNumber">
+  <form class="form-horizontal commonForm" [formGroup]="queueNumber" (ngSubmit)="onSubmitExt()">
+    <div class="row">
+      <div class="col-sm-4">
+        <h5 class="m-t-20 m-b-10">Select Queue</h5>
+        <div class="select_wrapper bigselect">
+        <ng-select2 class="input-sm select2custome" placeholder="Select Queue Number" formControlName="queue"
+        name="queuenumber" [data]="QueueNumber"></ng-select2>
+      </div>
+        <!-- <select class="form-control" formControlName="buyer_id">
+          <option selected value="">select Buyer</option>
+          <option *ngFor="let Buyer of allBuyerDropdown;" value="{{Buyer.buyer_id}}">
+            {{Buyer.name}}
+          </option>
+        </select> -->
+        <div *ngIf="submitted && Queuenumbervalid.queue.errors" class="invalid-feedback">
+          <div *ngIf="Queuenumbervalid.queue.errors.required">Queue is required</div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <h5 class="m-t-20 m-b-10">Add Extensions</h5>
+<div class="custom-taginput">
+        <!-- <input type="number" class="form-control" formControlName="extensions" name="" placeholder="Enter extension"> -->
+        <tag-input class="taginput" style="color: black!important;" (keypress)="numberOnly($event)" formControlName="extensions"></tag-input>
+      </div>
+        <div *ngIf="submitted && Queuenumbervalid.extensions.errors" class="invalid-feedback">
+          <div *ngIf="Queuenumbervalid.extensions.errors.required">Extensions is required</div>
+        </div>
+      </div>
+
+      
+      <div class="col-md-4 pull-right text-right">
+        <h5 class="m-t-20"></h5>
+        <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Add Extension Number</button>
+        <a id="refresh" (click)="closeModal('QueueNumber');" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+      </div>
+
+      <!-- <img *ngIf="loading1" src="assets/img/loading.gif" width="24" class="center_load"> -->
+    </div>
+  </form>
+</jw-modal>

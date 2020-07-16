@@ -1,0 +1,85 @@
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 30px;
+}
+
+#msform fieldset {
+    background: #002133;
+    border: 0 none;
+    border-radius: 0px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 60%;
+    margin: 0 auto;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+/*Hide all except first fieldset*/
+/*#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+*/
+/*inputs*/
+#msform input.form-control, #msform textarea.form-control, #msform select.form-control {
+    padding: 15px;
+    border: 1px solid #3c5e71;
+    border-radius: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #fff;
+    font-size: 13px;
+    height: 50px;
+    background: #02314c;
+}
+
+#msform input:focus, #msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ee0979;
+    outline-width: 0;
+    transition: All 0.5s ease-in;
+    -webkit-transition: All 0.5s ease-in;
+    -moz-transition: All 0.5s ease-in;
+    -o-transition: All 0.5s ease-in;
+}
+/*headings*/
+.fs-title {
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #007cb8;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #ffffff96;
+    margin-bottom: 20px;
+}
+/*buttons*/
+#msform .action-button {
+    min-width: 100px;
+    background: #007cb8;
+    /*font-weight: bold;*/
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
+}

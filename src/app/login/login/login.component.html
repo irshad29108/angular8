@@ -1,0 +1,151 @@
+
+<section id="wrapper" class="new-login-register">
+
+         <div class="new-login-box">
+                   <div class="white-box">
+                   
+                    <h3 class="box-title m-b-10 text-center">
+                    <img src="assets/img/logo.png" height="36"> 
+                       <span>Sign In to Admin</span></h3>
+                       <!-- <span *ngIf="this.errormessage!=''">{{this.errormessage}}</span> -->
+                       
+                     
+                      <div class="alert alert-danger alert-dismissible" *ngIf="this.errormessage!=''">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <!-- <strong>Error!</strong>  -->
+                        {{this.errormessage}}
+                      </div>
+
+                       <!-- <small>Enter your details below</small> -->
+                     <form class="form-horizontal new-lg-form"  [formGroup]="Login" (ngSubmit)="onSubmit()"  *ngIf="!passtatus">
+                       
+                       <div class="form-group  m-t-20">
+                         <div class="col-xs-12">
+                           <label>Email Address</label>
+                           <input class="form-control" formControlName="username" type="text" required="" placeholder="Email">
+                           <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                            <div *ngIf="f.username.errors.required">Email is required</div>
+                            <div *ngIf="f.username.errors.email">Email must be a valid email address</div>
+                            
+                        </div>
+                        <div *ngIf="emailmessage != ''" class="invalid-feedback">{{emailmessage}}</div>
+                         </div>
+                       </div>
+                       <div class="form-group">
+                         <div class="col-xs-12">
+                           <label>Password</label>
+                           <input class="form-control" type="password"  formControlName="password" required="" placeholder="Password">
+                           <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="form-group">
+                        <div class="col-xs-12">
+                          <label>Select Role</label>
+                          <!-- <div class="select_wrapper sm-select"> -->
+                            <select class="form-control" formControlName="role">
+                              <option value="">select Role</option>
+                              <option value="admin">Admin</option>
+                              <option value="publisher">Publisher</option>
+                              <option value="buyer">Buyer</option>
+                              <option value="monitor">Que Monitor</option>
+                              
+                            </select>
+                            <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+                              <div *ngIf="f.role.errors.required"> Role is required</div>
+                            </div>
+                          <!-- </div> -->
+              
+                        </div>
+                       </div>
+                       <div class="form-group">
+                         <div class="col-md-12">
+                           <div class="checkbox checkbox-info pull-left p-t-0">
+                             <input id="checkbox-signup" type="checkbox">
+                             <label for="checkbox-signup"> Remember me </label>
+                           </div>
+                           </div>
+                       </div>
+                       <div class="form-group text-center m-t-20">
+                         <div class="col-xs-12">
+                           <!-- <h4>{{isLoggin}}</h4> -->
+                           <span *ngIf="loading"  class="btn btn-info btn-lg btn-block btn-outline btn-rounded text-uppercase waves-effect waves-light"> <div class="customloader" >
+                            <div class="item-1"></div>
+                            <div class="item-2"></div>
+                            <div class="item-3"></div>
+                            <div class="item-4"></div>
+                            <div class="item-5"></div>
+                          </div></span>
+                           <button *ngIf="!loading" class="btn btn-info btn-lg btn-block btn-outline btn-rounded text-uppercase waves-effect waves-light" type="submit">Log In</button>
+                         </div>
+                       </div>
+
+                      <!--<div class="row">
+                         <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
+                           <div class="social"><a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip"  title="Login with Facebook"> <i aria-hidden="true" class="fa fa-facebook"></i> </a> <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip"  title="Login with Google"> <i aria-hidden="true" class="fa fa-google-plus"></i> </a> </div>
+                         </div>
+                       </div>-->
+
+                       <div class="form-group m-b-0">
+                         <div class="col-sm-12 text-center">
+                           <p>Forgot your password? <a href="javascript:void(0)" (click)="forGot()" class="text-primary m-l-5"><b>Click Here</b></a></p>
+                         </div>
+                       </div> 
+
+                     </form>
+                     <form class="form-horizontal"  [formGroup]="Recovery" (ngSubmit)="onSubmitrev()" id="recoverform"  *ngIf="passtatus">
+                       <div *ngIf="messageshow!=''" style="text-align: center;color: green;">Check your mail password  will be sended on your mail</div>
+                       <div *ngIf="messageerror!=''" style="text-align: center;color: red;">{{messageerror}}</div>
+                       <div class="form-group ">
+                         <div class="col-xs-12">
+                           <h3>Recover Password</h3>
+                           <p class="text-muted">Enter your Email and instructions will be sent to you! </p>
+                         </div>
+                       </div>
+                       
+                       <div class="form-group ">
+                         <div class="col-xs-12">
+                           <input class="form-control" type="text" formControlName="email" placeholder="Email">
+                           <div *ngIf="submitted1 && f1.email.errors" class="invalid-feedback">
+                            <div *ngIf="f1.email.errors.required">Email is required</div>
+                            <div *ngIf="f1.email.errors.email">Email must be a valid email address</div>
+                            
+                        </div>
+                         </div>
+                       </div>
+                       <div class="form-group">
+                        <div class="col-xs-12">
+                          <label>Select Role</label>
+                          <!-- <div class="select_wrapper sm-select"> -->
+                            <select class="form-control" formControlName="role">
+                              <option value="">select Role</option>
+                              <option value="admin">Admin</option>
+                              <option value="publisher">Publisher</option>
+                              <option value="buyer">Buyer</option>
+                              
+                            </select>
+                            <div *ngIf="submitted1 && f1.role.errors" class="invalid-feedback">
+                              <div *ngIf="f1.role.errors.required"> Role is required</div>
+                            </div>
+                          <!-- </div> -->
+              
+                        </div>
+                       </div>
+                       <div class="form-group text-center m-t-20">
+                         <div class="col-xs-12">
+                           <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
+                         </div>
+                       </div>
+
+                       <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                          <p>For Login  <a href="javascript:void(0)" (click)="forGot()" class="text-primary m-l-5"><b>Click Here</b></a></p>
+                        </div>
+                      </div>
+
+                     </form>
+                   </div>
+            </div>            
+     
+   </section>

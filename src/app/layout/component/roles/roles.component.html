@@ -1,0 +1,193 @@
+<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+      <h4 class="page-title">Manage Roles</h4>
+    </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+      <ol class="breadcrumb m-r-0">
+          <li>
+                <a class="btn btn-sm btn-outline btn-info waves-effect waves-light m-l-5"><i class="fa fa-refresh"></i></a>
+          </li>
+        <li>
+          <input type="text" ngxDaterangepickerMd [(ngModel)]="currentDate" [showCustomRangeLabel]="true" [ranges]="ranges"
+            [opens]="'left'" [showCancel]="true" [linkedCalendars]="true" [alwaysShowCalendars]="alwaysShowCalendars"
+            [locale]="{applyLabel: 'Apply', format: 'DD/MM/YYYY', firstDay: 1}" class="form-control input-sm daterange"
+            placeholder="Select please..." />
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="btn btn-sm btn-outline btn-info waves-effect waves-light" (click)="clickadd()"><i class="fa fa-plus"></i></a>
+          <!-- <a routerLink="/active-hours" class="btn btn-outline btn-info waves-effect m-l-10 waves-light">Add Publisher</a> -->
+        
+          <a (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-5 waves-light"><i
+              class="fa fa-filter"></i> Filter</a>
+        </li>
+      </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+  </div>
+  
+
+  
+
+  <div class="row boxindex " *ngIf="add">
+        <div class="col-sm-12">
+          <div class="white-box">
+            <h3 class="box-title m-b-0">Add New Role</h3>
+            
+      
+            <form class="form-horizontal commonForm" [formGroup]="Role" (ngSubmit)="onSubmit()" >
+              <div class="row">
+                <div class="col-sm-4">
+                  <h5 class="m-t-20 m-b-10">Role Name</h5>
+                  <input type="text" class="form-control" formControlName="name"  placeholder="Enter fullname">
+              
+                      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                          <div *ngIf="f.name.errors.required">Role is required</div>
+                        </div>
+                </div>
+                <div class="col-sm-4">
+                  <h5 class="m-t-20 m-b-10">Status</h5>
+                 <div class="select_wrapper sm-select">
+                     <select class="form-control" formControlName="status" >
+                         <option>Set Status</option>
+                         <option>Active</option>
+                         <option>Inactive</option>
+                     </select>
+                     <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                        <div *ngIf="f.status.errors.required">Status is required</div>
+                      </div>
+                 </div>
+                
+                </div>
+               
+                <div class="col-md-4 pull-right text-right">
+                  <h5 class="m-t-40"></h5>
+                
+                  <button type="submit" *ngIf="submitbutton" id="deselect-all" class="btn btn-info btn-outline">Add Role</button>
+                  <a id="refresh" (click)="clickadd()" class="btn btn-danger btn-outline m-l-10">Cancel</a>
+                </div>
+                <div class="ajax_loader" *ngIf="loading" >
+                  <img  src="assets/img/loading.gif" width="24"> 
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      
+
+
+<div class="row">
+        <div class="col-md-12">
+        <div class="white-box">
+        <h3 class="box-title">Roles List</h3>
+        <div class="table-responsive performance_table">
+            <!-- <div class="ajax_loader" *ngIf="mf.data==null || mf.data==''">Loading data..</div> -->
+  
+  
+        <div class="alert pbxalert alert-success alert-dismissible animated fadeInRight" *ngIf="messageheader != '' && messageheader != null">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{messageheader}}
+        </div>
+        <div class="alert pbxalert alert-warning alert-dismissible animated fadeInRight" *ngIf="messageheadererror != '' && messageheadererror != null">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{messageheadererror}}
+        </div>
+           <div class="table-responsive performance_table">
+    <table class="table table-striped valign-table" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="10">
+    <thead>
+    <tr>
+    <th>No.</th>
+    <th>
+    <mfDefaultSorter by="name" class="ancor">Roles</mfDefaultSorter>
+    </th>
+    <th>
+    <mfDefaultSorter by="createnumber">Created Date</mfDefaultSorter>
+    </th>
+    
+    <th>
+    <mfDefaultSorter by="">Status</mfDefaultSorter>
+    </th>
+    
+    <!-- <th>
+        <mfDefaultSorter by="">Action</mfDefaultSorter>
+        </th> -->
+        
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let roles of mf.data; index as i;">
+    <td>{{i + 1}}</td>
+    <td>{{roles.name}}</td>
+    <td>{{roles.created_at | date:'dd/MM/yyyy'}}</td>
+    
+    <td> <span *ngIf="roles.status =='active'">
+            <input type="checkbox" checked class="switchinput" id="statuscheck{{i}}"/><label for="statuscheck{{i}}" class="switchbtn status">Toggle</label>
+              
+    </span>
+        <span *ngIf="roles.status !='active'">
+                <input type="checkbox" class="switchinput" id="statuscheck{{i}}"/><label for="statuscheck{{i}}" class="switchbtn status">Toggle</label>
+              
+        </span>
+    </td>
+    <!-- <td style="width: 80px; ">
+    
+          <a href="javascript:void(0)" class="edit-modal btn btn-info btn-outline btn-circle btn-sm m-r-5" title="pause" placement="top" tooltip="edit" >
+                      <i class="fa fa-edit"></i> 
+         </a> 
+         <a href="javascript:void(0)"  mwlConfirmationPopover [popoverTitle]="" [popoverMessage]="popoverMessage"
+         placement="left" tooltip="trash" (confirm)="delete(roles.role_id)" [popoverClass]="popoverClass"
+         class="edit-modal btn btn-danger btn-outline btn-circle btn-sm m-r-5" (cancel)="cancelClicked = true">
+         <i class="fa fa-trash"></i> 
+         </a>
+         </td> -->
+        
+    
+    </tr>
+    
+    </tbody>
+    <tfoot>
+    <tr>
+    <td colspan="5">
+    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+    </td>
+    </tr>
+    </tfoot>
+    </table>
+    </div>
+    </div>
+    </div>
+        </div>
+    </div>
+    <!-- .right-sidebar -->
+                     <div class="right-sidebar" [ngClass]="status? 'shw-rside' : ''">
+                        <div class="slimscrollright">
+                            <div class="rpanel-title"> Filter Panel <span (click)="clickFilter()"><i class="ti-close right-side-toggle"></i></span> </div>
+                            <!-- <div class="r-panel-body">
+                                 <form class="form-horizontal" action="">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5 class="m-t-20 m-b-10">Select box</h5>
+                                        <div class="select_wrapper sm-select">
+                                        <select class="selectpicker form-control" data-style="form-control">
+                                            <option>Mustard</option>
+                                            <option>Ketchup</option>
+                                            <option>Relish</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h5 class="m-t-20 m-b-10">Input Text</h5>
+                                       <input type="text" class="form-control" name="">
+                                    </div>
+                                  
+                                </div>
+                               
+                                
+                             </form>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Right sidebar -->
+                    <!-- ============================================================== -->

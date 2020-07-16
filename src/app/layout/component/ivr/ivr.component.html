@@ -1,0 +1,156 @@
+<!-- <div class="row bg-title">
+  <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+    <h4 class="page-title">Add IVR </h4>
+  </div>
+  <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+    <ol class="breadcrumb m-r-0">
+      <li>
+        <a class="btn btn-sm btn-outline btn-info waves-effect waves-light" (click)="clicktoAddIVR()"><i
+            class="fa fa-plus"></i></a>
+        <a routerLink="/active-hours" class="btn btn-outline btn-info waves-effect m-l-10 waves-light">Add Publisher</a>
+        <a (click)="clickFilter()" class="btn btn-sm btn-outline btn-info waves-effect m-l-10 waves-light"><i
+            class="fa fa-filter"></i> Filter</a>
+      </li>
+    </ol>
+  </div>
+</div> -->
+
+
+<div class="row boxindex">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <h3 class="box-title m-b-0">{{button}} IVR</h3>
+      <!-- <p class="text-muted m-b-10">{{button}} IVR in list</p> -->
+<!-- 
+      <form id="msform" [formGroup]="FormgroupClass" (ngSubmit)="onSubmit()"> -->
+        <div id="msform">
+        <!-- progressbar -->
+        <ul id="progressbar">
+          <li class="active">IVR Deatils <span>Add your IVR Deatails</span></li>
+          <li [ngClass]="{'active': tab==='tab2'}">IVR Entry <span>Add Destination set to live</span></li>
+        </ul>
+
+        <form  [formGroup]="FormgroupClass" (ngSubmit)="onSubmit()">
+          <fieldset [ngClass]="{'show': tab==='tab1'}">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                style="width: 50%;">
+                <span class="sr-only">50% Complete</span>
+              </div>
+    
+            </div>
+    
+            <h2 class="fs-title">IVR Details</h2>
+            <h3 class="fs-subtitle">Name your IVR , description , Announcement</h3>
+  
+            <div class="col-sm-12">
+              <h5 class="text-left">Name</h5>
+              <input type="text" class="form-control" formControlName="name" placeholder="Enter Name ">
+              <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Name is required</div>
+              </div>
+            </div>
+  
+            <div class="col-sm-12">
+              <h5 class="text-left">Description</h5>
+              <textarea placeholder="Enter Description" formControlName="description" class="form-control"></textarea>
+              <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                <div *ngIf="f.description.errors.required">Description is required</div>
+              </div>
+            </div>
+  
+  
+            <div class="col-sm-12">
+              <h5 class="text-left">Annousment</h5>
+              <ng-select2 class="input-xxlg text-left select2custome" placeholder="Select Announcement" formControlName="announcement" name="announcement" [data]="MusicData"></ng-select2>
+              <div *ngIf="submitted && f.announcement.errors" class="invalid-feedback">
+                <div *ngIf="f.announcement.errors.required">Annousment is required</div>
+              </div>
+            </div>
+          
+            <!-- <input type="button" name="next" class="next action-button" value="Save and continue" (click)="nextStep(2)" /> -->
+            <input type="Submit" name="next" class="next action-button" value="Save and continue" />
+
+            <div class="customloader imgloader" *ngIf="loading">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+  
+          </fieldset>
+          </form>
+  
+          <form  [formGroup]="FormgroupClassIvrEntry" (ngSubmit)="onSubmitEntry()">
+          
+            <fieldset [ngClass]="{'show': tab==='tab2'}">
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                style="width: 100%;">
+                <span class="sr-only">100% Complete</span>
+              </div>
+            </div>
+
+            
+            <a class="campaignbackk" (click)="nextStep(1)"><i class="fa fa-arrow-left"></i> Back</a>
+            
+            
+            <h2 class="fs-title">IVR Entry</h2>
+
+           
+
+        
+        <div formArrayName="quantities">
+              <button type="button"  class="btn btn-info btnm pull-right m-r-15"><i class="fa fa-plus" (click)="addQuantity()"></i></button><br>
+                <div class="row mainRow" *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">
+                  <div class="col-sm-5">
+                    <h5 class="text-left">Destination</h5>
+                    <input type="text" class="form-control" formControlName="dest" placeholder="Enter Destination ">
+
+                    <!-- <ng-select2 class="input-sm" placeholder="Select Queue Number" formControlName="dest" name="dest" [data]="QueData" style="width: 200px!important;" ></ng-select2> -->
+
+                    <div *ngIf="submitted && quantity.get('dest').errors" class="invalid-feedback">
+                      <div *ngIf="quantity.get('dest').errors.required">Destination is required</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    <h5 class="text-left">Selection</h5>
+                    <input type="number" class="form-control" formControlName="selection" placeholder="Enter Destination ">
+
+                    <!-- <ng-select2 class="input-sm" placeholder="Select selection Number" formControlName="selection" name="selection" [data]="selectionData" style="width: 200px!important;" ></ng-select2> -->
+
+                    <div *ngIf="submitted && quantity.get('selection').errors" class="invalid-feedback">
+                      <div *ngIf="quantity.get('selection').errors.required">Selection is required</div>
+                    </div>
+                  </div>  
+                
+
+                <div class="col-sm-2">
+                  <h5 class="text-left">Remove</h5>
+                  <button type="button"  class="btn btn-danger btnm"><i class="fa fa-close" (click)="removeQuantity()"></i></button>
+                </div>
+                </div>
+          </div>
+
+            <input type="Submit" name="next" class="next action-button" value="Save and continue" />
+            <input type="button" name="next" class="next action-button" value="Back" (click)="nextStep(1)" />
+            <div class="customloader imgloader" *ngIf="loading">
+              <div class="item-1"></div>
+              <div class="item-2"></div>
+              <div class="item-3"></div>
+              <div class="item-4"></div>
+              <div class="item-5"></div>
+            </div>
+
+          </fieldset>
+          </form>
+        <!-- End fieldset 4 -->
+
+        
+      
+        </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,146 @@
+<div class="row boxindex">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <!-- <h3 class="box-title m-b-0">Contact Info </h3>
+      <p class="text-muted m-b-10">Just add new Contact in your account</p> -->
+
+      <form class="form-horizontal commonForm" [formGroup]="ManageMail" (ngSubmit)="onSubmit()">
+        <!-- <div class="row">
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Campany Name</h5>
+            <input type="text" class="form-control" name="" placeholder="Enter fullname" formControlName="campany_name">
+            <div *ngIf="submitted && mailerror.campany_name.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.campany_name.errors.required">Campany Name is required</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Email Address</h5>
+            <input type="email" class="form-control" name="" placeholder="Email id" formControlName="email_address">
+            <div *ngIf="submitted && mailerror.email_address.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.email_address.errors.required">Email is required</div>
+              <div *ngIf="mailerror.email_address.errors.email">Email must be a valid email address</div>
+
+            </div>
+
+          </div>
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Reservation Email ID</h5>
+            <input type="email" class="form-control" name="" placeholder="Email id" formControlName="resv_email_address">
+            <div *ngIf="submitted && mailerror.resv_email_address.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.resv_email_address.errors.required">Reservation Email is required</div>
+              <div *ngIf="mailerror.resv_email_address.errors.email">Reservation Email must be a valid email address</div>
+
+            </div>
+
+          </div>
+          
+          <div class="col-sm-3">
+            <h5 class="m-t-20">Mobile Number</h5>
+            <input type="number" class="form-control" name="" placeholder="Mobile Number" formControlName="contact">
+            <div *ngIf="submitted && mailerror.contact.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.contact.errors.required">Mobile Number is required</div>
+            </div>
+          </div>
+          
+        </div> -->
+        <!-- <div class="row">
+          <div class="col-sm-3">
+            <h5 class="m-t-20">Toll Free Number</h5>
+            <input type="text" class="form-control" name="" placeholder="Toll Free Number" formControlName="toll_free_number">
+            <div *ngIf="submitted && mailerror.toll_free_number.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.toll_free_number.errors.required">Toll Free Number is required</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <h5 class="m-t-20">Brand Name</h5>
+            <input type="text" class="form-control" name="" placeholder="Brand Name" formControlName="brand_name">
+            <div *ngIf="submitted && mailerror.brand_name.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.brand_name.errors.required">Brand Name is required</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Website url</h5>
+            <input type="text" class="form-control" name="" placeholder="Website url" formControlName="website_url">
+            <div *ngIf="submitted && mailerror.website_url.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.website_url.errors.required">Website url is required</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Address</h5>
+            <input type="text" class="form-control" name="" placeholder="Address" formControlName="address">
+            <div *ngIf="submitted && mailerror.address.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.address.errors.required">Address is required</div>
+            </div>
+          </div>
+        </div> -->
+        <h3 class="box-title m-b-0" style="margin-top: 27px;"> SMTP Setting </h3>
+        <p class="text-muted m-b-10">Just set SMTP in your account</p>
+        <div class="row">
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Mail Driver</h5>
+            <input type="text" class="form-control" name="" placeholder="Mail Driver" formControlName="mail_driver">
+            <div *ngIf="submitted && mailerror.mail_driver.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.mail_driver.errors.required">Mail Driver is required</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Mail Host</h5>
+            <input type="text" class="form-control" name="" placeholder="Mail Host" formControlName="mail_host">
+            <div *ngIf="submitted && mailerror.mail_host.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.mail_host.errors.required">Mail Host is required</div>
+              
+
+            </div>
+
+          </div>
+          <div class="col-sm-3">
+            <h5 class="m-t-20 m-b-10">Mail Port</h5>
+            <input type="number" class="form-control" name="" placeholder="Mail Port" formControlName="mail_port">
+            <div *ngIf="submitted && mailerror.mail_port.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.mail_port.errors.required">Mail Port is required</div>
+             
+
+            </div>
+
+          </div>
+          
+          <div class="col-sm-3">
+            <h5 class="m-t-20">Mail Username</h5>
+            <input type="text" class="form-control" name="" placeholder="Mail Username" formControlName="mail_username">
+            <div *ngIf="submitted && mailerror.mail_username.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.mail_username.errors.required">Mail Username is required</div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <h5 class="m-t-20">Mail Password</h5>
+            <input type="text" class="form-control" name="" placeholder="Mail Password" formControlName="mail_password">
+            <div *ngIf="submitted && mailerror.mail_password.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.mail_password.errors.required">Mail Password is required</div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <h5 class="m-t-20">Additional DB Time</h5>
+            <input type="text" class="form-control" name="" placeholder="Additional DB Time" formControlName="addtional_db_time">
+            <div *ngIf="submitted && mailerror.addtional_db_time.errors" class="invalid-feedback">
+              <div *ngIf="mailerror.addtional_db_time.errors.required">Additional DB Time is required</div>
+            </div>
+          </div>
+         
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <img *ngIf="loading1" src="assets/img/loading.gif" width="24">
+          </div>
+          <div class="col-md-4 pull-right text-right">
+            <h5 class="m-t-20"></h5>
+            <button type="submit" id="deselect-all" class="btn btn-info btn-outline">Update</button>
+            <!-- <a id="refresh" (click)="cancel()" class="btn btn-danger btn-outline m-l-10">Cancel</a> -->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

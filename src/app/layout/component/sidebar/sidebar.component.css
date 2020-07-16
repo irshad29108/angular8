@@ -1,0 +1,28 @@
+.slimscrollsidebar {
+    width: 100%;
+  height: calc(100% - 5px);
+    font-size: 13px;
+    padding: 0px;
+    font-size: 13px;
+    line-height: 20px;
+    color: #000;
+}
+.modal-content {
+  position: relative;
+  background-color: #02314c!important;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  outline: 0;
+  text-align: center;
+  /* width: 210px; */
+}
+
+#openModal{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+

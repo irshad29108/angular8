@@ -1,0 +1,108 @@
+.input{
+    padding: 1px 12px 5px 17px !important;
+    margin-bottom: 10px;
+}
+ul.nav_tabs {
+    list-style: none;
+    padding-left: 0px;
+    /* border-bottom: 2px solid #13131c; */
+    padding-bottom: 11px;
+    margin-bottom: 0px;
+    }
+    ul.nav_tabs li {
+    display: inline;
+    }
+    ul.nav_tabs li a {
+    text-decoration: none;
+    color: #dedede;
+    border-bottom: 2px solid #0000;
+    padding: 10px 20px;
+    margin-right: 5px;
+    }
+    ul.nav_tabs li a:hover {
+    text-decoration: none;
+    color: #ffffff;
+    border-bottom: 2px solid #eaeaea;
+    background-color: #011621;
+    }
+    .act_v{
+    color: #ffffff;
+    border-bottom: 2px solid #eaeaea;
+    background-color: #011621;
+    }
+    ul.nav_tabs li a:focus{
+    text-decoration: none;
+    color: #ffffff;
+    border-bottom: 2px solid #eaeaea;
+    background-color: #011621;
+    }
+    .tab_step {
+    background-color: #0000;
+    }
+    .tabs_body {
+    background-color: #002133;
+    padding: 15px 15px;
+    }
+    .text_white{
+      color: #ffffff;
+    }
+    .body-content-box {
+    text-align: center;
+    padding: 15px 10px;
+    margin-bottom: 15px;
+    }
+    .tab-content{
+      margin: 0;
+    }
+    img.icons_ac {
+    margin-bottom: 20px;
+    }
+    a.btn.btn-primary.read_m {
+    background-color: #6500ec;
+    }
+    h4.tabs_title {
+    color: #ccc;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 12px;
+    margin-bottom: 30px;
+    }
+
+/*kashif css*/
+    #myTabs .active a {
+      /* border-bottom: 2px solid #ccc !important; */
+      background: #002133;
+      color: #ffc36d;
+  }
+  .commonForm input.form-control, .commonForm select.form-control, input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    /* background: transparent !important; */
+    border: 0;
+    border-bottom: 1px solid;
+    border-color: #113c54;
+    box-shadow: none;
+}
+
+
+.grprel{
+  position: relative;
+  padding-right: 35px;
+}
+
+.grprel a{
+  position: absolute;
+  right: 15px;
+  top: 37px;
+}
+.managefrm{
+  margin: 50px 100px;
+    box-shadow: 0 0 10px #0000003b;
+    padding: 20px;
+}
+@media  (max-width: 767px) {   
+    ul.nav_tabs li a {
+        padding: 10px;
+        font-size: 13px;
+    }
+    .white-box{
+        padding: 0px
+    }
+}
