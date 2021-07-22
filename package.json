@@ -49,7 +49,7 @@
     "rxjs": "~6.5.5",
     "select2": "^4.0.13",
     "tslib": "^1.10.0",
-    "xlsx": "^0.15.1",
+    "xlsx": "^0.17.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
